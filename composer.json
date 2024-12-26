@@ -16,10 +16,10 @@
   "support": {
     "issues": "https://github.com/digicademy/academy/issues"
   },
-  "version": "3.0.0",
+  "version": "dev-master",
   "require": {
-    "typo3/cms-core": "^11.5",
-    "georgringer/news": "^11.2",
+    "typo3/cms-core": "^12.4",
+    "georgringer/news": "^11.4",
     "georgringer/eventnews": "^6.0",
     "digicademy/chf_time": "dev-master"
   },

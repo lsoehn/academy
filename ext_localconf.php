@@ -117,7 +117,8 @@ if (!defined('TYPO3')) {
 
 // BACKEND RELATED
 
-if (TYPO3_MODE == 'BE') {
+// @TODO: migrate to 12
+#if (TYPO3_MODE == 'BE') {
 
     // hook for generating XML conformat UUIDs on new and update szenarios
     // also patches an IRRE bug with localization handling @see: https://forge.typo3.org/issues/80944
@@ -131,4 +132,4 @@ if (TYPO3_MODE == 'BE') {
        'className' => Digicademy\Academy\Xclass\Core\DataHandling\AcademyDataHandler::class
     ];
 
-}
+#}
