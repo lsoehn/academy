@@ -35,62 +35,90 @@ class LabelUtility
 
     public function relationsLabel(array &$parameters)
     {
+        // @TODO: since TYPO3 v12 we do not get the full row in parameters any more...
+        // reason unclear, no time to waste researching internal API changes, fetch the full record instead
+        $fullRecord = BackendUtility::getRecord($parameters['table'], (int)$parameters['row']['uid']);
+
         // get basic contact information label from lang file
         $contactInformationLabel = $GLOBALS['LANG']->sL('LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards');
 
         // get role - freetext_roles overrides role record
         $role = '';
-        ($parameters['row']['role']) ? $roleRecord = BackendUtility::getRecord('tx_academy_domain_model_roles', (int)$parameters['row']['role']) : $roleRecord = '';
+        ($fullRecord['role']) ? $roleRecord = BackendUtility::getRecord('tx_academy_domain_model_roles', (int)$fullRecord['role']) : $roleRecord = '';
 
-        if (is_array($roleRecord) && !$parameters['row']['role_freetext']) {
+        if (is_array($roleRecord) && !$fullRecord['role_freetext']) {
             $role = $roleRecord['title'];
         }
-        if ($parameters['row']['role_freetext']) {
-            $role = htmlspecialchars($parameters['row']['role_freetext']);
+        if ($fullRecord['role_freetext']) {
+            $role = htmlspecialchars($fullRecord['role_freetext']);
         }
 
         // get the records for the related objects
-        ($parameters['row']['person'] > 0) ? $person = BackendUtility::getRecord('tx_academy_domain_model_persons', $parameters['row']['person']) : $person = '';
-        ($parameters['row']['person_symmetric'] > 0) ? $person_symmetric = BackendUtility::getRecord('tx_academy_domain_model_persons', $parameters['row']['person_symmetric']) : $person_symmetric = '';
+        ($fullRecord['person'] > 0) ? $person = BackendUtility::getRecord('tx_academy_domain_model_persons', $fullRecord['person']) : $person = '';
+        ($fullRecord['person_symmetric'] > 0) ? $person_symmetric = BackendUtility::getRecord('tx_academy_domain_model_persons', $fullRecord['person_symmetric']) : $person_symmetric = '';
 
-        ($parameters['row']['project'] > 0) ? $project = BackendUtility::getRecord('tx_academy_domain_model_projects', $parameters['row']['project']) : $project = '';
-        ($parameters['row']['project_symmetric'] > 0) ? $project_symmetric = BackendUtility::getRecord('tx_academy_domain_model_projects', $parameters['row']['project_symmetric']) : $project_symmetric = '';
+        ($fullRecord['project'] > 0) ? $project = BackendUtility::getRecord('tx_academy_domain_model_projects', $fullRecord['project']) : $project = '';
+        ($fullRecord['project_symmetric'] > 0) ? $project_symmetric = BackendUtility::getRecord('tx_academy_domain_model_projects', $fullRecord['project_symmetric']) : $project_symmetric = '';
 
-        ($parameters['row']['unit'] > 0) ? $unit = BackendUtility::getRecord('tx_academy_domain_model_units', $parameters['row']['unit']) : $unit = '';
-        ($parameters['row']['unit_symmetric'] > 0) ? $unit_symmetric = BackendUtility::getRecord('tx_academy_domain_model_units', $parameters['row']['unit_symmetric']) : $unit_symmetric = '';
+        ($fullRecord['unit'] > 0) ? $unit = BackendUtility::getRecord('tx_academy_domain_model_units', $fullRecord['unit']) : $unit = '';
+        ($fullRecord['unit_symmetric'] > 0) ? $unit_symmetric = BackendUtility::getRecord('tx_academy_domain_model_units', $fullRecord['unit_symmetric']) : $unit_symmetric = '';
 
-        if (is_array($parameters['row']['news'])) {
-            $news = BackendUtility::getRecord('tx_news_domain_model_news', $parameters['row']['news'][0]['uid']);
-        } elseif ($parameters['row']['news'] > 0) {
-            $news = BackendUtility::getRecord('tx_news_domain_model_news', $parameters['row']['news']);
+        if (is_array($fullRecord['news'])) {
+            $news = BackendUtility::getRecord('tx_news_domain_model_news', $fullRecord['news'][0]['uid']);
+        } elseif ($fullRecord['news'] > 0) {
+            $news = BackendUtility::getRecord('tx_news_domain_model_news', $fullRecord['news']);
+        } else {
+            $news = '';
         }
 
-        if (is_array($parameters['row']['news_symmetric'])) {
-            $news_symmetric = BackendUtility::getRecord('tx_news_domain_model_news', $parameters['row']['news_symmetric'][0]['uid']);
-        } elseif ($parameters['row']['news_symmetric'] > 0) {
-            $news_symmetric = BackendUtility::getRecord('tx_news_domain_model_news', $parameters['row']['news_symmetric']);
+        if (is_array($fullRecord['news_symmetric'])) {
+            $news_symmetric = BackendUtility::getRecord('tx_news_domain_model_news', $fullRecord['news_symmetric'][0]['uid']);
+        } elseif ($fullRecord['news_symmetric'] > 0) {
+            $news_symmetric = BackendUtility::getRecord('tx_news_domain_model_news', $fullRecord['news_symmetric']);
+        } else {
+            $news_symmetric = '';
         }
 
-        ($parameters['row']['event'] > 0) ? $event = BackendUtility::getRecord('tx_news_domain_model_news', $parameters['row']['event']) : $event = '';
-        ($parameters['row']['event_symmetric'] > 0) ? $event_symmetric = BackendUtility::getRecord('tx_news_domain_model_news', $parameters['row']['event_symmetric']) : $event_symmetric = '';
+        ($fullRecord['event'] > 0) ? $event = BackendUtility::getRecord('tx_news_domain_model_news', $fullRecord['event']) : $event = '';
+        ($fullRecord['event_symmetric'] > 0) ? $event_symmetric = BackendUtility::getRecord('tx_news_domain_model_news', $fullRecord['event_symmetric']) : $event_symmetric = '';
 
-        ($parameters['row']['medium'] > 0) ? $medium = BackendUtility::getRecord('tx_academy_domain_model_media', $parameters['row']['medium']) : $medium = '';
-        ($parameters['row']['medium_symmetric'] > 0) ? $medium_symmetric = BackendUtility::getRecord('tx_academy_domain_model_media', $parameters['row']['medium_symmetric']) : $medium_symmetric = '';
+        ($fullRecord['medium'] > 0) ? $medium = BackendUtility::getRecord('tx_academy_domain_model_media', $fullRecord['medium']) : $medium = '';
+        ($fullRecord['medium_symmetric'] > 0) ? $medium_symmetric = BackendUtility::getRecord('tx_academy_domain_model_media', $fullRecord['medium_symmetric']) : $medium_symmetric = '';
 
-        ($parameters['row']['product'] > 0) ? $product = BackendUtility::getRecord('tx_academy_domain_model_products', $parameters['row']['product']) : $product = '';
-        ($parameters['row']['product_symmetric'] > 0) ? $product_symmetric = BackendUtility::getRecord('tx_academy_domain_model_products', $parameters['row']['product_symmetric']) : $product_symmetric = '';
+        ($fullRecord['product'] > 0) ? $product = BackendUtility::getRecord('tx_academy_domain_model_products', $fullRecord['product']) : $product = '';
+        ($fullRecord['product_symmetric'] > 0) ? $product_symmetric = BackendUtility::getRecord('tx_academy_domain_model_products', $fullRecord['product_symmetric']) : $product_symmetric = '';
 
-        ($parameters['row']['service'] > 0) ? $service = BackendUtility::getRecord('tx_academy_domain_model_services', $parameters['row']['service']) : $service = '';
-        ($parameters['row']['service_symmetric'] > 0) ? $service_symmetric = BackendUtility::getRecord('tx_academy_domain_model_services', $parameters['row']['service_symmetric']) : $service_symmetric = '';
+        ($fullRecord['service'] > 0) ? $service = BackendUtility::getRecord('tx_academy_domain_model_services', $fullRecord['service']) : $service = '';
+        ($fullRecord['service_symmetric'] > 0) ? $service_symmetric = BackendUtility::getRecord('tx_academy_domain_model_services', $fullRecord['service_symmetric']) : $service_symmetric = '';
 
-        ($parameters['row']['publication'] > 0) ? $publication = BackendUtility::getRecord('tx_academy_domain_model_publications', $parameters['row']['publication']) : $publication = '';
-        ($parameters['row']['publication_symmetric'] > 0) ? $publication_symmetric = BackendUtility::getRecord('tx_academy_domain_model_publications', $parameters['row']['publication_symmetric']) : $publication_symmetric = '';
+        ($fullRecord['publication'] > 0) ? $publication = BackendUtility::getRecord('tx_academy_domain_model_publications', $fullRecord['publication']) : $publication = '';
+        ($fullRecord['publication_symmetric'] > 0) ? $publication_symmetric = BackendUtility::getRecord('tx_academy_domain_model_publications', $fullRecord['publication_symmetric']) : $publication_symmetric = '';
 
-        ($parameters['row']['hcard'] > 0) ? $hcard = BackendUtility::getRecord('tx_academy_domain_model_hcards', $parameters['row']['hcard']) : $hcard = '';
+        ($fullRecord['hcard'] > 0) ? $hcard = BackendUtility::getRecord('tx_academy_domain_model_hcards', $fullRecord['hcard']) : $hcard = '';
 
-        $freetext = htmlspecialchars($parameters['row']['freetext']);
+        $freetext = htmlspecialchars($fullRecord['freetext']);
 
         // build the labels for the different objects; reused below in label context
+        $personLabel = '';
+        $personSymmetricLabel = '';
+        $projectLabel = '';
+        $projectSymmetricLabel = '';
+        $unitLabel = '';
+        $unitSymmetricLabel = '';
+        $hcardLabel = '';
+        $newsLabel = '';
+        $newsSymmetricLabel = '';
+        $eventLabel = '';
+        $eventSymmetricLabel = '';
+        $mediumLabel = '';
+        $mediumSymmetricLabel = '';
+        $productLabel = '';
+        $productSymmetricLabel = '';
+        $serviceLabel = '';
+        $serviceSymmetricLabel = '';
+        $publicationLabel = '';
+        $publicationSymmetricLabel = '';
+
         if (is_array($person)) {
             $personLabel = $person['honorific_prefix'] . ' ' . $person['given_name'] . ' ' . $person['family_name'] . ' ' . $person['honorific_suffix'];
         }
@@ -150,7 +178,7 @@ class LabelUtility
         }
 
         // in list view field type is string, in inline and record view field type is array (due to select type of field)
-        (is_array($parameters['row']['type'])) ? $type = (int)$parameters['row']['type'][0] : $type = (int)$parameters['row']['type'];
+        (is_array($fullRecord['type'])) ? $type = (int)$fullRecord['type'][0] : $type = (int)$fullRecord['type'];
 
         $separator = ': ';
         if ($role) {
@@ -166,18 +194,18 @@ class LabelUtility
                 ($role) ? $parameters['title'] = $roleAndSeparator . $hcardLabel : $parameters['title'] = $contactInformationLabelWithSeparator . $hcardLabel;
                 break;
             case 11:
-                if ($parameters['parent']['config']['foreign_label'] == 'projects') {
+                if (array_key_exists('parent', $parameters) && $parameters['parent']['config']['foreign_field'] == 'project') {
                     $parameters['title'] = $roleAndSeparator  . $personLabel;
-                } elseif ($parameters['parent']['config']['foreign_label'] == 'persons') {
+                } elseif (array_key_exists('parent', $parameters) && $parameters['parent']['config']['foreign_field'] == 'person') {
                     $parameters['title'] = $roleAndSeparator  . $projectLabel;
                 } else {
                     $parameters['title'] = $roleAndSeparator . $personLabel . ' (' . $projectLabel . ')';
                 }
                 break;
             case 12:
-                if ($parameters['parent']['config']['foreign_label'] == 'units') {
+                if (array_key_exists('parent', $parameters) && $parameters['parent']['config']['foreign_field'] == 'unit') {
                     $parameters['title'] = $roleAndSeparator . $personLabel;
-                } elseif ($parameters['parent']['config']['foreign_label'] == 'persons') {
+                } elseif (array_key_exists('parent', $parameters) && $parameters['parent']['config']['foreign_field'] == 'person') {
                     $parameters['title'] = $roleAndSeparator . $unitLabel;
                 } else {
                     $parameters['title'] = $roleAndSeparator . $personLabel . ', ' . $unitLabel;

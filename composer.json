@@ -1,14 +1,14 @@
 {
   "name": "digicademy/academy",
   "type": "typo3-cms-extension",
-  "description": "Framework for creating CRIS portals: Projects, Persons, Organizational Units, News, Events, and Media",
-  "homepage": "http://www.digitale-akademie.de",
+  "description": "Framework for creating CRIS portals",
+  "homepage": "https://www.adwmainz.de",
   "authors": [
     {
       "name": "Torsten Schrade",
       "email": "Torsten.Schrade@adwmainz.de",
       "role": "Developer",
-      "homepage": "http://www.adwmainz.de"
+      "homepage": "https://www.adwmainz.de"
     }
   ],
   "license": ["GPL-2.0+"],

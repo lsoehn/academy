@@ -93,6 +93,7 @@ return [
                 'default' => 0,
             ]
         ],
+        // @TODO: why is this defined as type group? should be select...
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
@@ -258,6 +259,16 @@ return [
         'image' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_units.image',
+            'config' => [
+                'type' => 'file',
+                'minitems' => 0,
+                'maxitems' => 1,
+                'allowed' => 'common-image-types',
+                'appearance' => [
+                    'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
+                ],
+            ]
+/* @TODO: remove
             'config' => ExtensionManagementUtility::getFileFieldTCAConfig('image', [
                 'appearance' => [
                     'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
@@ -278,6 +289,7 @@ return [
                 ]
             ],
             $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
+*/
         ],
         'description' => [
             'exclude' => 1,

@@ -152,6 +152,7 @@ return [
                 'default' => 0,
             ]
         ],
+        // @TODO: check if this definition as type group still makes sense
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l10n_parent',

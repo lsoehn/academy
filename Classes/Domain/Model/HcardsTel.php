@@ -109,7 +109,7 @@ class HcardsTel extends AbstractValueObject
      *
      * @return \string $value
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }

@@ -37,7 +37,7 @@ ics {
 	}
 }
 
-[getTSFE().type == 9828]
+[traverse(getTSFE(), 'id') == 9828]
 
 	lib.stdheader >
 	tt_content.stdWrap.innerWrap >
@@ -46,7 +46,7 @@ ics {
 
 [global]
 
-[getTSFE().id == 2121]
+[traverse(getTSFE(), 'id') == 2121]
 
 ics.10.switchableControllerActions.News.1 = eventDetail
 

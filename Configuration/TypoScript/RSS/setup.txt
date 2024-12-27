@@ -48,7 +48,7 @@ rss {
 	}
 }
 
-[getTSFE().type == 9818]
+[traverse(getTSFE(), 'id') == 9818]
 
 	lib.stdheader >
 	tt_content.stdWrap.innerWrap >

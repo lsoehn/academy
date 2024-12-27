@@ -50,9 +50,11 @@ class News extends GeorgRingerNews
      */
     public function getNewsRelations()
     {
-        $objectStorage = GeneralUtility::makeInstance(ObjectStorage::class);
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $relationsRepository = $objectManager->get(RelationsRepository::class);
+        // @TODO: migration v12
+        // $objectStorage = GeneralUtility::makeInstance(ObjectStorage::class);
+        // $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        // $relationsRepository = $objectManager->get(RelationsRepository::class);
+        $relationsRepository = GeneralUtility::makeInstance(RelationsRepository::class);
         $symmetricRelations = $relationsRepository->findByNewsSymmetric($this);
         if ($symmetricRelations) {
             foreach ($symmetricRelations as $symmetricRelation) {

@@ -83,6 +83,7 @@ return [
             'label' => 'LLL:EXT:lang/locallang_general.php:LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'items' => [
                     ['', 0],
                 ],

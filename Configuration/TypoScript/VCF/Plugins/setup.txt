@@ -1,4 +1,4 @@
-[getTSFE().type == 1122]
+[traverse(getTSFE(), 'id') == 1122]
 
 # set the view directories
 plugin.tx_academy.view {
