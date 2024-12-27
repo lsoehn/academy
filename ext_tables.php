@@ -74,47 +74,32 @@ ExtensionUtility::registerPlugin(
 // TABLES
 
 ExtensionManagementUtility::addLLrefForTCAdescr('tx_academy_domain_model_projects', 'EXT:academy/Resources/Private/Language/locallang_csh_tx_academy_domain_model_projects.xml');
-ExtensionManagementUtility::allowTableOnStandardPages('tx_academy_domain_model_projects');
 
 ExtensionManagementUtility::addLLrefForTCAdescr('tx_academy_domain_model_units', 'EXT:academy/Resources/Private/Language/locallang_csh_tx_academy_domain_model_units.xml');
-ExtensionManagementUtility::allowTableOnStandardPages('tx_academy_domain_model_units');
 
 ExtensionManagementUtility::addLLrefForTCAdescr('tx_academy_domain_model_persons', 'EXT:academy/Resources/Private/Language/locallang_csh_tx_academy_domain_model_persons.xml');
-ExtensionManagementUtility::allowTableOnStandardPages('tx_academy_domain_model_persons');
 
 ExtensionManagementUtility::addLLrefForTCAdescr('tx_academy_domain_model_hcards', 'EXT:academy/Resources/Private/Language/locallang_csh_tx_academy_domain_model_hcards.xml');
-ExtensionManagementUtility::allowTableOnStandardPages('tx_academy_domain_model_hcards');
 
 ExtensionManagementUtility::addLLrefForTCAdescr('tx_academy_domain_model_hcards_adr', 'EXT:academy/Resources/Private/Language/locallang_csh_tx_academy_domain_model_hcards_adr.xml');
-ExtensionManagementUtility::allowTableOnStandardPages('tx_academy_domain_model_hcards_adr');
 
 ExtensionManagementUtility::addLLrefForTCAdescr('tx_academy_domain_model_hcards_adrcomponents', 'EXT:academy/Resources/Private/Language/locallang_csh_tx_academy_domain_model_hcards_adrcomponents.xml');
-ExtensionManagementUtility::allowTableOnStandardPages('tx_academy_domain_model_hcards_adrcomponents');
 
 ExtensionManagementUtility::addLLrefForTCAdescr('tx_academy_domain_model_hcards_tel', 'EXT:academy/Resources/Private/Language/locallang_csh_tx_academy_domain_model_hcards_tel.xml');
-ExtensionManagementUtility::allowTableOnStandardPages('tx_academy_domain_model_hcards_tel');
 
 ExtensionManagementUtility::addLLrefForTCAdescr('tx_academy_domain_model_hcards_email', 'EXT:academy/Resources/Private/Language/locallang_csh_tx_academy_domain_model_hcards_email.xml');
-ExtensionManagementUtility::allowTableOnStandardPages('tx_academy_domain_model_hcards_email');
 
 ExtensionManagementUtility::addLLrefForTCAdescr('tx_academy_domain_model_hcards_url', 'EXT:academy/Resources/Private/Language/locallang_csh_tx_academy_domain_model_hcards_url.xml');
-ExtensionManagementUtility::allowTableOnStandardPages('tx_academy_domain_model_hcards_url');
 
 ExtensionManagementUtility::addLLrefForTCAdescr('tx_academy_domain_model_relations', 'EXT:academy/Resources/Private/Language/locallang_csh_tx_academy_domain_model_relations.xml');
-ExtensionManagementUtility::allowTableOnStandardPages('tx_academy_domain_model_relations');
 
 ExtensionManagementUtility::addLLrefForTCAdescr('tx_academy_domain_model_roles', 'EXT:academy/Resources/Private/Language/locallang_csh_tx_academy_domain_model_roles.xml');
-ExtensionManagementUtility::allowTableOnStandardPages('tx_academy_domain_model_roles');
 
 ExtensionManagementUtility::addLLrefForTCAdescr('tx_academy_domain_model_media', 'EXT:academy/Resources/Private/Language/locallang_csh_tx_academy_domain_model_media.xml');
-ExtensionManagementUtility::allowTableOnStandardPages('tx_academy_domain_model_media');
 
 ExtensionManagementUtility::addLLrefForTCAdescr('tx_academy_domain_model_products', 'EXT:academy/Resources/Private/Language/locallang_csh_tx_academy_domain_model_products.xml');
-ExtensionManagementUtility::allowTableOnStandardPages('tx_academy_domain_model_products');
 
 ExtensionManagementUtility::addLLrefForTCAdescr('tx_academy_domain_model_publications', 'EXT:academy/Resources/Private/Language/locallang_csh_tx_academy_domain_model_publications.xml');
-ExtensionManagementUtility::allowTableOnStandardPages('tx_academy_domain_model_publications');
 
 ExtensionManagementUtility::addLLrefForTCAdescr('tx_academy_domain_model_services', 'EXT:academy/Resources/Private/Language/locallang_csh_tx_academy_domain_model_services.xml');
-ExtensionManagementUtility::allowTableOnStandardPages('tx_academy_domain_model_services');
 
