@@ -16,12 +16,12 @@
   "support": {
     "issues": "https://github.com/digicademy/academy/issues"
   },
-  "version": "dev-master",
+  "version": "dev-12.4-compatibility",
   "require": {
     "typo3/cms-core": "^12.4",
     "georgringer/news": "^11.4",
     "georgringer/eventnews": "^6.0",
-    "digicademy/chf_time": "dev-master"
+    "digicademy/chf_time": "dev-12.4-compatibility"
   },
   "replace": {
     "typo3-ter/academy": "self.version"

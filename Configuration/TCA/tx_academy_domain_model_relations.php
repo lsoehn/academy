@@ -280,7 +280,7 @@ return [
                 'foreign_table' => 'tx_academy_domain_model_roles',
                 'foreign_table_where' => 'AND tx_academy_domain_model_roles.sys_language_uid IN (-1,###REC_FIELD_sys_language_uid###) ORDER BY tx_academy_domain_model_roles.title',
                 'items' => [
-                    ['', 0],
+                    ['label' => '', 'value' => 0],
                 ],
                 'minitems' => 0,
                 'maxitems' => 1,
