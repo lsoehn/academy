@@ -165,8 +165,8 @@ return [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_url.type.I.41',
-                        '41'
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_url.type.I.41',
+                        'value' => '41'
                     ],
                 ],
                 'size' => 1,

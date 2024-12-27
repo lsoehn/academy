@@ -163,36 +163,36 @@ return [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.1',
-                        '1'
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.1',
+                        'value' => '1'
                     ],
                     [
-                        'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.2',
-                        '2'
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.2',
+                        'value' => '2'
                     ],
                     [
-                        'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.3',
-                        '3'
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.3',
+                        'value' => '3'
                     ],
                     [
-                        'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.4',
-                        '4'
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.4',
+                        'value' => '4'
                     ],
                     [
-                        'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.5',
-                        '5'
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.5',
+                        'value' => '5'
                     ],
                     [
-                        'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.6',
-                        '6'
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.6',
+                        'value' => '6'
                     ],
                     [
-                        'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.7',
-                        '7'
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.7',
+                        'value' => '7'
                     ],
                     [
-                        'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.8',
-                        '8'
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.8',
+                        'value' => '8'
                     ],
                 ],
                 'size' => 1,

@@ -1,6 +1,7 @@
 <?php
 namespace Digicademy\Academy\Hooks\Backend;
 
+use Doctrine\DBAL\Exception;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -8,7 +9,7 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2021 Torsten Schrade <Torsten.Schrade@adwmainz.de>
+ *  (c) Torsten Schrade <Torsten.Schrade@adwmainz.de>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -39,6 +40,8 @@ class DataHandler
      * @param $id
      * @param $fieldArray
      * @param $pObj
+     *
+     * @throws Exception
      */
     public function processDatamap_postProcessFieldArray($status, $table, $id, &$fieldArray, &$pObj)
     {
@@ -68,7 +71,7 @@ class DataHandler
                         ->select(['persistent_identifier'], $table, ['uid' => (int)$id]
                         )->fetch();
 
-                    if (!$record['persistent_identifier']) {
+                    if (is_array($record) && (!array_key_exists('persistent_identifier', $record) || $record['persistent_identifier'] == '')) {
                         $generate = true;
                     }
             }
@@ -81,7 +84,7 @@ class DataHandler
         }
 
         // core bug: setting of allowLanguageSynchronization in IRRE children that point back to their parents lead
-        // to localized child fields overridden with parent ids; afterwards those records appear in their langauge parent
+        // to localized child fields overridden with parent ids; afterward those records appear in their language parent
         // instead of the correctly localized child record; this in turn leads to bizarre behaviours in
         // backend and frontend (like missing localized records after a save in a specific language etc.)
         // the following mechanism forces child fields in tx_academy_domain_model relations to contain the correct localized parents
@@ -129,6 +132,7 @@ class DataHandler
                         // if so we force the correct uid of the localization into the incoming fieldArray
                         // this also takes symmetrical relations into account
                         if (is_array($localizedForeignRecord)
+                            && !empty($localizedForeignRecord)
                             && $localizedForeignRecord[0]['uid'] > 0
                             && $localizedForeignRecord[0]['l10n_parent'] == $localizationParentRelation[$fieldName]
                             && $localizedForeignRecord[0]['sys_language_uid'] == $relation['sys_language_uid']

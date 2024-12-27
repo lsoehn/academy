@@ -5,7 +5,7 @@ namespace Digicademy\Academy\Utility\Backend;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2021 Torsten Schrade <Torsten.Schrade@adwmainz.de>
+ *  (c) Torsten Schrade <Torsten.Schrade@adwmainz.de>
  *
  *  All rights reserved
  *
@@ -33,70 +33,71 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class LabelUtility
 {
 
-    public function relationsLabel(array &$parameters)
+    public function relationsLabel(array &$parameters): array
     {
         // @TODO: since TYPO3 v12 we do not get the full row in parameters any more...
         // reason unclear, no time to waste researching internal API changes, fetch the full record instead
         $fullRecord = BackendUtility::getRecord($parameters['table'], (int)$parameters['row']['uid']);
+        if (!$fullRecord) $fullRecord = [];
 
         // get basic contact information label from lang file
         $contactInformationLabel = $GLOBALS['LANG']->sL('LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards');
 
         // get role - freetext_roles overrides role record
         $role = '';
-        ($fullRecord['role']) ? $roleRecord = BackendUtility::getRecord('tx_academy_domain_model_roles', (int)$fullRecord['role']) : $roleRecord = '';
+        (array_key_exists('role', $fullRecord)) ? $roleRecord = BackendUtility::getRecord('tx_academy_domain_model_roles', (int)$fullRecord['role']) : $roleRecord = '';
 
         if (is_array($roleRecord) && !$fullRecord['role_freetext']) {
             $role = $roleRecord['title'];
         }
-        if ($fullRecord['role_freetext']) {
+        if (array_key_exists('role_freetext', $fullRecord) && $fullRecord['role_freetext'] != '') {
             $role = htmlspecialchars($fullRecord['role_freetext']);
         }
 
         // get the records for the related objects
-        ($fullRecord['person'] > 0) ? $person = BackendUtility::getRecord('tx_academy_domain_model_persons', $fullRecord['person']) : $person = '';
-        ($fullRecord['person_symmetric'] > 0) ? $person_symmetric = BackendUtility::getRecord('tx_academy_domain_model_persons', $fullRecord['person_symmetric']) : $person_symmetric = '';
+        (array_key_exists('person', $fullRecord) && $fullRecord['person'] > 0) ? $person = BackendUtility::getRecord('tx_academy_domain_model_persons', $fullRecord['person']) : $person = '';
+        (array_key_exists('person_symmetric', $fullRecord) && $fullRecord['person_symmetric'] > 0) ? $person_symmetric = BackendUtility::getRecord('tx_academy_domain_model_persons', $fullRecord['person_symmetric']) : $person_symmetric = '';
 
-        ($fullRecord['project'] > 0) ? $project = BackendUtility::getRecord('tx_academy_domain_model_projects', $fullRecord['project']) : $project = '';
-        ($fullRecord['project_symmetric'] > 0) ? $project_symmetric = BackendUtility::getRecord('tx_academy_domain_model_projects', $fullRecord['project_symmetric']) : $project_symmetric = '';
+        (array_key_exists('project', $fullRecord) && $fullRecord['project'] > 0) ? $project = BackendUtility::getRecord('tx_academy_domain_model_projects', $fullRecord['project']) : $project = '';
+        (array_key_exists('project_symmetric', $fullRecord) && $fullRecord['project_symmetric'] > 0) ? $project_symmetric = BackendUtility::getRecord('tx_academy_domain_model_projects', $fullRecord['project_symmetric']) : $project_symmetric = '';
 
-        ($fullRecord['unit'] > 0) ? $unit = BackendUtility::getRecord('tx_academy_domain_model_units', $fullRecord['unit']) : $unit = '';
-        ($fullRecord['unit_symmetric'] > 0) ? $unit_symmetric = BackendUtility::getRecord('tx_academy_domain_model_units', $fullRecord['unit_symmetric']) : $unit_symmetric = '';
+        (array_key_exists('unit', $fullRecord) && $fullRecord['unit'] > 0) ? $unit = BackendUtility::getRecord('tx_academy_domain_model_units', $fullRecord['unit']) : $unit = '';
+        (array_key_exists('unit_symmetric', $fullRecord) && $fullRecord['unit_symmetric'] > 0) ? $unit_symmetric = BackendUtility::getRecord('tx_academy_domain_model_units', $fullRecord['unit_symmetric']) : $unit_symmetric = '';
 
-        if (is_array($fullRecord['news'])) {
+        if (array_key_exists('news', $fullRecord) && is_array($fullRecord['news'])) {
             $news = BackendUtility::getRecord('tx_news_domain_model_news', $fullRecord['news'][0]['uid']);
-        } elseif ($fullRecord['news'] > 0) {
+        } elseif (array_key_exists('news', $fullRecord) && $fullRecord['news'] > 0) {
             $news = BackendUtility::getRecord('tx_news_domain_model_news', $fullRecord['news']);
         } else {
             $news = '';
         }
 
-        if (is_array($fullRecord['news_symmetric'])) {
+        if (array_key_exists('news_symmetric', $fullRecord) && is_array($fullRecord['news_symmetric'])) {
             $news_symmetric = BackendUtility::getRecord('tx_news_domain_model_news', $fullRecord['news_symmetric'][0]['uid']);
-        } elseif ($fullRecord['news_symmetric'] > 0) {
+        } elseif (array_key_exists('news_symmetric', $fullRecord) && $fullRecord['news_symmetric'] > 0) {
             $news_symmetric = BackendUtility::getRecord('tx_news_domain_model_news', $fullRecord['news_symmetric']);
         } else {
             $news_symmetric = '';
         }
 
-        ($fullRecord['event'] > 0) ? $event = BackendUtility::getRecord('tx_news_domain_model_news', $fullRecord['event']) : $event = '';
-        ($fullRecord['event_symmetric'] > 0) ? $event_symmetric = BackendUtility::getRecord('tx_news_domain_model_news', $fullRecord['event_symmetric']) : $event_symmetric = '';
+        (array_key_exists('event', $fullRecord) && $fullRecord['event'] > 0) ? $event = BackendUtility::getRecord('tx_news_domain_model_news', $fullRecord['event']) : $event = '';
+        (array_key_exists('event_symmetric', $fullRecord) && $fullRecord['event_symmetric'] > 0) ? $event_symmetric = BackendUtility::getRecord('tx_news_domain_model_news', $fullRecord['event_symmetric']) : $event_symmetric = '';
 
-        ($fullRecord['medium'] > 0) ? $medium = BackendUtility::getRecord('tx_academy_domain_model_media', $fullRecord['medium']) : $medium = '';
-        ($fullRecord['medium_symmetric'] > 0) ? $medium_symmetric = BackendUtility::getRecord('tx_academy_domain_model_media', $fullRecord['medium_symmetric']) : $medium_symmetric = '';
+        (array_key_exists('medium', $fullRecord) && $fullRecord['medium'] > 0) ? $medium = BackendUtility::getRecord('tx_academy_domain_model_media', $fullRecord['medium']) : $medium = '';
+        (array_key_exists('medium_symmetric', $fullRecord) && $fullRecord['medium_symmetric'] > 0) ? $medium_symmetric = BackendUtility::getRecord('tx_academy_domain_model_media', $fullRecord['medium_symmetric']) : $medium_symmetric = '';
 
-        ($fullRecord['product'] > 0) ? $product = BackendUtility::getRecord('tx_academy_domain_model_products', $fullRecord['product']) : $product = '';
-        ($fullRecord['product_symmetric'] > 0) ? $product_symmetric = BackendUtility::getRecord('tx_academy_domain_model_products', $fullRecord['product_symmetric']) : $product_symmetric = '';
+        (array_key_exists('product', $fullRecord) && $fullRecord['product'] > 0) ? $product = BackendUtility::getRecord('tx_academy_domain_model_products', $fullRecord['product']) : $product = '';
+        (array_key_exists('product_symmetric', $fullRecord) && $fullRecord['product_symmetric'] > 0) ? $product_symmetric = BackendUtility::getRecord('tx_academy_domain_model_products', $fullRecord['product_symmetric']) : $product_symmetric = '';
 
-        ($fullRecord['service'] > 0) ? $service = BackendUtility::getRecord('tx_academy_domain_model_services', $fullRecord['service']) : $service = '';
-        ($fullRecord['service_symmetric'] > 0) ? $service_symmetric = BackendUtility::getRecord('tx_academy_domain_model_services', $fullRecord['service_symmetric']) : $service_symmetric = '';
+        (array_key_exists('service', $fullRecord) && $fullRecord['service'] > 0) ? $service = BackendUtility::getRecord('tx_academy_domain_model_services', $fullRecord['service']) : $service = '';
+        (array_key_exists('service_symmetric', $fullRecord) && $fullRecord['service_symmetric'] > 0) ? $service_symmetric = BackendUtility::getRecord('tx_academy_domain_model_services', $fullRecord['service_symmetric']) : $service_symmetric = '';
 
-        ($fullRecord['publication'] > 0) ? $publication = BackendUtility::getRecord('tx_academy_domain_model_publications', $fullRecord['publication']) : $publication = '';
-        ($fullRecord['publication_symmetric'] > 0) ? $publication_symmetric = BackendUtility::getRecord('tx_academy_domain_model_publications', $fullRecord['publication_symmetric']) : $publication_symmetric = '';
+        (array_key_exists('publication', $fullRecord) && $fullRecord['publication'] > 0) ? $publication = BackendUtility::getRecord('tx_academy_domain_model_publications', $fullRecord['publication']) : $publication = '';
+        (array_key_exists('publication_symmetric', $fullRecord) && $fullRecord['publication_symmetric'] > 0) ? $publication_symmetric = BackendUtility::getRecord('tx_academy_domain_model_publications', $fullRecord['publication_symmetric']) : $publication_symmetric = '';
 
-        ($fullRecord['hcard'] > 0) ? $hcard = BackendUtility::getRecord('tx_academy_domain_model_hcards', $fullRecord['hcard']) : $hcard = '';
+        (array_key_exists('hcard', $fullRecord) && $fullRecord['hcard'] > 0) ? $hcard = BackendUtility::getRecord('tx_academy_domain_model_hcards', $fullRecord['hcard']) : $hcard = '';
 
-        $freetext = htmlspecialchars($fullRecord['freetext']);
+        (array_key_exists('freetext', $fullRecord)) ? $freetext = htmlspecialchars($fullRecord['freetext']) : $freetext = '';
 
         // build the labels for the different objects; reused below in label context
         $personLabel = '';
@@ -178,7 +179,11 @@ class LabelUtility
         }
 
         // in list view field type is string, in inline and record view field type is array (due to select type of field)
-        (is_array($fullRecord['type'])) ? $type = (int)$fullRecord['type'][0] : $type = (int)$fullRecord['type'];
+        if (array_key_exists('type', $fullRecord)) {
+            (is_array($fullRecord['type'])) ? $type = (int)$fullRecord['type'][0] : $type = (int)$fullRecord['type'];
+        } else {
+           $type = 0;
+        }
 
         $separator = ': ';
         if ($role) {

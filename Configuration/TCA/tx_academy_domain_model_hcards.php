@@ -164,12 +164,12 @@ return [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards.type.I.1',
-                        '1'
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards.type.I.1',
+                        'value' => '1'
                     ],
                     [
-                        'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards.type.I.2',
-                        '2'
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards.type.I.2',
+                        'value' => '2'
                     ],
                 ],
                 'size' => 1,

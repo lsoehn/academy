@@ -1,4 +1,5 @@
 <?php
+// @TODO: check with 12.4 core and document/explain why necessary
 
 namespace Digicademy\Academy\Xclass\Backend\Form\FormDataProvider;
 
@@ -16,7 +17,7 @@ class AcademyTcaInline extends TcaInline
      * @param string $fieldName Current handle field name
      * @return array Modified item array
      */
-    protected function resolveRelatedRecords(array $result, $fieldName)
+    protected function resolveRelatedRecords(array $result, $fieldName): array
     {
 
         if ($result['defaultLanguageRow'] !== null) {

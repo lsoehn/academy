@@ -167,20 +167,20 @@ return [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_tel.type.I.21',
-                        '21'
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_tel.type.I.21',
+                        'value' => '21'
                     ],
                     [
-                        'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_tel.type.I.22',
-                        '22'
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_tel.type.I.22',
+                        'value' => '22'
                     ],
                     [
-                        'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_tel.type.I.23',
-                        '23'
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_tel.type.I.23',
+                        'value' => '23'
                     ],
                     [
-                        'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_tel.type.I.24',
-                        '24'
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_tel.type.I.24',
+                        'value' => '24'
                     ],
                 ],
                 'size' => 1,

@@ -1,4 +1,5 @@
 <?php
+// @TODO: check with 12.4 core and document/explain why necessary
 
 namespace Digicademy\Academy\Xclass\Backend\Form\FormDataProvider;
 
@@ -20,7 +21,7 @@ class AcademyTcaInlineIsOnSymmetricSide extends TcaInlineIsOnSymmetricSide
      * @param array $result Incoming result array
      * @return array Modified array
      */
-    public function addData(array $result)
+    public function addData(array $result): array
     {
         if (!$result['isInlineChild']) {
             return $result;

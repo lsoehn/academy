@@ -19,7 +19,7 @@ $tca = [
 
 ExtensionManagementUtility::addTCAcolumns(
     'tt_content',
-    $tca,
+    $tca
 );
 
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['academy_projects'] = 'pi_flexform';

@@ -136,6 +136,8 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['proc
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][TYPO3\CMS\Backend\Form\FormDataProvider\TcaInline::class] = [
    'className' => Digicademy\Academy\Xclass\Backend\Form\FormDataProvider\AcademyTcaInline::class
 ];
+
+// @TODO: report core bug for 12.4 (fatal error due to wrong array access on int)
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][TYPO3\CMS\Backend\Form\FormDataProvider\TcaInlineIsOnSymmetricSide::class] = [
    'className' => Digicademy\Academy\Xclass\Backend\Form\FormDataProvider\AcademyTcaInlineIsOnSymmetricSide::class
 ];

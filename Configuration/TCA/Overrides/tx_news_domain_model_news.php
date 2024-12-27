@@ -55,45 +55,45 @@ $tca = [
                     'type' => [
                         'config' => [
                             'items' => [
-                                14 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.14',
-                                    '14'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.14',
+                                    'value' => '14'
                                 ],
-                                22 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.22',
-                                    '22'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.22',
+                                    'value' => '22'
                                 ],
-                                33 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.33',
-                                    '33'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.33',
+                                    'value' => '33'
                                 ],
-                                40 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.40',
-                                    '40'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.40',
+                                    'value' => '40'
                                 ],
-                                41 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.41',
-                                    '41'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.41',
+                                    'value' => '41'
                                 ],
-                                42 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.42',
-                                    '42'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.42',
+                                    'value' => '42'
                                 ],
-                                43 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.43',
-                                    '43'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.43',
+                                    'value' => '43'
                                 ],
-                                74 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.74',
-                                    '74'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.74',
+                                    'value' => '74'
                                 ],
-                                84 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.84',
-                                    '84'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.84',
+                                    'value' => '84'
                                 ],
-                                94 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.94',
-                                    '94'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.94',
+                                    'value' => '94'
                                 ],
                             ]
                         ]
@@ -131,45 +131,45 @@ $tca = [
                     'type' => [
                         'config' => [
                             'items' => [
-                                13 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.13',
-                                    '13'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.13',
+                                    'value' => '13'
                                 ],
-                                23 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.23',
-                                    '23'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.23',
+                                    'value' => '23'
                                 ],
-                                41 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.41',
-                                    '41'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.41',
+                                    'value' => '41'
                                 ],
-                                34 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.34',
-                                    '34'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.34',
+                                    'value' => '34'
                                 ],
-                                50 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.50',
-                                    '50'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.50',
+                                    'value' => '50'
                                 ],
-                                51 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.51',
-                                    '51'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.51',
+                                    'value' => '51'
                                 ],
-                                52 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.52',
-                                    '52'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.52',
+                                    'value' => '52'
                                 ],
-                                75 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.75',
-                                    '75'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.75',
+                                    'value' => '75'
                                 ],
-                                85 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.85',
-                                    '85'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.85',
+                                    'value' => '85'
                                 ],
-                                95 => [
-                                    'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.95',
-                                    '95'
+                                [
+                                    'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type.I.95',
+                                    'value' => '95'
                                 ],
                             ]
                         ]

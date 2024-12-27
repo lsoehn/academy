@@ -13,16 +13,16 @@ The extension has been in development by @digicademy since 2011 and is actively 
 
 ## TYPO3 compatibility
 
-| Version     | TYPO3      | PHP       | Support                                 |
-| ----------- | ---------- | ----------|---------------------------------------- |
-| current     | 9.5 - 10.4 | 7.4       | Features, Bugfixes, Security Updates    |
+| Version     | TYPO3            | PHP | Support                                 |
+| ----------- |------------------|-----|---------------------------------------- |
+| current     | 12.4.0 - 12.4.99 | 8.3 | Features, Bugfixes, Security Updates    |
 
 ## Research Software Engineering
 
 This software is licensed under the terms of the GNU General Public License v2
 as published by the Free Software Foundation.
 
-Author (2011-2022): <a href="https://orcid.org/0000-0002-0953-2818">Torsten Schrade</a> | <a href="https://www.adwmainz.de">Academy of Sciences and Literature | Mainz</a>
+Author (2011-2025): <a href="https://orcid.org/0000-0002-0953-2818">Torsten Schrade</a> | <a href="https://www.adwmainz.de">Academy of Sciences and Literature | Mainz</a>
 
 List of contributors (ideas and codewise): 
 
