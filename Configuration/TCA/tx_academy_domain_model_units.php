@@ -149,7 +149,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 80,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'acronym' => [

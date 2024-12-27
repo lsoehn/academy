@@ -185,7 +185,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 60,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'description' => [

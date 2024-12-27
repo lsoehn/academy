@@ -200,7 +200,7 @@ return [
                 'size' => 1,
                 'minitems' => 1,
                 'maxitems' => 1,
-                'eval' => 'required',
+                'required' => true,
                 'items' => [
 /*
                     0 => ['none', '0'],

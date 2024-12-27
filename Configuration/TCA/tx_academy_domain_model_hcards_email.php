@@ -150,7 +150,7 @@ return [
                 ],
                 'size' => 1,
                 'maxitems' => 1,
-                'eval' => 'required'
+                'required' => true,
             ],
         ],
         'value' => [
