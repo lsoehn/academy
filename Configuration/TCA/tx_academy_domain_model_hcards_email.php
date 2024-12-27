@@ -63,7 +63,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    ['label' => '', 'value' => 0],
                 ],
                 'foreign_table' => 'tx_academy_domain_model_hcards_email',
                 'foreign_table_where' => 'AND tx_academy_domain_model_hcards_email.pid=###CURRENT_PID### AND tx_academy_domain_model_hcards_email.sys_language_uid IN (-1,0)',

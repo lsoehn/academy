@@ -111,7 +111,7 @@ return [
                 'type' => 'language',
             ]
         ],
-        // @TODO: check if this definition as type group still makes sense
+        // this needs to be a group field since the l10n parent can come from different tables
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',

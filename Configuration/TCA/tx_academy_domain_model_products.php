@@ -78,7 +78,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    ['label' => '', 'value' => 0],
                 ],
                 'foreign_table' => 'tx_academy_domain_model_products',
                 'foreign_table_where' => 'AND tx_academy_domain_model_products.pid=###CURRENT_PID### AND tx_academy_domain_model_products.sys_language_uid IN (-1,0)',
