@@ -6,7 +6,7 @@ defined('TYPO3') or die();
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_roles',
+        'title' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_roles',
         'label' => 'title',
         'default_sortby' => 'ORDER BY title ASC',
         'tstamp' => 'tstamp',
@@ -40,12 +40,12 @@ return [
     'types' => [
         '1' => [
             'showitem' => '
-            --div--;LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_roles.div1,
+            --div--;LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_roles.div1,
                 hidden,
                 persistent_identifier,
                 title,
                 description,
-            --div--;LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:general.language,
+            --div--;LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:general.language,
                 sys_language_uid,
                 l10n_parent,
                 l10n_diffsource
@@ -93,7 +93,7 @@ return [
             ],
         ],
         't3ver_label' => [
-            'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.versionLabel',
+            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.versionLabel',
             'config' => [
                 'type' => 'input',
                 'size' => '30',
@@ -149,7 +149,7 @@ return [
         ],
         'title' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_roles.title',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_roles.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -158,7 +158,7 @@ return [
         ],
         'description' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_roles.description',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_roles.description',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,

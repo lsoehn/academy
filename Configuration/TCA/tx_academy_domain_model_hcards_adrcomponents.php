@@ -6,7 +6,7 @@ defined('TYPO3') or die();
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents',
+        'title' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_hcards_adrcomponents',
         'label' => 'value',
         'default_sortby' => 'ORDER BY parent, type ASC',
         'tstamp' => 'tstamp',
@@ -93,7 +93,7 @@ return [
             ],
         ],
         't3ver_label' => [
-            'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.versionLabel',
+            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.versionLabel',
             'config' => [
                 'type' => 'input',
                 'max' => '255',
@@ -143,7 +143,7 @@ return [
         ],
         'parent' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.parent',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_hcards_adrcomponents.parent',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
@@ -157,41 +157,41 @@ return [
         ],
         'type' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_hcards_adrcomponents.type',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.1',
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_hcards_adrcomponents.type.I.1',
                         'value' => '1'
                     ],
                     [
-                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.2',
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_hcards_adrcomponents.type.I.2',
                         'value' => '2'
                     ],
                     [
-                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.3',
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_hcards_adrcomponents.type.I.3',
                         'value' => '3'
                     ],
                     [
-                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.4',
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_hcards_adrcomponents.type.I.4',
                         'value' => '4'
                     ],
                     [
-                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.5',
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_hcards_adrcomponents.type.I.5',
                         'value' => '5'
                     ],
                     [
-                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.6',
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_hcards_adrcomponents.type.I.6',
                         'value' => '6'
                     ],
                     [
-                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.7',
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_hcards_adrcomponents.type.I.7',
                         'value' => '7'
                     ],
                     [
-                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.type.I.8',
+                        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_hcards_adrcomponents.type.I.8',
                         'value' => '8'
                     ],
                 ],
@@ -202,7 +202,7 @@ return [
         ],
         'value' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_hcards_adrcomponents.value',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_hcards_adrcomponents.value',
             'config' => [
                 'type' => 'input',
                 'size' => '255',

@@ -9,7 +9,7 @@ defined('TYPO3') or die();
 $tca = [
     'persistent_identifier' => [
         'exclude' => 1,
-        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:sys_category.persistent_identifier',
+        'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:sys_category.persistent_identifier',
         'config' => [
             'type' => 'input',
             'size' => 30,

@@ -7,7 +7,7 @@ defined('TYPO3') or die();
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_persons',
+        'title' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_persons',
         'label' => 'family_name',
         'label_alt' => 'given_name, honorific_prefix, honorific_suffix',
         'label_alt_force' => 1,
@@ -55,7 +55,7 @@ return [
     'types' => [
         '1' => [
             'showitem' => '
-                --div--;LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_persons.div1,
+                --div--;LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_persons.div1,
                     hidden,
                     persistent_identifier,
                     honorific_prefix,
@@ -68,11 +68,11 @@ return [
                     date_range,
                     image,
                     content_elements,
-                --div--;LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_persons.div2,
+                --div--;LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_persons.div2,
                     relations,
-                --div--;LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_persons.div7,
+                --div--;LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_persons.div7,
                     categories,
-                --div--;LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:general.language,
+                --div--;LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:general.language,
                     sys_language_uid,
                     l10n_parent,
                     l10n_diffsource,
@@ -119,7 +119,7 @@ return [
             ],
         ],
         't3ver_label' => [
-            'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.versionLabel',
+            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.versionLabel',
             'config' => [
                 'type' => 'input',
                 'size' => '30',
@@ -175,7 +175,7 @@ return [
         ],
         'given_name' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_persons.given_name',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_persons.given_name',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -184,7 +184,7 @@ return [
         ],
         'additional_name' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_persons.additional_name',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_persons.additional_name',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -193,7 +193,7 @@ return [
         ],
         'family_name' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_persons.family_name',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_persons.family_name',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -202,7 +202,7 @@ return [
         ],
         'honorific_prefix' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_persons.honorific_prefix',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_persons.honorific_prefix',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -211,7 +211,7 @@ return [
         ],
         'honorific_suffix' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_persons.honorific_suffix',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_persons.honorific_suffix',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -219,7 +219,7 @@ return [
             ],
         ],
         'slug' => [
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_persons.slug',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_persons.slug',
             'exclude' => 1,
             'config' => [
                 'type' => 'slug',
@@ -237,7 +237,7 @@ return [
         ],
         'sorting' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_persons.sorting',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_persons.sorting',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -271,7 +271,7 @@ return [
         ],
         'image' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_persons.image',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_persons.image',
             'config' => [
                 'type' => 'file',
                 'minitems' => 0,
@@ -284,7 +284,7 @@ return [
         ],
         'page' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_persons.page',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_persons.page',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
@@ -328,7 +328,7 @@ return [
         ],
         'relations' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_persons.relations',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_persons.relations',
             'l10n_display' => 'defaultAsReadonly',
             'l10n_mode' => 'exclude',
             'config' => [

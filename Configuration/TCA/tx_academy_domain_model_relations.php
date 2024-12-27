@@ -6,7 +6,7 @@ defined('TYPO3') or die();
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations',
+        'title' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations',
         'label' => 'type',
         // this call is for list view
         'label_userFunc' => 'Digicademy\Academy\Utility\Backend\LabelUtility->relationsLabel',
@@ -172,7 +172,7 @@ return [
             ],
         ],
         't3ver_label' => [
-            'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.versionLabel',
+            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.versionLabel',
             'config' => [
                 'type' => 'input',
                 'size' => '30',
@@ -233,7 +233,7 @@ return [
         ],
         'type' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.type',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.type',
             'l10n_mode' => 'exclude',
             'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -313,7 +313,7 @@ return [
         ],
         'role' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.role',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.role',
             'l10n_mode' => 'exclude',
             'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -330,7 +330,7 @@ return [
         ],
         'role_freetext' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.role_freetext',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.role_freetext',
             'config' => [
                 'type' => 'input',
                 'size' => 20,
@@ -363,7 +363,7 @@ return [
         ],
         'project' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.project',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.project',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -380,7 +380,7 @@ return [
         ],
         'project_symmetric' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.project',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.project',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -397,7 +397,7 @@ return [
         ],
         'event' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.event',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.event',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -414,7 +414,7 @@ return [
         ],
         'event_symmetric' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.event',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.event',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -431,7 +431,7 @@ return [
         ],
         'person' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.person',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.person',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -448,7 +448,7 @@ return [
         ],
         'person_symmetric' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.person',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.person',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -465,7 +465,7 @@ return [
         ],
         'medium' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.medium',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.medium',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -482,7 +482,7 @@ return [
         ],
         'medium_symmetric' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.medium',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.medium',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -499,7 +499,7 @@ return [
         ],
         'news' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.news',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.news',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -516,7 +516,7 @@ return [
         ],
         'news_symmetric' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.news',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.news',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -533,7 +533,7 @@ return [
         ],
         'unit' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.unit',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.unit',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -550,7 +550,7 @@ return [
         ],
         'unit_symmetric' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.unit',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.unit',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -567,7 +567,7 @@ return [
         ],
         'product' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.product',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.product',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -584,7 +584,7 @@ return [
         ],
         'product_symmetric' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.product_symmetric',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.product_symmetric',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -601,7 +601,7 @@ return [
         ],
         'service' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.service',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.service',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -618,7 +618,7 @@ return [
         ],
         'service_symmetric' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.service_symmetric',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.service_symmetric',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -635,7 +635,7 @@ return [
         ],
         'publication' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.publication',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.publication',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -652,7 +652,7 @@ return [
         ],
         'publication_symmetric' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.publication_symmetric',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.publication_symmetric',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -669,7 +669,7 @@ return [
         ],
         'hcard' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.hcard',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.hcard',
 //            'l10n_mode' => 'exclude',
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
@@ -686,7 +686,7 @@ return [
         ],
         'freetext' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:tx_academy_domain_model_relations.freetext',
+            'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_relations.freetext',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
