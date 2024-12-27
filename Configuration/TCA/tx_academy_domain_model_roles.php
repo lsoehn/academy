@@ -30,15 +30,6 @@ return [
         'iconfile' => ExtensionManagementUtility::extPath('academy') . 'Resources/Public/Icons/tx_academy_domain_model_roles.svg'
     ],
     'interface' => [
-        'showRecordFieldList' => '
-            sys_language_uid,
-            l10n_parent,
-            l10n_diffsource,
-            hidden,
-            persistent_identifier,
-            title,
-            description,
-        ',
     ],
     'types' => [
         '1' => [

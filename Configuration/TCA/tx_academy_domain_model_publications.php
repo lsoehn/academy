@@ -31,33 +31,6 @@ return [
         'iconfile' => ExtensionManagementUtility::extPath('academy') . 'Resources/Public/Icons/tx_academy_domain_model_publications.svg'
     ],
     'interface' => [
-        'showRecordFieldList' => '
-            sys_language_uid, 
-            l10n_parent, 
-            l10n_diffsource, 
-            hidden, 
-            persistent_identifier, 
-            identifier,
-            title, 
-            subtitle, 
-            abbreviation,
-            volume,
-            number,
-            issue,
-            edition,
-            series,
-            start_page,
-            total_pages,
-            end_page,
-            slug,
-            date_range,
-            page, 
-            image,
-            description,
-            content_elements,
-            bibliographic_note,
-            relations,
-        ',
     ],
     'types' => [
         '1' => [

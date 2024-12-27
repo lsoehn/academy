@@ -30,17 +30,6 @@ return [
         'iconfile' => ExtensionManagementUtility::extPath('academy') . 'Resources/Public/Icons/tx_academy_domain_model_hcards_url.svg'
     ],
     'interface' => [
-        'showRecordFieldList' => '
-            hidden, 
-            parent, 
-            type, 
-            value, 
-            freetext, 
-            sys_language_uid, 
-            l10n_parent, 
-            l10n_diffsource, 
-            sorting
-        ',
     ],
     'types' => [
         '1' => [
