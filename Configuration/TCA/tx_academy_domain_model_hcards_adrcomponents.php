@@ -127,7 +127,6 @@ return [
             'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_hcards_adrcomponents.parent',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_hcards',
                 'foreign_table' => 'tx_academy_domain_model_hcards',
                 'maxitems' => 1,

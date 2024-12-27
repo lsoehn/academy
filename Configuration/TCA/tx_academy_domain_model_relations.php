@@ -117,7 +117,6 @@ return [
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_relations',
                 'size' => 1,
                 'maxitems' => 1,
@@ -327,7 +326,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_projects',
                 'foreign_table' => 'tx_academy_domain_model_projects',
                 'maxitems' => 1,
@@ -344,7 +342,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_projects',
                 'foreign_table' => 'tx_academy_domain_model_projects',
                 'maxitems' => 1,
@@ -361,7 +358,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_news_domain_model_news',
                 'foreign_table' => 'tx_news_domain_model_news',
                 'maxitems' => 1,
@@ -378,7 +374,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_news_domain_model_news',
                 'foreign_table' => 'tx_news_domain_model_news',
                 'maxitems' => 1,
@@ -395,7 +390,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_persons',
                 'foreign_table' => 'tx_academy_domain_model_persons',
                 'maxitems' => 1,
@@ -412,7 +406,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_persons',
                 'foreign_table' => 'tx_academy_domain_model_persons',
                 'maxitems' => 1,
@@ -429,7 +422,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_media',
                 'foreign_table' => 'tx_academy_domain_model_media',
                 'maxitems' => 1,
@@ -446,7 +438,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_media',
                 'foreign_table' => 'tx_academy_domain_model_media',
                 'maxitems' => 1,
@@ -463,7 +454,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_news_domain_model_news',
                 'foreign_table' => 'tx_news_domain_model_news',
                 'maxitems' => 1,
@@ -480,7 +470,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_news_domain_model_news',
                 'foreign_table' => 'tx_news_domain_model_news',
                 'maxitems' => 1,
@@ -497,7 +486,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_units',
                 'foreign_table' => 'tx_academy_domain_model_units',
                 'maxitems' => 1,
@@ -514,7 +502,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_units',
                 'foreign_table' => 'tx_academy_domain_model_units',
                 'maxitems' => 1,
@@ -531,7 +518,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_products',
                 'foreign_table' => 'tx_academy_domain_model_products',
                 'maxitems' => 1,
@@ -548,7 +534,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_products',
                 'foreign_table' => 'tx_academy_domain_model_products',
                 'maxitems' => 1,
@@ -565,7 +550,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_services',
                 'foreign_table' => 'tx_academy_domain_model_services',
                 'maxitems' => 1,
@@ -582,7 +566,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_services',
                 'foreign_table' => 'tx_academy_domain_model_services',
                 'maxitems' => 1,
@@ -599,7 +582,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_publications',
                 'foreign_table' => 'tx_academy_domain_model_publications',
                 'maxitems' => 1,
@@ -616,7 +598,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_publications',
                 'foreign_table' => 'tx_academy_domain_model_publications',
                 'maxitems' => 1,
@@ -633,7 +614,6 @@ return [
 //            'l10n_display' => 'defaultAsReadonly',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_hcards',
                 'foreign_table' => 'tx_academy_domain_model_hcards',
                 'maxitems' => 1,

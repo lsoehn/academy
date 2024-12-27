@@ -167,7 +167,6 @@ return [
             'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_hcards.adr',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_academy_domain_model_hcards_adr',
                 'foreign_table' => 'tx_academy_domain_model_hcards_adr',
                 'MM' => 'tx_academy_hcards_adr_mm',

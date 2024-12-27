@@ -271,7 +271,6 @@ return [
             'label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_academy_domain_model_media.collections',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'localizeReferencesAtParentLocalization' => true,
                 'allowed' => 'sys_file_collection',
                 'foreign_table' => 'sys_file_collection',
