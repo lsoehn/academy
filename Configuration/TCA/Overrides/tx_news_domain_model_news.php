@@ -12,10 +12,10 @@ $tca = [
             'type' => 'select',
             'renderType' => 'selectSingle',
             'items' => [
-                ['LLL:EXT:news/Resources/Private/Language/locallang_db.xlf:tx_news_domain_model_news.type.I.0', 0, 'ext-news-type-default'],
-                ['LLL:EXT:news/Resources/Private/Language/locallang_db.xlf:tx_news_domain_model_news.type.I.1', 1, 'ext-news-type-internal'],
-                ['LLL:EXT:news/Resources/Private/Language/locallang_db.xlf:tx_news_domain_model_news.type.I.2', 2, 'ext-news-type-external'],
-                ['LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_news_domain_model_news.type.I.3', 3, 'ext-news-type-default'],
+                ['label' => 'LLL:EXT:news/Resources/Private/Language/locallang_db.xlf:tx_news_domain_model_news.type.I.0', 'value' => 0, 'icon' => 'ext-news-type-default'],
+                ['label' => 'LLL:EXT:news/Resources/Private/Language/locallang_db.xlf:tx_news_domain_model_news.type.I.1', 'value' => 1, 'icon' => 'ext-news-type-internal'],
+                ['label' => 'LLL:EXT:news/Resources/Private/Language/locallang_db.xlf:tx_news_domain_model_news.type.I.2', 'value' => 2, 'icon' => 'ext-news-type-external'],
+                ['label' => 'LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:tx_news_domain_model_news.type.I.3', 'value' => 3, 'icon' => 'ext-news-type-default'],
             ],
             'fieldWizard' => [
                 'selectIcons' => [
@@ -182,18 +182,16 @@ $tca = [
 
 ExtensionManagementUtility::addTCAcolumns('tx_news_domain_model_news', $tca);
 
-$GLOBALS['TCA']['tx_news_domain_model_news']['types']['3']['showitem'] = $GLOBALS['TCA']['tx_news_domain_model_news']['types']['0']['showitem'];
-
 ExtensionManagementUtility::addToAllTCAtypes(
     'tx_news_domain_model_news',
     'news_relations',
-    '0',
+    '',
     ''
 );
 
 ExtensionManagementUtility::addToAllTCAtypes(
     'tx_news_domain_model_news',
     'event_relations',
-    '3',
+    '',
     ''
 );
