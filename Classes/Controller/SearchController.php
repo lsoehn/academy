@@ -26,7 +26,11 @@ namespace Digicademy\Academy\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
+
+class SearchController extends ActionController
 {
 
     /**
@@ -65,9 +69,9 @@ die('SearchController->searchAllAction needs to be reimplemented');
      *
      * @return void
      */
-    public function searchSingleAction()
+    public function searchSingleAction(): ResponseInterface
     {
-        $this->forward('searchAll', null, null, $this->request->getArguments());
+        return (new ForwardResponse('list'))->withArguments($this->request->getArguments());
     }
 
 }

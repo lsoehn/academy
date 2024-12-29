@@ -642,9 +642,7 @@ class Publications extends AbstractEntity
      */
     public function getRelations()
     {
-        $objectStorage = GeneralUtility::makeInstance(ObjectStorage::class);
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $relationsRepository = $objectManager->get(RelationsRepository::class);
+        $relationsRepository = GeneralUtility::makeInstance(RelationsRepository::class);
         $symmetricRelations = $relationsRepository->findByProjectSymmetric($this);
         if ($symmetricRelations) {
             foreach ($symmetricRelations as $symmetricRelation) {
