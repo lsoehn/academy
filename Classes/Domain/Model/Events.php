@@ -50,11 +50,8 @@ class Events extends EventNews
      */
     public function getEventRelations()
     {
-        $objectStorage = GeneralUtility::makeInstance(ObjectStorage::class);
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $relationsRepository = $objectManager->get(RelationsRepository::class);
+        $relationsRepository = GeneralUtility::makeInstance(RelationsRepository::class);
         $symmetricRelations = $relationsRepository->findByEventSymmetric($this);
-
         if ($symmetricRelations) {
             foreach ($symmetricRelations as $symmetricRelation) {
                 $this->eventRelations->attach($symmetricRelation);
