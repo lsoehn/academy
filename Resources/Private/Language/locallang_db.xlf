@@ -9,6 +9,41 @@
 			<trans-unit id="plugin.sheet.general" resname="plugin.sheet.general" >
 				<source>General</source>
 			</trans-unit>
+
+			<trans-unit id="listPlugin.entityType" resname="listPlugin.entityType" >
+				<source>Type of entity</source>
+			</trans-unit>
+			<trans-unit id="listPlugin.entityType.persons" resname="listPlugin.entityType.persons" >
+				<source>Persons</source>
+			</trans-unit>
+			<trans-unit id="listPlugin.entityType.projects" resname="listPlugin.entityType.projects" >
+				<source>Projects</source>
+			</trans-unit>
+			<trans-unit id="listPlugin.entityType.units" resname="listPlugin.entityType.units" >
+				<source>Units</source>
+			</trans-unit>
+			<trans-unit id="listPlugin.entityType.media" resname="listPlugin.entityType.media" >
+				<source>Media</source>
+			</trans-unit>
+			<trans-unit id="listPlugin.entityType.products" resname="listPlugin.entityType.products" >
+				<source>Products</source>
+			</trans-unit>
+			<trans-unit id="listPlugin.entityType.services" resname="listPlugin.entityType.services" >
+				<source>Services</source>
+			</trans-unit>
+			<trans-unit id="listPlugin.entityType.publications" resname="listPlugin.entityType.publications" >
+				<source>Publications</source>
+			</trans-unit>
+			<trans-unit id="listPlugin.selectedEntities" resname="listPlugin.selectedEntities" >
+				<source>Display selected entities</source>
+			</trans-unit>
+			<trans-unit id="listPlugin.selectedCategories" resname="listPlugin.selectedCategories" >
+				<source>Display entities in these categories</source>
+			</trans-unit>
+			<trans-unit id="listPlugin.selectedRoles" resname="listPlugin.selectedRoles" >
+				<source>Display entities with these roles</source>
+			</trans-unit>
+
 			<trans-unit id="projectsPlugin.switchableControllerActions" resname="projectsPlugin.switchableControllerActions" >
 				<source>Display</source>
 			</trans-unit>

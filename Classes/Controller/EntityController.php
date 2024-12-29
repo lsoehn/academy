@@ -30,28 +30,18 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use Digicademy\Academy\Domain\Repository\ProjectsRepository;
-use Digicademy\Academy\Domain\Model\Projects;
 
-class ProjectsController extends ActionController
+class EntityController extends ActionController
 {
 
     /**
-     * @var ProjectsRepository
-     */
-    protected $projectsRepository;
-
-    /**
      * @param ConfigurationManagerInterface    $configurationManager
-     * @param ProjectsRepository               $projectsRepository
      */
     public function __construct(
-        ConfigurationManagerInterface $configurationManager,
-        ProjectsRepository $projectsRepository
+        ConfigurationManagerInterface $configurationManager
     )
     {
         $this->injectConfigurationManager($configurationManager);
-        $this->projectsRepository = $projectsRepository;
     }
 
     /**
@@ -63,24 +53,15 @@ class ProjectsController extends ActionController
     {
     }
 
-    // list action can be a pre-selection by categories/roles (set via TS or FlexForm)
-
     /**
-     * Displays a list of projects, possibly filtered by categories
      *
      * @return ResponseInterface
      */
     public function listAction(): ResponseInterface
     {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
 
-        $projects = $this->projectsRepository->findAll();
-
-        // $projects = $this->projectsRepository->findBySelection($this->settings['selectedProjects']);
-
-        $this->view->assign('projects', $projects);
-
+\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this->settings, NULL, 5, FALSE, TRUE, FALSE, array(), array());
+die();
         return $this->htmlResponse();
     }
 
@@ -91,23 +72,6 @@ class ProjectsController extends ActionController
     {
         // filter by search query, categories, roles and forward to list (uncached)
         return (new ForwardResponse('list'))->withArguments($this->request->getArguments());
-    }
-
-    // show project action either by argument or set via FlexForm
-
-    /**
-     * Displays a project by uid
-     *
-     * @param Projects $project
-     *
-     * @return void
-     */
-    public function showAction(Projects $project)
-    {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-
-        $this->view->assign('project', $project);
     }
 
 }

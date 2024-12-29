@@ -13,8 +13,14 @@ ExtensionManagementUtility::addStaticFile('academy', 'Configuration/TypoScript',
 
 ExtensionUtility::registerPlugin(
     'academy',
-    'Projects',
-    'Academy: Projects'
+    'List',
+    'Academy: List entities'
+);
+
+ExtensionUtility::registerPlugin(
+    'academy',
+    'Show',
+    'Academy: Show entity'
 );
 
 ExtensionUtility::registerPlugin(

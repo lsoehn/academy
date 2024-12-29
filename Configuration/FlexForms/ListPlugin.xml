@@ -1,0 +1,115 @@
+<T3DataStructure>
+	<sheets>
+		<sDEF>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:plugin.sheet.general</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+
+					<settings.entityType>
+						<TCEforms>
+							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:listPlugin.entityType</label>
+							<config>
+								<type>select</type>
+								<renderType>selectSingle</renderType>
+								<items>
+									<numIndex index="10">
+										<numIndex index="0">LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:listPlugin.entityType.persons</numIndex>
+										<numIndex index="1">Persons</numIndex>
+									</numIndex>
+									<numIndex index="20">
+										<numIndex index="0">LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:listPlugin.entityType.projects</numIndex>
+										<numIndex index="1">Projects</numIndex>
+									</numIndex>
+									<numIndex index="30">
+										<numIndex index="0">LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:listPlugin.entityType.units</numIndex>
+										<numIndex index="1">Units</numIndex>
+									</numIndex>
+									<numIndex index="60">
+										<numIndex index="0">LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:listPlugin.entityType.media</numIndex>
+										<numIndex index="1">Media</numIndex>
+									</numIndex>
+									<numIndex index="70">
+										<numIndex index="0">LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:listPlugin.entityType.products</numIndex>
+										<numIndex index="1">Products</numIndex>
+									</numIndex>
+									<numIndex index="80">
+										<numIndex index="0">LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:listPlugin.entityType.services</numIndex>
+										<numIndex index="1">Services</numIndex>
+									</numIndex>
+									<numIndex index="90">
+										<numIndex index="0">LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:listPlugin.entityType.publications</numIndex>
+										<numIndex index="1">Publications</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.entityType>
+
+					<settings.selectedEntities>
+						<TCEforms>
+							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:listPlugin.selectedEntities</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>tx_academy_domain_model_persons,tx_academy_domain_model_projects,tx_academy_domain_model_units,tx_academy_domain_model_media,tx_academy_domain_model_products,tx_academy_domain_model_services,tx_academy_domain_model_publications</allowed>
+								<size>10</size>
+								<maxitems>9999</maxitems>
+								<minitems>0</minitems>
+								<show_thumbs>1</show_thumbs>
+								<wizards>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
+							</config>
+						</TCEforms>
+					</settings.selectedEntities>
+
+					<settings.selectedCategories>
+						<TCEforms>
+							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:listPlugin.selectedCategories</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>sys_category</allowed>
+								<size>10</size>
+								<maxitems>9999</maxitems>
+								<minitems>0</minitems>
+								<show_thumbs>1</show_thumbs>
+								<wizards>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
+							</config>
+						</TCEforms>
+					</settings.selectedCategories>
+
+					<settings.selectedRoles>
+						<TCEforms>
+							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:listPlugin.selectedRoles</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>tx_academy_domain_model_roles</allowed>
+								<size>10</size>
+								<maxitems>9999</maxitems>
+								<minitems>0</minitems>
+								<show_thumbs>1</show_thumbs>
+								<wizards>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
+							</config>
+						</TCEforms>
+					</settings.selectedRoles>
+
+				</el>
+			</ROOT>
+		</sDEF>
+	</sheets>
+</T3DataStructure> 

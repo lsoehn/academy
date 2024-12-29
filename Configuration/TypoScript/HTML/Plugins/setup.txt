@@ -1,21 +1,10 @@
-config.tx_extbase {
-	objects {
-		TYPO3\CMS\Extbase\Domain\Model\Category {
-			className = Digicademy\Academy\Domain\Model\Categories
-		}
-	}
-}
-
 plugin.tx_academy {
-	# paths for HTML views
-	view {
-		layoutRootPaths.10 = EXT:academy/Resources/Private/HTML/Layouts/
-		partialRootPaths.10 = EXT:academy/Resources/Private/HTML/Partials/
-		templateRootPaths.10 = EXT:academy/Resources/Private/HTML/Templates/
-		widget {
-			TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = EXT:academy/Resources/Private/HTML/Templates/
-		}
-	}
+    # paths for HTML views
+    view {
+        layoutRootPaths.10 = EXT:academy/Resources/Private/HTML/Layouts/
+        partialRootPaths.10 = EXT:academy/Resources/Private/HTML/Partials/
+        templateRootPaths.10 = EXT:academy/Resources/Private/HTML/Templates/
+    }
 }
 
 # special settings for each plugin
