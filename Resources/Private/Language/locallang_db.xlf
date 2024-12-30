@@ -9,6 +9,9 @@
 			<trans-unit id="plugin.sheet.general" resname="plugin.sheet.general" >
 				<source>General</source>
 			</trans-unit>
+			<trans-unit id="plugin.sheet.filter" resname="plugin.sheet.filter" >
+				<source>Filter</source>
+			</trans-unit>
 
 			<trans-unit id="listPlugin.entityType" resname="listPlugin.entityType" >
 				<source>Type of entity</source>
@@ -43,6 +46,13 @@
 			<trans-unit id="listPlugin.selectedRoles" resname="listPlugin.selectedRoles" >
 				<source>Display entities with these roles</source>
 			</trans-unit>
+			<trans-unit id="listPlugin.categoryFilter" resname="listPlugin.categoryFilter" >
+				<source>Display category filter with these parent categories</source>
+			</trans-unit>
+			<trans-unit id="listPlugin.categoryFilterExclude" resname="listPlugin.categoryFilterExclude" >
+				<source>Exclude the following categories from the filter</source>
+			</trans-unit>
+
 
 			<trans-unit id="projectsPlugin.switchableControllerActions" resname="projectsPlugin.switchableControllerActions" >
 				<source>Display</source>

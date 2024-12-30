@@ -37,7 +37,7 @@ class CategoriesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         'title' => QueryInterface::ORDER_ASCENDING
     );
 
-    protected $childCategoryUids = [];
+    protected array $childCategoryUids = [];
 
     /**
      * @param integer $categoryUid
@@ -46,7 +46,8 @@ class CategoriesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @return array
      */
-    public function findAllChildren($categoryUid, $maxLevels = 1, $getChildrenOnLevel = 0) {
+    public function findAllChildren(int $categoryUid, int $maxLevels = 1, int $getChildrenOnLevel = 0): array
+    {
 
         $this->childCategoryUids = [];
 
@@ -56,7 +57,7 @@ class CategoriesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             // extract specific level
             $result = $this->childCategoryUids[$getChildrenOnLevel];
         } else {
-            // return all levels as two dimensional array (slice of level dimension)
+            // return all levels as two-dimensional array (slice of level dimension)
             $result = array_merge(...$this->childCategoryUids);
         }
 
@@ -70,7 +71,8 @@ class CategoriesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @return boolean
      */
-     protected function collectChildren($categoryUid, $maxLevels, $currentLevel = 1) {
+     protected function collectChildren(int $categoryUid, int $maxLevels, int $currentLevel = 1): bool
+     {
 
         if ($currentLevel <= $maxLevels) {
 
@@ -80,7 +82,7 @@ class CategoriesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             $constraints[] = $query->equals('parent', $categoryUid);
 
             $query->matching(
-                $query->logicalAnd($constraints)
+                $query->logicalAnd(...array_values($constraints))
             );
 
             $queryResult = $query->execute();

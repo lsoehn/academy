@@ -1,5 +1,0 @@
-lib.stripHtml = TEXT
-lib.stripHtml {
-	current = 1
-	stripHtml = 1
-}

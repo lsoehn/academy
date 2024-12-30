@@ -1,8 +1,0 @@
-lib.getData = TEXT
-lib.getData {
-	cObject = TEXT
-	cObject.current = 1
-	wrap = {|}
-	insertData = 1
-#	debugFunc = 1
-}

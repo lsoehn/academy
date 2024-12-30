@@ -5,7 +5,7 @@ namespace Digicademy\Academy\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -27,41 +27,10 @@ namespace Digicademy\Academy\Domain\Repository;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 
 class CommonRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-
-    /**
-     * Finds objects by selection, categories and roles (AND)
-     *
-     * @param array $attributes
-     *
-     * @return object
-     */
-    public function findByAttributes($attributes): object
-    {
-
-        // @TODO: implement findByAttributes
-        die('To be implemented');
-
-        $query = $this->createQuery();
-
-        $constraints = array();
-
-        $selectedObjects = GeneralUtility::trimExplode(',', $selectedObjects);
-
-        foreach ($selectedObjects as $selectedObject) {
-            $constraints[] = $query->equals('uid', $selectedObject);
-        }
-
-        $query->matching(
-            $query->logicalOr($constraints)
-        );
-
-        $result = $query->execute();
-
-        return $result;
-    }
 
     /**
      * Finds selected objects
@@ -70,7 +39,7 @@ class CommonRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @return object
      */
-    public function findBySelection($selectedObjects)
+    public function findBySelection(string $selectedObjects): object
     {
 
         $query = $this->createQuery();
@@ -84,7 +53,7 @@ class CommonRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         }
 
         $query->matching(
-            $query->logicalOr($constraints)
+            $query->logicalOr(...array_values($constraints))
         );
 
         $result = $query->execute();
@@ -98,8 +67,9 @@ class CommonRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param string $selectedCategories
      *
      * @return object
+     * @throws InvalidQueryException
      */
-    public function findByCategories($selectedCategories)
+    public function findByCategories(string $selectedCategories): object
     {
 
         $query = $this->createQuery();
@@ -113,7 +83,7 @@ class CommonRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         }
 // TODO: implement OR mode as well
         $query->matching(
-            $query->logicalAnd($constraints)
+            $query->logicalAnd(...array_values($constraints))
         );
 
         $result = $query->execute();
@@ -128,7 +98,7 @@ class CommonRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @return object
      */
-    public function findByRole($role)
+    public function findByRole(int $role): object
     {
 // TODO: change this to allow multiple selected roles
         $query = $this->createQuery();
@@ -137,7 +107,7 @@ class CommonRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $constraints[] = $query->equals('relations.role', $role);
 
         $query->matching(
-            $query->logicalAnd($constraints)
+            $query->logicalAnd(...array_values($constraints))
         );
 
         $result = $query->execute();

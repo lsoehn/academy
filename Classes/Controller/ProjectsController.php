@@ -26,12 +26,17 @@ namespace Digicademy\Academy\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use Digicademy\Academy\Domain\Model\Categories;
+use Digicademy\Academy\Service\FacetService;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use Digicademy\Academy\Domain\Repository\ProjectsRepository;
+use Digicademy\Academy\Domain\Repository\CategoriesRepository;
 use Digicademy\Academy\Domain\Model\Projects;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 
 class ProjectsController extends ActionController
 {
@@ -39,19 +44,35 @@ class ProjectsController extends ActionController
     /**
      * @var ProjectsRepository
      */
-    protected $projectsRepository;
+    protected ProjectsRepository $projectsRepository;
 
     /**
-     * @param ConfigurationManagerInterface    $configurationManager
-     * @param ProjectsRepository               $projectsRepository
+     * @var CategoriesRepository
+     */
+    protected CategoriesRepository $categoriesRepository;
+
+    /**
+     * @var FacetService
+     */
+    protected FacetService $facetService;
+
+    /**
+     * @param ConfigurationManagerInterface $configurationManager
+     * @param ProjectsRepository            $projectsRepository
+     * @param CategoriesRepository          $categoriesRepository
+     * @param FacetService                  $facetService
      */
     public function __construct(
         ConfigurationManagerInterface $configurationManager,
-        ProjectsRepository $projectsRepository
+        ProjectsRepository $projectsRepository,
+        CategoriesRepository $categoriesRepository,
+        FacetService $facetService
     )
     {
         $this->injectConfigurationManager($configurationManager);
         $this->projectsRepository = $projectsRepository;
+        $this->categoriesRepository = $categoriesRepository;
+        $this->facetService = $facetService;
     }
 
     /**
@@ -67,17 +88,33 @@ class ProjectsController extends ActionController
      * Displays a list of projects, possibly filtered by categories
      *
      * @return ResponseInterface
+     * @throws InvalidQueryException
      */
     public function listAction(): ResponseInterface
     {
         $arguments = $this->request->getArguments();
         $this->view->assign('arguments', $arguments);
 
+        $this->view->assign('settings', $this->settings);
+
+        if ($this->settings['categoryFilter']) {
+            $facetTree = $this->facetService->generateFacetTree(
+                $this->projectsRepository,
+                'sys_category',
+                $this->settings['categoryFilter'],
+            );
+
+\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($facetTree, NULL, 5, FALSE, TRUE, FALSE, array(), array());
+
+        }
+
+die();
         if ($this->settings['selectedCategories'] || $this->settings['selectedEntities'] || $this->settings['selectedRoles']) {
             $projects = $this->projectsRepository->findByAttributes($this->settings);
         } else {
             $projects = $this->projectsRepository->findAll();
         }
+
         $this->view->assign('projects', $projects);
 
         return $this->htmlResponse();
@@ -102,12 +139,14 @@ class ProjectsController extends ActionController
      *
      * @return void
      */
-    public function showAction(Projects $project)
+    public function showAction(Projects $project): ResponseInterface
     {
         $arguments = $this->request->getArguments();
         $this->view->assign('arguments', $arguments);
 
         $this->view->assign('project', $project);
+
+        return $this->htmlResponse();
     }
 
 }

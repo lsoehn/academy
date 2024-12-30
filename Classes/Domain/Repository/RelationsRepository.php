@@ -26,6 +26,7 @@ namespace Digicademy\Academy\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
@@ -39,7 +40,7 @@ class RelationsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
     public function initializeObject() {
       /** @var Typo3QuerySettings $querySettings */
-      $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
+      $querySettings= GeneralUtility::makeInstance(Typo3QuerySettings::class);
       $querySettings->setRespectStoragePage(false);
       $this->setDefaultQuerySettings($querySettings);
     }

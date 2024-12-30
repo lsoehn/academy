@@ -1,7 +1,0 @@
-plugin.tx_news {
-	view.event {
-		layoutRootPath = EXT:academy/Resources/Private/HTML/Layouts/
-		partialRootPath = EXT:academy/Resources/Private/HTML/Partials/
-		templateRootPath = EXT:academy/Resources/Private/HTML/Templates/
-	}
-}

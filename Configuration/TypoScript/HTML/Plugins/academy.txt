@@ -1,0 +1,12 @@
+plugin.tx_academy {
+    # paths for HTML views
+    view {
+        layoutRootPaths.10 = EXT:academy/Resources/Private/HTML/Layouts/
+        partialRootPaths.10 = EXT:academy/Resources/Private/HTML/Partials/
+        templateRootPaths.10 = EXT:academy/Resources/Private/HTML/Templates/
+    }
+    settings {
+    }
+}
+
+

@@ -1,0 +1,20 @@
+plugin.tx_academy_list {
+    settings {
+        # example for facetTree from categories (FlexForm and TypoScript)
+        /*
+        categoryFilter {
+            1 {
+                uid = 1
+                maxLevels = 1
+            }
+            2 {
+                uid = 2
+                maxLevels = 2
+                getChildrenOnLevel = 2
+                labelOverride = something
+            }
+        }
+        categoryFilterExclude = 114,115
+        */
+    }
+}
