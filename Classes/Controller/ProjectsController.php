@@ -63,8 +63,6 @@ class ProjectsController extends ActionController
     {
     }
 
-    // list action can be a pre-selection by categories/roles (set via TS or FlexForm)
-
     /**
      * Displays a list of projects, possibly filtered by categories
      *
@@ -75,16 +73,18 @@ class ProjectsController extends ActionController
         $arguments = $this->request->getArguments();
         $this->view->assign('arguments', $arguments);
 
-        $projects = $this->projectsRepository->findAll();
-
-        // $projects = $this->projectsRepository->findBySelection($this->settings['selectedProjects']);
-
+        if ($this->settings['selectedCategories'] || $this->settings['selectedEntities'] || $this->settings['selectedRoles']) {
+            $projects = $this->projectsRepository->findByAttributes($this->settings);
+        } else {
+            $projects = $this->projectsRepository->findAll();
+        }
         $this->view->assign('projects', $projects);
 
         return $this->htmlResponse();
     }
 
     /**
+     * @TODO: implement
      * @return ResponseInterface
      */
     public function filterAction(): ResponseInterface

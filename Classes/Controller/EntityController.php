@@ -30,6 +30,7 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Frontend\Exception;
 
 class EntityController extends ActionController
 {
@@ -50,28 +51,29 @@ class EntityController extends ActionController
      * @return void
      */
     public function initializeAction(): void
-    {
-    }
+    {}
 
     /**
+     * The EntityController serves as a "router" to the "real" controllers/actions that
+     * are configured in the plugin settings in BE.
+     * It is only called during default action requests (which it catches) and thereby
+     * avoids unnecessary/inflationary plugin declaration due to the removal
+     * of switchableControllerActions from TYPO3 12.4 onwards.
+     * Imagine: Let alone for this extension we would have to declare more than 16 (!)
+     * plugins (at least two for each CRIS entity) without switchableControllerActions...
      *
      * @return ResponseInterface
+     * @throws Exception
      */
     public function listAction(): ResponseInterface
     {
-
-\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this->settings, NULL, 5, FALSE, TRUE, FALSE, array(), array());
-die();
-        return $this->htmlResponse();
-    }
-
-    /**
-     * @return ResponseInterface
-     */
-    public function filterAction(): ResponseInterface
-    {
-        // filter by search query, categories, roles and forward to list (uncached)
-        return (new ForwardResponse('list'))->withArguments($this->request->getArguments());
+        if (!$this->settings['entityType']) {
+            throw new Exception('You need to set an entity type in the plugin configuration', 1735538304);
+        }
+        return (new ForwardResponse('list'))
+            ->withControllerName($this->settings['entityType'])
+            ->withArguments($this->request->getArguments()
+        );
     }
 
 }

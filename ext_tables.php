@@ -12,67 +12,31 @@ ExtensionManagementUtility::addStaticFile('academy', 'Configuration/TypoScript',
 // PLUGIN DEFINITIONS
 
 ExtensionUtility::registerPlugin(
-    'academy',
+    'Academy',
     'List',
     'Academy: List entities'
 );
 
 ExtensionUtility::registerPlugin(
-    'academy',
+    'Academy',
     'Show',
     'Academy: Show entity'
 );
 
 ExtensionUtility::registerPlugin(
     'academy',
-    'Units',
-    'Academy: Units'
-);
-
-ExtensionUtility::registerPlugin(
-    'academy',
-    'Persons',
-    'Academy: Persons'
+    'Search',
+    'Academy: Search entities'
 );
 
 ExtensionUtility::registerPlugin(
     'academy',
     'Media',
-    'Academy: Media'
+    'Academy: Media Library'
 );
 
 ExtensionUtility::registerPlugin(
     'academy',
     'Mediaviewer',
-    'Academy: Mediaviewer'
-);
-
-ExtensionUtility::registerPlugin(
-    'academy',
-    'Search',
-    'Academy: Search'
-);
-
-ExtensionUtility::registerPlugin(
-    'academy',
-    'Hcards',
-    'Academy: Hcards'
-);
-
-ExtensionUtility::registerPlugin(
-    'academy',
-    'Products',
-    'Academy: Products'
-);
-
-ExtensionUtility::registerPlugin(
-    'academy',
-    'Services',
-    'Academy: Services'
-);
-
-ExtensionUtility::registerPlugin(
-    'academy',
-    'Publications',
-    'Academy: Publications'
+    'Academy: Media Viewer'
 );

@@ -32,6 +32,38 @@ class CommonRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
     /**
+     * Finds objects by selection, categories and roles (AND)
+     *
+     * @param array $attributes
+     *
+     * @return object
+     */
+    public function findByAttributes($attributes): object
+    {
+
+        // @TODO: implement findByAttributes
+        die('To be implemented');
+
+        $query = $this->createQuery();
+
+        $constraints = array();
+
+        $selectedObjects = GeneralUtility::trimExplode(',', $selectedObjects);
+
+        foreach ($selectedObjects as $selectedObject) {
+            $constraints[] = $query->equals('uid', $selectedObject);
+        }
+
+        $query->matching(
+            $query->logicalOr($constraints)
+        );
+
+        $result = $query->execute();
+
+        return $result;
+    }
+
+    /**
      * Finds selected objects
      *
      * @param string $selectedObjects

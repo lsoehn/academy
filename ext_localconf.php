@@ -1,69 +1,76 @@
 <?php
-if (!defined('TYPO3')) {
-    die('Access denied!');
-}
-
-// PLUGIN CONFIGURATION
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use Digicademy\Academy\Controller\SearchController;
 use Digicademy\Academy\Controller\EntityController;
+use Digicademy\Academy\Controller\PersonsController;
 use Digicademy\Academy\Controller\ProjectsController;
 use Digicademy\Academy\Controller\UnitsController;
-use Digicademy\Academy\Controller\PersonsController;
 use Digicademy\Academy\Controller\MediaController;
-use Digicademy\Academy\Controller\SearchController;
 use Digicademy\Academy\Controller\HcardsController;
 use Digicademy\Academy\Controller\ProductsController;
 use Digicademy\Academy\Controller\ServicesController;
 use Digicademy\Academy\Controller\PublicationsController;
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+defined('TYPO3') or die();
+
+// PLUGIN CONFIGURATION
+
+ExtensionUtility::configurePlugin(
     'Academy',
-    'list',
+    'List',
     [
         EntityController::class => 'list',
-        ProjectsController::class => 'list,filter,show'
+        PersonsController::class => 'list,filter,show',
+        ProjectsController::class => 'list,filter,show',
+        UnitsController::class => 'list,filter,show',
+        MediaController::class => 'list,filter,show',
+        ProductsController::class => 'list,filter,show',
+        ServicesController::class => 'list,filter,show',
+        PublicationsController::class => 'list,filter,show',
     ],
     [
-        ProjectsController::class => 'filter'
+        PersonsController::class => 'filter',
+        ProjectsController::class => 'filter',
+        UnitsController::class => 'filter',
+        MediaController::class => 'filter',
+        ProductsController::class => 'filter',
+        ServicesController::class => 'filter',
+        PublicationsController::class => 'filter',
     ],
 );
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'Academy',
-    'show',
+    'Show',
     [
-        EntityController::class => 'list',
-        ProjectsController::class => 'list,filter,show'
+        EntityController::class => 'show',
+        PersonsController::class => 'show',
+        ProjectsController::class => 'show',
+        UnitsController::class => 'show',
+        MediaController::class => 'show',
+        ProductsController::class => 'show',
+        ServicesController::class => 'show',
+        PublicationsController::class => 'show',
     ],
     [],
 );
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'Academy',
-    'Units',
+    'Search',
     array(
-        UnitsController::class => 'list, listBySelection, listByCategories, listByRoles, show',
+        SearchController::class => 'searchForm,searchAll,searchSingle',
     ),
     array(
-        UnitsController::class => '',
+        SearchController::class => 'searchForm,searchAll,searchSingle',
     )
 );
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Academy',
-    'Persons',
-    array(
-        PersonsController::class => 'list, listBySelection, listByCategories, listByRoles, show',
-    ),
-    array(
-        PersonsController::class => '',
-    )
-);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'Academy',
     'Media',
     array(
-        MediaController::class => 'list, listBySelection, listByCategories, listByRoles, listByGroups, listByTypes, listByRecent, show',
+        MediaController::class => 'list,listBySelection,listByCategories,listByRoles,listByGroups,listByTypes,listByRecent,show',
     ),
     array(
         MediaController::class => '',
@@ -78,61 +85,6 @@ use Digicademy\Academy\Controller\PublicationsController;
     ),
     array(
         MediaController::class => '',
-    )
-);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Academy',
-    'Search',
-    array(
-        SearchController::class => 'searchForm, searchAll, searchSingle',
-    ),
-    array(
-        SearchController::class => 'searchForm, searchAll, searchSingle',
-    )
-);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Academy',
-    'Hcards',
-    array(
-        HcardsController::class => 'list, listBySelection, show',
-    ),
-    array(
-        HcardsController::class => '',
-    )
-);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Academy',
-    'Products',
-    array(
-        ProductsController::class => 'list, listBySelection, listByCategories, listByRoles, show',
-    ),
-    array(
-        ProductsController::class => '',
-    )
-);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Academy',
-    'Services',
-    array(
-        ServicesController::class => 'list, listBySelection, listByCategories, listByRoles, show',
-    ),
-    array(
-        ServicesController::class => '',
-    )
-);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Academy',
-    'Publications',
-    array(
-        PublicationsController::class => 'list, listBySelection, listByCategories, listByRoles, show',
-    ),
-    array(
-        PublicationsController::class => '',
     )
 );
 
