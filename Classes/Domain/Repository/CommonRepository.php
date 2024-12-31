@@ -126,31 +126,39 @@ class CommonRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     {
         $query = $this->createQuery();
 
-        $constraints = array();
+        $outerConstraints = [];
 
         if (array_key_exists('selectedCategories', $filters) && $filters['selectedCategories']) {
+            $innerConstraints = [];
             $selectedCategories = GeneralUtility::trimExplode(',', $filters['selectedCategories']);
             foreach ($selectedCategories as $selectedCategory) {
-                $constraints[] = $query->contains('categories', $selectedCategory);
+                $innerConstraints[] = $query->contains('categories', $selectedCategory);
             }
+            $outerConstraints[] = $query->logicalAnd(...array_values($innerConstraints));
         }
 
         if (array_key_exists('selectedEntities', $filters) && $filters['selectedEntities']) {
-            $selectedEntities = GeneralUtility::trimExplode(',', $filters['selectedEntities']);
+            $innerConstraints = [];
+            $selectedEntities = preg_replace('/tx_academy_domain_model_.*?_/','', $filters['selectedEntities']);
+
+            $selectedEntities = GeneralUtility::trimExplode(',', $selectedEntities);
             foreach ($selectedEntities as $selectedEntity) {
-                $constraints[] = $query->equals('uid', $selectedEntity);
+                $innerConstraints[] = $query->equals('uid', $selectedEntity);
             }
+            $outerConstraints[] = $query->logicalOr(...array_values($innerConstraints));
         }
 
         if (array_key_exists('selectedRoles', $filters) && $filters['selectedRoles']) {
+            $innerConstraints = [];
             $roles = GeneralUtility::trimExplode(',', $filters['selectedRoles']);
             foreach ($roles as $role) {
-                $constraints[] = $query->equals('relations.role', $role);
+                $innerConstraints[] = $query->equals('relations.role', $role);
             }
+            $outerConstraints[] = $query->logicalAnd(...array_values($innerConstraints));
         }
 
         $query->matching(
-            $query->logicalAnd(...array_values($constraints))
+            $query->logicalAnd(...array_values($outerConstraints))
         );
 
         $result = $query->execute();

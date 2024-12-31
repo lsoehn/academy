@@ -101,13 +101,15 @@ class FacetService
             foreach ($facetGroup as $facetUid) {
 
                 if ($facetCount) {
+                    $filterCopy = $filters;
                     if (array_key_exists('selectedCategories', $filters) && !empty($filters['selectedCategories'])) {
-                        $uids =  $facetUid . ',' . $filters['selectedCategories'];
-                    } else { $uids = $facetUid; }
+                        $uids =  (string)$facetUid . ',' . $filters['selectedCategories'];
+                    } else { $uids = (string)$facetUid; }
+                    $filterCopy['selectedCategories'] = $uids;
 
                     switch ($settings['facetTable']) {
                         case 'sys_category':
-                                $objectCount = $repository->findByCategories($uids)->count();
+                                $objectCount = $repository->findByFilters($filterCopy)->count();
                             break;
                         default:
                             throw new Exception('No facet table was given for counting objects', 1735645845);
