@@ -1,5 +1,4 @@
 <?php
-
 namespace Digicademy\Academy\Controller;
 
 /***************************************************************
@@ -31,99 +30,44 @@ use Digicademy\Academy\Service\FilterService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use Digicademy\Academy\Controller\EntityController;
 use Digicademy\Academy\Domain\Repository\ProjectsRepository;
 use Digicademy\Academy\Domain\Model\Projects;
-use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
-use TYPO3\CMS\Frontend\Exception;
 
-class ProjectsController extends ActionController
+class ProjectsController extends EntityController
 {
-
     /**
      * @var ProjectsRepository
      */
     protected ProjectsRepository $projectsRepository;
 
     /**
-     * @var FacetService
-     */
-    protected FacetService $facetService;
-
-    /**
-     * @var FilterService
-     */
-    protected FilterService $filterService;
-
-    /**
+     * Constructor for dependency injection
+     *
      * @param ConfigurationManagerInterface $configurationManager
-     * @param ProjectsRepository            $projectsRepository
-     * @param FacetService                  $facetService
-     * @param FilterService                 $filterService
+     * @param FacetService $facetService
+     * @param FilterService $filterService
+     * @param ProjectsRepository $projectsRepository
      */
     public function __construct(
         ConfigurationManagerInterface $configurationManager,
-        ProjectsRepository $projectsRepository,
         FacetService $facetService,
-        FilterService $filterService
+        FilterService $filterService,
+        ProjectsRepository $projectsRepository
     )
     {
-        $this->injectConfigurationManager($configurationManager);
+        parent::__construct($configurationManager, $facetService, $filterService);
         $this->projectsRepository = $projectsRepository;
-        $this->facetService = $facetService;
-        $this->filterService = $filterService;
     }
 
     /**
-     * Initializes the current action
+     * Returns the repository for the current entity
      *
-     * @return void
+     * @return ProjectsRepository
      */
-    public function initializeAction(): void
+    protected function getRepository(): ProjectsRepository
     {
-    }
-
-    /**
-     * Displays a list of projects, possibly filtered by categories
-     *
-     * @return ResponseInterface
-     * @throws Exception
-     */
-    public function listAction(): ResponseInterface
-    {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-
-        $settings = $this->settings;
-        $this->view->assign('settings', $settings);
-
-        $filters = $this->filterService->mergeFilters($settings, $arguments);
-        $this->view->assign('filters', $filters);
-
-        $facets = [];
-        if ($settings['facets']['categoryFacets']) {
-            $settings['facets']['categoryFacets']['facetTable'] = 'sys_category';
-            $settings['facets']['categoryFacets']['facetParents'] =
-                array_map(fn($uid) => ['uid' => $uid], explode(',', $settings['facets']['categoryFacets']['facetParents']));;
-            $facetTree = $this->facetService->generateFacetTree(
-                $this->projectsRepository,
-                $settings['facets']['categoryFacets'],
-                $filters
-            );
-            $facets['categoryFacets'] = $facetTree;
-        }
-        // @TODO: here we can later implement selectedRoles and selectedEntities facets
-        $this->view->assign('facets', $facets);
-
-        // get list of projects
-        if ($filters['selectedCategories'] || $filters['selectedEntities'] || $filters['selectedRoles']) {
-            $projects = $this->projectsRepository->findByFilters($filters);
-        } else {
-            $projects = $this->projectsRepository->findAll();
-        }
-        $this->view->assign('projects', $projects);
-
-        return $this->htmlResponse();
+        return $this->projectsRepository;
     }
 
     /**
@@ -135,8 +79,6 @@ class ProjectsController extends ActionController
         // filter by search query, categories, roles and forward to list (uncached)
         return (new ForwardResponse('list'))->withArguments($this->request->getArguments());
     }
-
-    // show project action either by argument or set via FlexForm
 
     /**
      * Displays a project by uid

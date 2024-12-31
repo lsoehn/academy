@@ -19,7 +19,7 @@ ExtensionUtility::configurePlugin(
     'Academy',
     'List',
     [
-        EntityController::class => 'list',
+        EntityController::class => 'route',
         PersonsController::class => 'list,filter,show',
         ProjectsController::class => 'list,filter,show',
         UnitsController::class => 'list,filter,show',
@@ -43,7 +43,7 @@ ExtensionUtility::configurePlugin(
     'Academy',
     'Show',
     [
-        EntityController::class => 'show',
+        EntityController::class => 'route',
         PersonsController::class => 'show',
         ProjectsController::class => 'show',
         UnitsController::class => 'show',
