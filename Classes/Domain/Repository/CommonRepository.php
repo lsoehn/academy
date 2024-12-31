@@ -41,7 +41,6 @@ class CommonRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      */
     public function findBySelection(string $selectedObjects): object
     {
-
         $query = $this->createQuery();
 
         $constraints = array();
@@ -71,7 +70,6 @@ class CommonRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      */
     public function findByCategories(string $selectedCategories): object
     {
-
         $query = $this->createQuery();
 
         $constraints = array();
@@ -81,7 +79,8 @@ class CommonRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         foreach ($selectedCategories as $selectedCategory) {
             $constraints[] = $query->contains('categories', $selectedCategory);
         }
-// TODO: implement OR mode as well
+
+        // @TODO: implement OR mode as well
         $query->matching(
             $query->logicalAnd(...array_values($constraints))
         );
@@ -100,7 +99,7 @@ class CommonRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      */
     public function findByRole(int $role): object
     {
-// TODO: change this to allow multiple selected roles
+        // @TODO: change this to allow multiple selected roles
         $query = $this->createQuery();
 
         $constraints = array();
@@ -114,4 +113,49 @@ class CommonRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
         return $result;
     }
+
+    /**
+     * Finds objects based on a specific role/relation
+     *
+     * @param array $filters
+     *
+     * @return object
+     * @throws InvalidQueryException
+     */
+    public function findByFilters(array $filters): object
+    {
+        $query = $this->createQuery();
+
+        $constraints = array();
+
+        if (array_key_exists('selectedCategories', $filters) && $filters['selectedCategories']) {
+            $selectedCategories = GeneralUtility::trimExplode(',', $filters['selectedCategories']);
+            foreach ($selectedCategories as $selectedCategory) {
+                $constraints[] = $query->contains('categories', $selectedCategory);
+            }
+        }
+
+        if (array_key_exists('selectedEntities', $filters) && $filters['selectedEntities']) {
+            $selectedEntities = GeneralUtility::trimExplode(',', $filters['selectedEntities']);
+            foreach ($selectedEntities as $selectedEntity) {
+                $constraints[] = $query->equals('uid', $selectedEntity);
+            }
+        }
+
+        if (array_key_exists('selectedRoles', $filters) && $filters['selectedRoles']) {
+            $roles = GeneralUtility::trimExplode(',', $filters['selectedRoles']);
+            foreach ($roles as $role) {
+                $constraints[] = $query->equals('relations.role', $role);
+            }
+        }
+
+        $query->matching(
+            $query->logicalAnd(...array_values($constraints))
+        );
+
+        $result = $query->execute();
+
+        return $result;
+    }
+
 }

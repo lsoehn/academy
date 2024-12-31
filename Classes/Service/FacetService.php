@@ -28,6 +28,7 @@ namespace Digicademy\Academy\Service;
 use Digicademy\Academy\Domain\Repository\CategoriesRepository;
 use Digicademy\Academy\Domain\Model\Facet;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Exception;
 
 /**
  * A facet in this extension's context is understood as a generic class for
@@ -76,6 +77,75 @@ class FacetService
     ) {}
 
     /**
+     * @param object $repository
+     * @param array $settings
+     * @param array $filters
+     *
+     * @return array
+     * @throws Exception
+     */
+    public function generateFacetTree(
+        object $repository,
+        array $settings,
+        array $filters
+    ): array {
+
+        // prepare facet groups with their children
+        $facetGroups = $this->prepareFacetGroups($settings);
+
+        // unless explicitly set to 0 facet count will always be delivered
+        (array_key_exists('facetCount', $settings)) ? $facetCount = $settings['facetCount'] : $facetCount = 1;
+
+        $facetList = [];
+        foreach ($facetGroups as $facetGroup) {
+            foreach ($facetGroup as $facetUid) {
+
+                if ($facetCount) {
+                    if (array_key_exists('selectedCategories', $filters) && !empty($filters['selectedCategories'])) {
+                        $uids =  $facetUid . ',' . $filters['selectedCategories'];
+                    } else { $uids = $facetUid; }
+
+                    switch ($settings['facetTable']) {
+                        case 'sys_category':
+                                $objectCount = $repository->findByCategories($uids)->count();
+                            break;
+                        default:
+                            throw new Exception('No facet table was given for counting objects', 1735645845);
+                    }
+                } else {
+                    // in objects per facet are not counted we override the object count so that
+                    // the facets will always be included in the tree
+                    $objectCount = 1;
+                }
+
+                // search in filters if current facet is selected
+                $selected = !empty(array_filter($filters, fn($value) => in_array($facetUid, explode(',', $value))));
+
+                // exclude
+                (array_key_exists('exclude', $settings) && strpos($settings['exclude'], $facetUid)) ? $exclude = true : $exclude = false;
+
+                // mind: we only return a facet when the object count > 0 (= drill down) or if count is disabled
+                if (!$exclude && $objectCount > 0) {
+                    $facetList[] = [
+                        'uid' => $facetUid,
+                        'count' => $objectCount,
+                        'label' => $this->getFacetLabel($facetUid),
+                        'selected' => $selected
+                    ];
+                }
+            }
+        }
+
+        $facetTree = $this->sortIntoFacetTree(
+            $this->mapFacets($facetList),
+            $facetGroups,
+            []
+        );
+
+        return $facetTree;
+    }
+
+    /**
      * Builds a two-dimensional structure of facet groups (parent + children)
      *
      * @param array $settings
@@ -86,12 +156,12 @@ class FacetService
     {
         $facetGroups = [];
 
-        if ($settings['facetTable'] == 'sys_category' && count($settings['parents']) > 0) {
-            foreach ($settings['parents'] as $key => $value) {
+        if ($settings['facetTable'] == 'sys_category' && count($settings['facetParents']) > 0) {
+            foreach ($settings['facetParents'] as $value) {
                 $maxLevels = (isset($value['maxLevels']) && $value['maxLevels'] > 0) ? $value['maxLevels'] : 1;
                 $getChildrenOnLevel = (isset($value['getChildrenOnLevel']) && $value['getChildrenOnLevel'] > 0) ? $value['getChildrenOnLevel'] : 0;
                 // get the records from the category repository
-                $facetGroups[$key] = $this->categoriesRepository->findAllChildren(
+                $facetGroups[$value['uid']] = $this->categoriesRepository->findAllChildren(
                     (int)$value['uid'],
                     // settings for walking down to deeper levels in the category tree or for picking certain
                     (int)$maxLevels,
@@ -107,53 +177,49 @@ class FacetService
     }
 
     /**
-     * Sorts a given list of facets into a facet tree
+     * Sorts a given list of facets into groups of a facet tree
      *
-     * @param array $facets
-     * @param array $facetTree
+     * @param array $facetList
+     * @param array $facetGroups
      * @param array $selectedFacets
      *
      * @return array
      */
     public function sortIntoFacetTree(
-        array $facets,
-        array $facetTree,
-        array $selectedFacets = []
+        array $facetList,
+        array $facetGroups
     ): array {
 
-        $selectedFacetUids = [];
-        if (is_array($selectedFacets)) {
-            foreach ($selectedFacets as $selectedFacet) {
-                $selectedFacetUids[] = $selectedFacet->getUid();
-            }
-        }
+        $facetTree = [
+            'facetGroups' => [],
+            'metaData' => [
+                'totalFacets' => count($facetList),
+                'totalGroups' => count($facetGroups)
+            ],
+        ];
 
-        $facetResult = [];
-
-        if ($facets && $facetTree) {
-            foreach ($facets as $facet) {
+        if ($facetList && $facetGroups) {
+            foreach ($facetList as $facet) {
                 $facetUid = $facet->getUid();
-                foreach (array_keys($facetTree) as $facetTreeGroup) {
-                    if (in_array($facetUid, $facetTree[$facetTreeGroup])) {
-                        if (in_array($facetUid, $selectedFacetUids)) {
-                            $facet->setSelected(1);
-                        }
-                        $facetResult[$facetTreeGroup][] = $facet;
+                foreach (array_keys($facetGroups) as $facetGroup) {
+                    if (in_array($facetUid, $facetGroups[$facetGroup])) {
+                        $facetTree['facetGroups'][$facetGroup]['items'][] = $facet;
                     }
                 }
             }
         }
 
         // sort content of all branches alphabetically
-        foreach ($facetResult as $branch => $facets) {
-            $facetResult[$branch] = $this->sortFacets($facets);
+        foreach ($facetTree['facetGroups'] as $facetGroup => $facets) {
+            $facetTree['facetGroups'][$facetGroup]['label'] = $this->getFacetLabel($facetGroup);
+            $facetTree['facetGroups'][$facetGroup]['items'] = $this->sortFacets($facets['items']);
         }
 
-        return $facetResult;
+        return $facetTree;
     }
 
     /**
-     * Sorts an array containing facet objects with the help of a stringified version of the same array
+     * Sorts an array containing facets with the help of a stringified version of the same array
      *
      * @param array $facets
      *
@@ -172,7 +238,7 @@ class FacetService
     }
 
     /**
-     * Maps a given array of rows to Facet objects
+     * Maps a given array of (database) rows to Facet objects
      *
      * @param array $rows
      * @param array $keys
@@ -218,103 +284,10 @@ class FacetService
      */
     public function getFacetLabel(int $uid): string
     {
+        // @TODO: generalize for other tables
         $category = $this->categoriesRepository->findByUid($uid);
         $label = $category->getTitle();
         return $label;
-    }
-
-    /**
-     * Generates a simple facetTree configuration from plain CSV uids.
-     * No max levels, no label overrides, no getChildrenOnLevel.
-     *
-     * @param string $facetTable
-     * @param string $facetParents
-     * @param int $facetCount
-     * @param int $facetSelection
-     *
-     * @return array
-     */
-    public function generateConfiguration(
-        string $facetTable,
-        string $facetParents,
-        int $facetCount = 1,
-        int $facetSelection = 1
-    ): array {
-
-        $settings = [
-            'facetTable' => $facetTable,
-            'facetCount' => $facetCount,
-            'facetSelection' => $facetSelection,
-        ];
-
-        $uidArray = GeneralUtility::trimExplode(',', $facetParents);
-        $parents = [];
-        foreach ($uidArray as $uid) {
-            $parents[]['uid'] = $uid;
-        }
-        $settings['parents'] = $parents;
-
-        return $settings;
-    }
-
-    /**
-     * @param object $repository
-     * @param string $facetTable
-     * @param string $facetUids
-     * @param string $selectedFacets
-     * @param int $facetCount
-     *
-     * @return array
-     */
-    public function generateFacetTree(
-        object $repository,
-        string $facetTable,
-        string $facetUids,
-        string $selectedFacets = '',
-        int $facetCount = 1
-    ): array {
-
-        $settings = $this->generateConfiguration(
-            $facetTable,
-            $facetUids
-        );
-
-        $facetGroups = $this->prepareFacetGroups($settings);
-
-\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($facetGroups, NULL, 5, FALSE, TRUE, FALSE, array(), array());
-
-        $facetList = [];
-        foreach ($facetGroups as $facetGroup) {
-            foreach ($facetGroup as $facetUid) {
-
-                // @TODO: take selectedCategories into account
-                // @TODO: generalize for other tables
-                if ($facetCount) {
-                    $objectCount = $repository->findByCategories($facetUid)->count();
-                } else {
-                    $objectCount = 0;
-                }
-
-                // mind: will only return facets with objects (drill down)
-                if ($objectCount > 0) {
-                    $facetList[] = [
-                        'uid' => $facetUid,
-                        'count' => $objectCount,
-                        'label' => $this->getFacetLabel($facetUid),
-                        // @TODO: add check if facet in selected facet
-                        'selected' => 0
-                    ];
-                }
-            }
-        }
-
-        $facetTree = $this->sortIntoFacetTree(
-            $this->mapFacets($facetList),
-            $facetGroups,
-            []
-        );
-
-        return $facetTree;
     }
 
 }

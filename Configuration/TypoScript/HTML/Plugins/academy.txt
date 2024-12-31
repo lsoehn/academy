@@ -6,6 +6,41 @@ plugin.tx_academy {
         templateRootPaths.10 = EXT:academy/Resources/Private/HTML/Templates/
     }
     settings {
+/*
+        # same as &tx_academy_list['filters']['selectedEntities']
+        # same as &tx_academy_list['filters']['selectedCategories']
+        # same as &tx_academy_list['filters']['selectedRoles']
+        filters {
+            selectedEntities = 1,2,3
+            selectedCategories = 1,2,3
+            selectedRoles = 1,2,3
+        }
+
+        facets {
+            categoryFacets {
+                facetTable = sys_category
+                facetParents {
+                    group_one {
+                        uid = 1
+                        label = something
+                        maxLevels = 3
+                        getChildrenOnLevel = 2
+                    }
+                    group_two {
+                        uid = 2
+                        label = something
+                        maxLevels = 1
+                        getChildrenOnLevel = 1
+                    }
+                }
+                facetCount = 1
+                exclude = 1,2,3
+            }
+            roleFacets {
+            }
+            # etc.
+        }
+*/
     }
 }
 

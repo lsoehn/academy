@@ -48,9 +48,9 @@
 						</TCEforms>
 					</settings.entityType>
 
-					<settings.selectedEntities>
+					<settings.filters.selectedEntities>
 						<TCEforms>
-							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:listPlugin.selectedEntities</label>
+							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:listPlugin.filters.selectedEntities</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -66,11 +66,11 @@
 								</wizards>
 							</config>
 						</TCEforms>
-					</settings.selectedEntities>
+					</settings.filters.selectedEntities>
 
-					<settings.selectedCategories>
+					<settings.filters.selectedCategories>
 						<TCEforms>
-							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:listPlugin.selectedCategories</label>
+							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:listPlugin.filters.selectedCategories</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -86,11 +86,11 @@
 								</wizards>
 							</config>
 						</TCEforms>
-					</settings.selectedCategories>
+					</settings.filters.selectedCategories>
 
-					<settings.selectedRoles>
+					<settings.filters.selectedRoles>
 						<TCEforms>
-							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:listPlugin.selectedRoles</label>
+							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:listPlugin.filters.selectedRoles</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -106,22 +106,22 @@
 								</wizards>
 							</config>
 						</TCEforms>
-					</settings.selectedRoles>
+					</settings.filters.selectedRoles>
 
 				</el>
 			</ROOT>
 		</sDEF>
-		<sFilter>
+		<sFacets>
 			<ROOT>
 				<TCEforms>
-					<sheetTitle>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:plugin.sheet.filter</sheetTitle>
+					<sheetTitle>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:plugin.sheet.facets</sheetTitle>
 				</TCEforms>
 				<type>array</type>
 				<el>
 
-					<settings.categoryFilter>
+					<settings.facets.categoryFacets.facetParents>
 						<TCEforms>
-							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:listPlugin.categoryFilter</label>
+							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:listPlugin.facets.categoryFacets.facetParents</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -132,11 +132,11 @@
 								<show_thumbs>1</show_thumbs>
 							</config>
 						</TCEforms>
-					</settings.categoryFilter>
+					</settings.facets.categoryFacets.facetParents>
 
-					<settings.categoryFilterExclude>
+					<settings.facets.categoryFacets.exclude>
 						<TCEforms>
-							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:listPlugin.categoryFilterExclude</label>
+							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:listPlugin.categoryFacets.exclude</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -147,10 +147,10 @@
 								<show_thumbs>1</show_thumbs>
 							</config>
 						</TCEforms>
-					</settings.categoryFilterExclude>
+					</settings.facets.categoryFacets.exclude>
 
 				</el>
 			</ROOT>
-		</sFilter>
+		</sFacets>
 	</sheets>
 </T3DataStructure> 

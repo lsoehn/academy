@@ -61,9 +61,9 @@ class Facet
     /**
      * selected
      *
-     * @var int
+     * @var bool
      */
-    protected int $selected = 0;
+    protected bool $selected = false;
 
     /**
      * Returns the uid
@@ -128,9 +128,9 @@ class Facet
     /**
      * Returns selected property
      *
-     * @return int $selected
+     * @return bool $selected
      */
-    public function getSelected(): int
+    public function getSelected(): bool
     {
         return $this->selected;
     }
@@ -138,9 +138,9 @@ class Facet
     /**
      * Sets the selected property
      *
-     * @param int $selected
+     * @param bool $selected
      */
-    public function setSelected(int $selected): void
+    public function setSelected(bool $selected): void
     {
         $this->selected = $selected;
     }

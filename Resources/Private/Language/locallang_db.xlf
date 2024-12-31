@@ -9,8 +9,8 @@
 			<trans-unit id="plugin.sheet.general" resname="plugin.sheet.general" >
 				<source>General</source>
 			</trans-unit>
-			<trans-unit id="plugin.sheet.filter" resname="plugin.sheet.filter" >
-				<source>Filter</source>
+			<trans-unit id="plugin.sheet.facets" resname="plugin.sheet.facets" >
+				<source>Facets</source>
 			</trans-unit>
 
 			<trans-unit id="listPlugin.entityType" resname="listPlugin.entityType" >
@@ -37,20 +37,20 @@
 			<trans-unit id="listPlugin.entityType.publications" resname="listPlugin.entityType.publications" >
 				<source>Publications</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.selectedEntities" resname="listPlugin.selectedEntities" >
+			<trans-unit id="listPlugin.filters.selectedEntities" resname="listPlugin.filters.selectedEntities" >
 				<source>Display selected entities</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.selectedCategories" resname="listPlugin.selectedCategories" >
+			<trans-unit id="listPlugin.filters.selectedCategories" resname="listPlugin.filters.selectedCategories" >
 				<source>Display entities in these categories</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.selectedRoles" resname="listPlugin.selectedRoles" >
+			<trans-unit id="listPlugin.filters.selectedRoles" resname="listPlugin.filters.selectedRoles" >
 				<source>Display entities with these roles</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.categoryFilter" resname="listPlugin.categoryFilter" >
-				<source>Display category filter with these parent categories</source>
+			<trans-unit id="listPlugin.facets.categoryFacets.facetParents" resname="listPlugin.facets.categoryFacets.facetParents" >
+				<source>Display category facets with these parent categories</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.categoryFilterExclude" resname="listPlugin.categoryFilterExclude" >
-				<source>Exclude the following categories from the filter</source>
+			<trans-unit id="listPlugin.facets.categoryFacets.exclude" resname="listPlugin.facets.categoryFacets.exclude" >
+				<source>Exclude the following categories from the facets tree</source>
 			</trans-unit>
 
 
