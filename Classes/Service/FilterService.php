@@ -90,6 +90,8 @@ class FilterService
             if (!in_array($key, $allowedKeys, true)) {
                 unset($data[$key]);
             } else {
+                if (str_contains($value, 'tx_academy_domain_model_') !== false)
+                    $value = preg_replace('/tx_academy_domain_model_.*?_/','', $value);
                 $data[$key] = GeneralUtility::intExplode(',', $value, true);
             }
         }

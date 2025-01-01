@@ -34,6 +34,7 @@ use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Exception;
 
 class EntityController extends ActionController
@@ -95,10 +96,25 @@ class EntityController extends ActionController
         if (!$this->settings['entityType']) {
             throw new Exception('You need to set an entity type in the plugin configuration', 1735538304);
         }
-        return (new ForwardResponse('list'))
+
+        $arguments = $this->request->getArguments();
+
+        $action = strtolower($this->request->getPluginName());
+
+        if ($action == 'show' && array_key_exists('filters', $this->settings) &&
+            array_key_exists('selectedEntities', $this->settings['filters']) &&
+            $this->settings['filters']['selectedEntities'] !== null
+        ) {
+            $this->settings['filters'] = $this->filterService->sanitizeFilterData(
+                $this->settings['filters'],
+                ['selectedEntities']
+            );
+            $arguments['project'] = $this->settings['filters']['selectedEntities'][0];
+        }
+
+        return (new ForwardResponse($action))
             ->withControllerName($this->settings['entityType'])
-            ->withArguments($this->request->getArguments()
-        );
+            ->withArguments($arguments);
     }
 
     /**
@@ -117,6 +133,10 @@ class EntityController extends ActionController
 
         $filters = $this->filterService->mergeFilters($settings, $arguments);
         $this->view->assign('filters', $filters);
+
+        /** @var ContentObjectRenderer $contentObject */
+        $plugin = $this->request->getAttribute('currentContentObject')->data;
+        $this->view->assign('plugin', $plugin);
 
         $facets = [];
         if ($settings['facets']['categoryFacets']) {

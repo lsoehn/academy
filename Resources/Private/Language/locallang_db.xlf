@@ -13,43 +13,43 @@
 				<source>Facets</source>
 			</trans-unit>
 
-			<trans-unit id="listPlugin.entityType" resname="listPlugin.entityType" >
+			<trans-unit id="plugin.entityType" resname="plugin.entityType" >
 				<source>Type of entity</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.entityType.persons" resname="listPlugin.entityType.persons" >
+			<trans-unit id="plugin.entityType.persons" resname="plugin.entityType.persons" >
 				<source>Persons</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.entityType.projects" resname="listPlugin.entityType.projects" >
+			<trans-unit id="plugin.entityType.projects" resname="plugin.entityType.projects" >
 				<source>Projects</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.entityType.units" resname="listPlugin.entityType.units" >
+			<trans-unit id="plugin.entityType.units" resname="plugin.entityType.units" >
 				<source>Units</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.entityType.media" resname="listPlugin.entityType.media" >
+			<trans-unit id="plugin.entityType.media" resname="plugin.entityType.media" >
 				<source>Media</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.entityType.products" resname="listPlugin.entityType.products" >
+			<trans-unit id="plugin.entityType.products" resname="plugin.entityType.products" >
 				<source>Products</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.entityType.services" resname="listPlugin.entityType.services" >
+			<trans-unit id="plugin.entityType.services" resname="plugin.entityType.services" >
 				<source>Services</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.entityType.publications" resname="listPlugin.entityType.publications" >
+			<trans-unit id="plugin.entityType.publications" resname="plugin.entityType.publications" >
 				<source>Publications</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.filters.selectedEntities" resname="listPlugin.filters.selectedEntities" >
+			<trans-unit id="plugin.filters.selectedEntities" resname="plugin.filters.selectedEntities" >
 				<source>Display selected entities</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.filters.selectedCategories" resname="listPlugin.filters.selectedCategories" >
+			<trans-unit id="plugin.filters.selectedCategories" resname="plugin.filters.selectedCategories" >
 				<source>Display entities in these categories</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.filters.selectedRoles" resname="listPlugin.filters.selectedRoles" >
+			<trans-unit id="plugin.filters.selectedRoles" resname="plugin.filters.selectedRoles" >
 				<source>Display entities with these roles</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.facets.categoryFacets.facetParents" resname="listPlugin.facets.categoryFacets.facetParents" >
+			<trans-unit id="plugin.facets.categoryFacets.facetParents" resname="plugin.facets.categoryFacets.facetParents" >
 				<source>Display category facets with these parent categories</source>
 			</trans-unit>
-			<trans-unit id="listPlugin.facets.categoryFacets.exclude" resname="listPlugin.facets.categoryFacets.exclude" >
+			<trans-unit id="plugin.facets.categoryFacets.exclude" resname="plugin.facets.categoryFacets.exclude" >
 				<source>Exclude the following categories from the facets tree</source>
 			</trans-unit>
 

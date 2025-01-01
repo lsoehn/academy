@@ -29,10 +29,10 @@ use Digicademy\Academy\Service\FacetService;
 use Digicademy\Academy\Service\FilterService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use Digicademy\Academy\Controller\EntityController;
 use Digicademy\Academy\Domain\Repository\ProjectsRepository;
 use Digicademy\Academy\Domain\Model\Projects;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 class ProjectsController extends EntityController
 {
@@ -71,7 +71,7 @@ class ProjectsController extends EntityController
     }
 
     /**
-     * Displays a project by uid
+     * Displays a single project
      *
      * @param Projects $project
      *
@@ -81,6 +81,13 @@ class ProjectsController extends EntityController
     {
         $arguments = $this->request->getArguments();
         $this->view->assign('arguments', $arguments);
+
+        $settings = $this->settings;
+        $this->view->assign('settings', $settings);
+
+        /** @var ContentObjectRenderer $contentObject */
+        $plugin = $this->request->getAttribute('currentContentObject')->data;
+        $this->view->assign('plugin', $plugin);
 
         $this->view->assign('project', $project);
 

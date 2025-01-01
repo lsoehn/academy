@@ -25,6 +25,10 @@ ExtensionManagementUtility::addTCAcolumns(
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['academy_list'] = 'pi_flexform';
 ExtensionManagementUtility::addPiFlexFormValue('academy_list', 'FILE:EXT:academy/Configuration/FlexForms/ListPlugin.xml');
 
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['academy_show'] = 'pi_flexform';
+ExtensionManagementUtility::addPiFlexFormValue('academy_show', 'FILE:EXT:academy/Configuration/FlexForms/ShowPlugin.xml');
+
+
 
 
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['academy_projects'] = 'pi_flexform';

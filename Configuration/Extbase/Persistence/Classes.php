@@ -38,11 +38,11 @@ return [
     # map news table
     \Digicademy\Academy\Domain\Model\News::class => [
         'tableName' => 'tx_news_domain_model_news',
-        'recordType' => 0,
+        #'recordType' => 0,
     ],
     # map events table
     \Digicademy\Academy\Domain\Model\Events::class => [
         'tableName' => 'tx_news_domain_model_news',
-        'recordType' => 3,
+        #'recordType' => 3,
     ],
 ];
