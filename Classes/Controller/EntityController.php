@@ -159,50 +159,41 @@ class EntityController extends ActionController
     {
         $arguments = $this->request->getArguments();
 
-        // sanitize filters to only contain allowed keys selectedCategories, selectedEntities, selectedRoles and integer values
-        if (array_key_exists('filters', $arguments) && count($arguments['filters']) > 0) {
-            foreach ($arguments['filters'] as $key => $filter) {
-                if ($key == 'selectedCategories' || $key == 'selectedEntities' || $key == 'selectedRoles') {
-                    $arguments['filters'][$key] = GeneralUtility::intExplode(',', $filter, true);
-                } else { continue; }
-            }
-        }
-        // sanitize filters to only contain allowed keys category, entity, role and integer values
-        if (array_key_exists('selected', $arguments) && count($arguments['selected']) > 0) {
-            foreach ($arguments['selected'] as $key => $value) {
-                if ($key == 'category' || $key == 'entity'  || $key == 'role') {
-                    $arguments['selected'][$key] = GeneralUtility::intExplode(',', $value, true);
-                } else { continue; }
-            }
+        // Sanitize filters and selected values
+        $arguments['filters'] = $this->filterService->sanitizeFilterData(
+            $arguments['filters'] ?? [],
+            ['selectedCategories', 'selectedEntities', 'selectedRoles']
+        );
+
+        $arguments['selected'] = $this->filterService->sanitizeFilterData(
+            $arguments['selected'] ?? [],
+            ['category', 'entity', 'role']
+        );
+
+        // Add or remove selected categories, entities, or roles
+        if (!empty($arguments['selected']['category'][0])) {
+            $arguments['filters']['selectedCategories'] = $this->filterService->toggleFilterValue(
+                $arguments['filters']['selectedCategories'],
+                $arguments['selected']['category'][0]
+            );
         }
 
-        // Add or remove incoming selected categories
-        if (!empty($arguments['selected']['category'][0]) && $arguments['selected']['category'][0] > 0) {
-            $key = array_search($arguments['selected']['category'][0], $arguments['filters']['selectedCategories']);
-            if ($key !== false) { unset($arguments['filters']['selectedCategories'][$key]);
-            } else { $arguments['filters']['selectedCategories'][] = $arguments['selected']['category'][0]; }
+        if (!empty($arguments['selected']['entity'][0])) {
+            $arguments['filters']['selectedEntities'] = $this->filterService->toggleFilterValue(
+                $arguments['filters']['selectedEntities'],
+                $arguments['selected']['entity'][0]
+            );
         }
 
-        // add or remove incoming selected entities
-        if (!empty($arguments['selected']['entity'][0]) && $arguments['selected']['entity'][0] > 0) {
-            $key = array_search($arguments['selected']['entity'][0], $arguments['filters']['selectedEntities']);
-            if ($key !== false) { unset($arguments['filters']['selectedEntities'][$key]);
-            } else { $arguments['filters']['selectedEntities'][] = $arguments['selected']['entity'][0]; }
+        if (!empty($arguments['selected']['role'][0])) {
+            $arguments['filters']['selectedRoles'] = $this->filterService->toggleFilterValue(
+                $arguments['filters']['selectedRoles'],
+                $arguments['selected']['role'][0]
+            );
         }
 
-        // add or remove incoming selected roles
-        if (!empty($arguments['selected']['role'][0]) && $arguments['selected']['role'][0] > 0) {
-            $key = array_search($arguments['selected']['role'][0], $arguments['filters']['selectedRoles']);
-            if ($key !== false) { unset($arguments['filters']['selectedRoles'][$key]);
-            } else { $arguments['filters']['selectedRoles'][] = $arguments['selected']['role'][0]; }
-        }
-
-        if (array_key_exists('selectedCategories', $arguments['filters']))
-            $arguments['filters']['selectedCategories'] = implode(',', $arguments['filters']['selectedCategories']);
-        if (array_key_exists('selectedEntities', $arguments['filters']))
-            $arguments['filters']['selectedEntities'] = implode(',', $arguments['filters']['selectedEntities']);
-        if (array_key_exists('selectedRoles', $arguments['filters']))
-            $arguments['filters']['selectedRoles'] = implode(',', $arguments['filters']['selectedRoles']);
+        // Finalize filters (convert to CSV strings)
+        $arguments['filters'] = $this->filterService->finalizeFilters($arguments['filters']);
 
         return (new ForwardResponse('list'))->withArguments($arguments);
     }

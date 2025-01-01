@@ -76,4 +76,56 @@ class FilterService
 
         return implode(',', $mergedArray);
     }
+
+    /**
+     * Sanitizes filters and selected data
+     *
+     * @param array $data
+     * @param array $allowedKeys
+     * @return array
+     */
+    public function sanitizeFilterData(array $data, array $allowedKeys): array
+    {
+        foreach ($data as $key => $value) {
+            if (!in_array($key, $allowedKeys, true)) {
+                unset($data[$key]);
+            } else {
+                $data[$key] = GeneralUtility::intExplode(',', $value, true);
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * Adds or removes a value from a filter array
+     *
+     * @param array $filter
+     * @param int $value
+     * @return array
+     */
+    public function toggleFilterValue(array $filter, int $value): array
+    {
+        $key = array_search($value, $filter, true);
+        if ($key !== false) {
+            unset($filter[$key]);
+        } else {
+            $filter[] = $value;
+        }
+        return $filter;
+    }
+
+    /**
+     * Converts filter arrays to CSV strings
+     *
+     * @param array $filters
+     * @return array
+     */
+    public function finalizeFilters(array $filters): array
+    {
+        foreach ($filters as $key => $filter) {
+            $filters[$key] = implode(',', $filter);
+        }
+        return $filters;
+    }
+
 }
