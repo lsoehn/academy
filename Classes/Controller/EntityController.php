@@ -28,10 +28,12 @@ namespace Digicademy\Academy\Controller;
 use Digicademy\Academy\Service\FacetService;
 use Digicademy\Academy\Service\FilterService;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Frontend\Exception;
 
 class EntityController extends ActionController
@@ -100,7 +102,7 @@ class EntityController extends ActionController
     }
 
     /**
-     * Displays a list of entities and a category facet widget
+     * Displays a faceted/filterable list of entities
      *
      * @return ResponseInterface
      * @throws Exception|InvalidQueryException
@@ -128,7 +130,7 @@ class EntityController extends ActionController
             );
             $facets['categoryFacets'] = $facetTree;
         }
-        // @TODO: here we can later implement selectedRoles and selectedEntities facets
+        // @TODO: here we can implement selectedRoles and selectedEntities facets (later)
         $this->view->assign('facets', $facets);
 
         // get list of projects
@@ -140,6 +142,69 @@ class EntityController extends ActionController
         $this->view->assign('projects', $projects);
 
         return $this->htmlResponse();
+    }
+
+    /**
+     * Filter entities by query, categories, roles and forward to list (uncached)
+     *
+     * @param string $query
+     *
+     * @Extbase\Validate("regularExpression", options={"regularExpression": "/^[\,\.\*\-""\p{L}\p{M}\p{N}\p{Sk}\s]*$/u"}, param="query")
+     *
+     * @return ResponseInterface
+     */
+    public function filterAction(
+        string $query = ''
+    ): ResponseInterface
+    {
+        $arguments = $this->request->getArguments();
+
+        // sanitize filters to only contain allowed keys selectedCategories, selectedEntities, selectedRoles and integer values
+        if (array_key_exists('filters', $arguments) && count($arguments['filters']) > 0) {
+            foreach ($arguments['filters'] as $key => $filter) {
+                if ($key == 'selectedCategories' || $key == 'selectedEntities' || $key == 'selectedRoles') {
+                    $arguments['filters'][$key] = GeneralUtility::intExplode(',', $filter, true);
+                } else { continue; }
+            }
+        }
+        // sanitize filters to only contain allowed keys category, entity, role and integer values
+        if (array_key_exists('selected', $arguments) && count($arguments['selected']) > 0) {
+            foreach ($arguments['selected'] as $key => $value) {
+                if ($key == 'category' || $key == 'entity'  || $key == 'role') {
+                    $arguments['selected'][$key] = GeneralUtility::intExplode(',', $value, true);
+                } else { continue; }
+            }
+        }
+
+        // Add or remove incoming selected categories
+        if (!empty($arguments['selected']['category'][0]) && $arguments['selected']['category'][0] > 0) {
+            $key = array_search($arguments['selected']['category'][0], $arguments['filters']['selectedCategories']);
+            if ($key !== false) { unset($arguments['filters']['selectedCategories'][$key]);
+            } else { $arguments['filters']['selectedCategories'][] = $arguments['selected']['category'][0]; }
+        }
+
+        // add or remove incoming selected entities
+        if (!empty($arguments['selected']['entity'][0]) && $arguments['selected']['entity'][0] > 0) {
+            $key = array_search($arguments['selected']['entity'][0], $arguments['filters']['selectedEntities']);
+            if ($key !== false) { unset($arguments['filters']['selectedEntities'][$key]);
+            } else { $arguments['filters']['selectedEntities'][] = $arguments['selected']['entity'][0]; }
+        }
+
+        // add or remove incoming selected roles
+        if (!empty($arguments['selected']['role'][0]) && $arguments['selected']['role'][0] > 0) {
+            $key = array_search($arguments['selected']['role'][0], $arguments['filters']['selectedRoles']);
+            if ($key !== false) { unset($arguments['filters']['selectedRoles'][$key]);
+            } else { $arguments['filters']['selectedRoles'][] = $arguments['selected']['role'][0]; }
+        }
+
+        if (array_key_exists('selectedCategories', $arguments['filters']))
+            $arguments['filters']['selectedCategories'] = implode(',', $arguments['filters']['selectedCategories']);
+        if (array_key_exists('selectedEntities', $arguments['filters']))
+            $arguments['filters']['selectedEntities'] = implode(',', $arguments['filters']['selectedEntities']);
+        if (array_key_exists('selectedRoles', $arguments['filters']))
+            $arguments['filters']['selectedRoles'] = implode(',', $arguments['filters']['selectedRoles']);
+
+        return (new ForwardResponse('list'))->withArguments($arguments);
     }
 
 }

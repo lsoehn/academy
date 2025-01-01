@@ -5,19 +5,16 @@
 <f:if condition="{projects}">
     <f:then>
 
-<f:debug>{arguments}</f:debug>
-<f:debug>{settings}</f:debug>
-<f:debug>{filters}</f:debug>
-<f:debug>{facets}</f:debug>
-
 <f:comment>
+@TODO: Reintroduce display of selected facet
         <f:if condition="{selectedCategories}">
             <f:render partial="Categories/SelectedCategories" arguments="{selectedCategories : selectedCategories}" />
         </f:if>
 
-
+@TODO: Reintroduce search
         <f:render partial="Search/Searchbox" arguments="{type : 'projects', objectname: 'Projekte'}" />
 </f:comment>
+
         <f:for each="{projects}" as="project">
             <div class="cris-project" id="cris-project-{project.uid}">
                 <h2>

@@ -71,21 +71,11 @@ class ProjectsController extends EntityController
     }
 
     /**
-     * @TODO: implement
-     * @return ResponseInterface
-     */
-    public function filterAction(): ResponseInterface
-    {
-        // filter by search query, categories, roles and forward to list (uncached)
-        return (new ForwardResponse('list'))->withArguments($this->request->getArguments());
-    }
-
-    /**
      * Displays a project by uid
      *
      * @param Projects $project
      *
-     * @return void
+     * @return ResponseInterface
      */
     public function showAction(Projects $project): ResponseInterface
     {
