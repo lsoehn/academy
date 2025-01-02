@@ -50,7 +50,7 @@
 
 					<settings.filters.selectedEntities>
 						<TCEforms>
-							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:    plugin.filters.selectedEntities</label>
+							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:plugin.filters.selectedEntities</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -70,7 +70,7 @@
 
 					<settings.filters.selectedCategories>
 						<TCEforms>
-							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:    plugin.filters.selectedCategories</label>
+							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:plugin.filters.selectedCategories</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -90,7 +90,7 @@
 
 					<settings.filters.selectedRoles>
 						<TCEforms>
-							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:    plugin.filters.selectedRoles</label>
+							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:plugin.filters.selectedRoles</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>

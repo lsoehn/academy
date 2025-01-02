@@ -139,7 +139,7 @@ class EntityController extends ActionController
         $this->view->assign('plugin', $plugin);
 
         $facets = [];
-        if ($settings['facets']['categoryFacets']) {
+        if ($settings['facets']['categoryFacets']['facetParents']) {
             $settings['facets']['categoryFacets']['facetTable'] = 'sys_category';
             $settings['facets']['categoryFacets']['facetParents'] =
                 array_map(fn($uid) => ['uid' => $uid], explode(',', $settings['facets']['categoryFacets']['facetParents']));;
