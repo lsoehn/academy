@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Domain\Model;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,152 +24,79 @@ namespace Digicademy\Academy\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+namespace Digicademy\Academy\Domain\Model;
+
+use Digicademy\Academy\Domain\Model\Traits\{
+    LabelTrait,
+    PersistentIdentifierTrait,
+    SlugTrait,
+    TypeTrait
+};
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
+/**
+ * An hCard for embedded contact information according to
+ * https://microformats.org/wiki/h-card
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
+ * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
+ */
 
 class Hcards extends AbstractEntity
 {
-
-    /**
-     * persistentIdentifier
-     *
-     * @var \string
-     *
-     * @Extbase\Validate("NotEmpty")
-     */
-    protected $persistentIdentifier;
-
-    /**
-     * The label of the hcard
-     *
-     * @var \string $label
-     * @Extbase\Validate("NotEmpty")
-     */
-    protected $label;
-
-    /**
-     * The type of the hcard
-     *
-     * @var integer $type
-     */
-    protected $type;
+    use LabelTrait;
+    use PersistentIdentifierTrait;
+    use SlugTrait;
+    use TypeTrait;
 
     /**
      * Addresses
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\HcardsAdr>
-     * @Extbase\ORM\Lazy
+     * @var ObjectStorage<HcardsAdr>
+     * @Lazy
      */
-    protected $adr = null;
+    protected ObjectStorage $adr;
 
     /**
      * Telefone numbers
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\HcardsTel>
-     * @Extbase\ORM\Lazy
+     * @var ObjectStorage<HcardsTel>
+     * @Lazy
      */
-    protected $tel = null;
+    protected ObjectStorage $tel;
 
     /**
      * Email Addresses
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\HcardsEmail>
-     * @Extbase\ORM\Lazy
+     * @var ObjectStorage<HcardsEmail>
+     * @Lazy
      */
-    protected $email = null;
+    protected ObjectStorage $email;
 
     /**
      * URLs
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\HcardsUrl>
-     * @Extbase\ORM\Lazy
+     * @var ObjectStorage<HcardsUrl>
+     * @Lazy
      */
-    protected $url = null;
+    protected ObjectStorage $url;
 
     /**
      * Geo coordinates
      *
-     * @var \string $geo
+     * @var string $geo
      */
-    protected $geo;
-
-    /**
-     * @var \string $slug
-     */
-    protected $slug;
-
-    /**
-     * Returns the persistentIdentifier
-     *
-     * @return \string $persistentIdentifier
-     */
-    public function getPersistentIdentifier()
-    {
-        return $this->persistentIdentifier;
-    }
-
-    /**
-     * Sets the persistentIdentifier
-     *
-     * @param \string $persistentIdentifier
-     *
-     * @return void
-     */
-    public function setPersistentIdentifier($persistentIdentifier)
-    {
-        $this->persistentIdentifier = $persistentIdentifier;
-    }
-
-    /**
-     * Returns the label
-     *
-     * @return \string $label
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    /**
-     * Sets the label
-     *
-     * @param \string $label
-     *
-     * @return void
-     */
-    public function setLabel($label)
-    {
-        $this->label = $label;
-    }
-
-    /**
-     * Returns the type
-     *
-     * @return \string $type
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Sets the type
-     *
-     * @param \string $type
-     *
-     * @return void
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
+    protected string $geo;
 
     /**
      * Returns the addresses
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\HcardsAdr> $adr
+     * @return ObjectStorage<HcardsAdr> $adr
      */
-    public function getAdr()
+    public function getAdr(): ObjectStorage
     {
         return $this->adr;
     }
@@ -179,11 +104,9 @@ class Hcards extends AbstractEntity
     /**
      * Sets the addresses
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\HcardsAdr> $adr
-     *
-     * @return void
+     * @param ObjectStorage<HcardsAdr> $adr
      */
-    public function setAdr($adr)
+    public function setAdr(ObjectStorage $adr): void
     {
         $this->adr = $adr;
     }
@@ -191,9 +114,9 @@ class Hcards extends AbstractEntity
     /**
      * Returns the telephone numbers
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\HcardsTel> $tel
+     * @return ObjectStorage<HcardsTel> $tel
      */
-    public function getTel()
+    public function getTel(): ObjectStorage
     {
         return $this->tel;
     }
@@ -201,11 +124,9 @@ class Hcards extends AbstractEntity
     /**
      * Sets the telephone numbers
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\HcardsTel> $tel
-     *
-     * @return void
+     * @param ObjectStorage<HcardsTel> $tel
      */
-    public function setTel($tel)
+    public function setTel(ObjectStorage $tel): void
     {
         $this->tel = $tel;
     }
@@ -213,9 +134,9 @@ class Hcards extends AbstractEntity
     /**
      * Returns the email addresses
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\HcardsEmail> $email
+     * @return ObjectStorage<HcardsEmail> $email
      */
-    public function getEmail()
+    public function getEmail(): ObjectStorage
     {
         return $this->email;
     }
@@ -223,11 +144,9 @@ class Hcards extends AbstractEntity
     /**
      * Sets the email addresses
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\HcardsEmail> $email
-     *
-     * @return void
+     * @param ObjectStorage<HcardsEmail> $email
      */
-    public function setEmail($email)
+    public function setEmail(ObjectStorage $email): void
     {
         $this->email = $email;
     }
@@ -235,9 +154,9 @@ class Hcards extends AbstractEntity
     /**
      * Returns the urls
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\HcardsUrl> $url
+     * @return ObjectStorage<HcardsUrl> $url
      */
-    public function getUrl()
+    public function getUrl(): ObjectStorage
     {
         return $this->url;
     }
@@ -245,11 +164,9 @@ class Hcards extends AbstractEntity
     /**
      * Sets the urls
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\HcardsUrl> $url
-     *
-     * @return void
+     * @param ObjectStorage<HcardsUrl> $url
      */
-    public function setUrl($url)
+    public function setUrl(ObjectStorage $url): void
     {
         $this->url = $url;
     }
@@ -257,9 +174,9 @@ class Hcards extends AbstractEntity
     /**
      * Returns geo
      *
-     * @return \string $geo
+     * @return string $geo
      */
-    public function getGeo()
+    public function getGeo(): string
     {
         return $this->geo;
     }
@@ -267,34 +184,10 @@ class Hcards extends AbstractEntity
     /**
      * Sets geo
      *
-     * @param \string $geo
-     *
-     * @return void
+     * @param string $geo
      */
-    public function setGeo($geo)
+    public function setGeo(string $geo): void
     {
         $this->geo = $geo;
-    }
-
-    /**
-     * Returns the slug
-     *
-     * @return \string $slug
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Sets the slug
-     *
-     * @param \string $slug
-     *
-     * @return void
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
     }
 }

@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Domain\Model;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,176 +24,114 @@ namespace Digicademy\Academy\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use GeorgRinger\News\Domain\Model\TtContent;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+namespace Digicademy\Academy\Domain\Model;
+
+use Digicademy\Academy\Domain\Model\Traits\{
+    CategoriesTrait,
+    ContentElementsTrait,
+    DateRangeTrait,
+    ImageTrait,
+    PageTrait,
+    PersistentIdentifierTrait,
+    RelationsTrait,
+    SlugTrait,
+    SortingTrait
+};
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use Digicademy\Academy\Domain\Repository\RelationsRepository;
-use Digicademy\ChfTime\Domain\Model\DateRanges;
+
+/**
+ * Represents a person involved in the research domain
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
+ * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
+ */
 
 class Persons extends AbstractEntity
 {
+    use CategoriesTrait;
+    use ContentElementsTrait;
+    use DateRangeTrait;
+    use ImageTrait;
+    use PageTrait;
+    use PersistentIdentifierTrait;
+    use RelationsTrait;
+    use SlugTrait;
+    use SortingTrait;
 
-    /**
-     * persistentIdentifier
-     *
-     * @var \string
-     *
-     * @Extbase\Validate("NotEmpty")
-     */
-    protected $persistentIdentifier;
+    protected const RELATIONS_CRITERION = 'person_symmetric';
 
     /**
      * Given name of the person
      *
-     * @var \string $givenName
+     * @var string $givenName
      */
     protected $givenName;
 
     /**
      * Additional name
      *
-     * @var \string $additionalName
+     * @var string $additionalName
      */
     protected $additionalName;
 
     /**
      * Family name of the person
      *
-     * @var \string $familyName
-     * @Extbase\Validate("NotEmpty")
+     * @var string $familyName
+     * @Validate("NotEmpty")
      */
     protected $familyName;
 
     /**
      * honorificSuffix
      *
-     * @var \string $honorificPrefix
+     * @var string $honorificPrefix
      */
     protected $honorificPrefix;
 
     /**
      * honorificSuffix
      *
-     * @var \string $honorificSuffix
+     * @var string $honorificSuffix
      */
     protected $honorificSuffix;
 
     /**
-     * @var \string $slug
-     */
-    protected $slug;
-
-    /**
-     * sorting
-     *
-     * @var \string $sorting
-     */
-    protected $sorting;
-
-    /**
-     * Images
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @Extbase\ORM\Lazy
-     */
-    protected $image = null;
-
-    /**
-     * Life date of the person
-     *
-     * @var \Digicademy\ChfTime\Domain\Model\DateRanges $dateRange
-     */
-    protected $dateRange = null;
-
-    /**
-     * Additional free text information about a person
-     *
-     * @var ObjectStorage<TtContent>
-     */
-    protected $contentElements;
-
-    /**
-     * A page where details about the person can be found
-     *
-     * @var \integer $page
-     */
-    protected $page;
-
-    /**
      * cv
      *
-     * @var \string $cv
+     * @var string $cv
      */
     protected $cv;
 
     /**
      * expertise
      *
-     * @var \string $expertise
+     * @var string $expertise
      */
     protected $expertise;
 
     /**
      * awards
      *
-     * @var \string $awards
+     * @var string $awards
      */
     protected $awards;
 
     /**
      * publications
      *
-     * @var \string $publications
+     * @var string $publications
      */
     protected $publications;
 
     /**
-     * Relations of the person with projects, hcards, events, news, media etc.
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\Relations>
-     * @Extbase\ORM\Lazy
-     */
-    protected $relations = null;
-
-    /**
-     * Selected categories for the person
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\Categories>
-     * @Extbase\ORM\Lazy
-     */
-    protected $categories = null;
-
-    /**
-     * Returns the persistentIdentifier
-     *
-     * @return \string $persistentIdentifier
-     */
-    public function getPersistentIdentifier()
-    {
-        return $this->persistentIdentifier;
-    }
-
-    /**
-     * Sets the persistentIdentifier
-     *
-     * @param \string $persistentIdentifier
-     *
-     * @return void
-     */
-    public function setPersistentIdentifier($persistentIdentifier)
-    {
-        $this->persistentIdentifier = $persistentIdentifier;
-    }
-
-    /**
      * Returns the given name
      *
-     * @return \string $givenName
+     * @return string $givenName
      */
-    public function getGivenName()
+    public function getGivenName(): string
     {
         return $this->givenName;
     }
@@ -203,11 +139,9 @@ class Persons extends AbstractEntity
     /**
      * Sets the givenName
      *
-     * @param \string $givenName
-     *
-     * @return void
+     * @param string $givenName
      */
-    public function setGivenName($givenName)
+    public function setGivenName(string $givenName): void
     {
         $this->givenName = $givenName;
     }
@@ -215,9 +149,9 @@ class Persons extends AbstractEntity
     /**
      * Returns the additional name
      *
-     * @return \string $additionalName
+     * @return string $additionalName
      */
-    public function getAdditionalName()
+    public function getAdditionalName(): string
     {
         return $this->additionalName;
     }
@@ -225,11 +159,9 @@ class Persons extends AbstractEntity
     /**
      * Sets the additionalName
      *
-     * @param \string $additionalName
-     *
-     * @return void
+     * @param string $additionalName
      */
-    public function setAdditionalName($additionalName)
+    public function setAdditionalName(string $additionalName): void
     {
         $this->additionalName = $additionalName;
     }
@@ -237,9 +169,9 @@ class Persons extends AbstractEntity
     /**
      * Returns the family name
      *
-     * @return \string $familyName
+     * @return string $familyName
      */
-    public function getFamilyName()
+    public function getFamilyName(): string
     {
         return $this->familyName;
     }
@@ -247,11 +179,9 @@ class Persons extends AbstractEntity
     /**
      * Sets the familyName
      *
-     * @param \string $familyName
-     *
-     * @return void
+     * @param string $familyName
      */
-    public function setFamilyName($familyName)
+    public function setFamilyName(string $familyName): void
     {
         $this->familyName = $familyName;
     }
@@ -259,9 +189,9 @@ class Persons extends AbstractEntity
     /**
      * Returns the honorific prefix
      *
-     * @return \string $honorificPrefix
+     * @return string $honorificPrefix
      */
-    public function getHonorificPrefix()
+    public function getHonorificPrefix(): string
     {
         return $this->honorificPrefix;
     }
@@ -269,11 +199,9 @@ class Persons extends AbstractEntity
     /**
      * Sets the honorific prefix
      *
-     * @param \string $honorificPrefix
-     *
-     * @return void
+     * @param string $honorificPrefix
      */
-    public function setHonorificPrefix($honorificPrefix)
+    public function setHonorificPrefix(string $honorificPrefix): void
     {
         $this->honorificPrefix = $honorificPrefix;
     }
@@ -281,9 +209,9 @@ class Persons extends AbstractEntity
     /**
      * Returns the honorific suffix
      *
-     * @return \string $honorificSuffix
+     * @return string $honorificSuffix
      */
-    public function getHonorificSuffix()
+    public function getHonorificSuffix(): string
     {
         return $this->honorificSuffix;
     }
@@ -291,130 +219,19 @@ class Persons extends AbstractEntity
     /**
      * Sets the honorific suffix
      *
-     * @param \string $honorificSuffix
-     *
-     * @return void
+     * @param string $honorificSuffix
      */
-    public function setHonorificSuffix($honorificSuffix)
+    public function setHonorificSuffix(string $honorificSuffix): void
     {
         $this->honorificSuffix = $honorificSuffix;
     }
 
     /**
-     * Returns the slug
-     *
-     * @return \string $slug
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Sets the slug
-     *
-     * @param \string $slug
-     *
-     * @return void
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    }
-
-    /**
-     * Returns the image
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $image
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * Sets the image
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $image
-     *
-     * @return void
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-    }
-
-    /**
-     * Returns the dateRange
-     *
-     * @return \Digicademy\ChfTime\Domain\Model\DateRanges $dateRange
-     */
-    public function getDateRange()
-    {
-        return $this->dateRange;
-    }
-
-    /**
-     * Sets the dateRange
-     *
-     * @param \Digicademy\ChfTime\Domain\Model\DateRanges $dateRange
-     *
-     * @return void
-     */
-    public function setDateRange(DateRanges $dateRange)
-    {
-        $this->dateRange = $dateRange;
-    }
-
-    /**
-     * Get content elements
-     *
-     * @return ObjectStorage
-     */
-    public function getContentElements(): ObjectStorage
-    {
-        return $this->contentElements;
-    }
-
-    /**
-     * Set content element list
-     *
-     * @param ObjectStorage $contentElements content elements
-     * @return void
-     */
-    public function setContentElements(ObjectStorage $contentElements): void
-    {
-        $this->contentElements = $contentElements;
-    }
-
-    /**
-     * Returns the page
-     *
-     * @return \integer $page
-     */
-    public function getPage()
-    {
-        return $this->page;
-    }
-
-    /**
-     * Sets the page
-     *
-     * @param \integer $page
-     *
-     * @return void
-     */
-    public function setPage($page)
-    {
-        $this->page = $page;
-    }
-
-    /**
      * Returns the CV
      *
-     * @return \string $cv
+     * @return string $cv
      */
-    public function getCv()
+    public function getCv(): string
     {
         return $this->cv;
     }
@@ -422,11 +239,9 @@ class Persons extends AbstractEntity
     /**
      * Sets the CV
      *
-     * @param \string $cv
-     *
-     * @return void
+     * @param string $cv
      */
-    public function setCv($cv)
+    public function setCv(string $cv): void
     {
         $this->cv = $cv;
     }
@@ -434,9 +249,9 @@ class Persons extends AbstractEntity
     /**
      * Returns the expertise
      *
-     * @return \string $expertise
+     * @return string $expertise
      */
-    public function getExpertise()
+    public function getExpertise(): string
     {
         return $this->expertise;
     }
@@ -444,11 +259,9 @@ class Persons extends AbstractEntity
     /**
      * Sets the expertise
      *
-     * @param \string $expertise
-     *
-     * @return void
+     * @param string $expertise
      */
-    public function setExpertise($expertise)
+    public function setExpertise(string $expertise): void
     {
         $this->expertise = $expertise;
     }
@@ -456,9 +269,9 @@ class Persons extends AbstractEntity
     /**
      * Returns the awards
      *
-     * @return \string $awards
+     * @return string $awards
      */
-    public function getAwards()
+    public function getAwards(): string
     {
         return $this->awards;
     }
@@ -466,11 +279,9 @@ class Persons extends AbstractEntity
     /**
      * Sets the awards
      *
-     * @param \string $awards
-     *
-     * @return void
+     * @param string $awards
      */
-    public function setAwards($awards)
+    public function setAwards(string $awards): void
     {
         $this->awards = $awards;
     }
@@ -478,9 +289,9 @@ class Persons extends AbstractEntity
     /**
      * Returns the publications
      *
-     * @return \string $publications
+     * @return string $publications
      */
-    public function getPublications()
+    public function getPublications(): string
     {
         return $this->publications;
     }
@@ -488,64 +299,10 @@ class Persons extends AbstractEntity
     /**
      * Sets the publications
      *
-     * @param \string $publications
-     *
-     * @return void
+     * @param string $publications
      */
-    public function setPublications($publications)
+    public function setPublications(string $publications): void
     {
         $this->publications = $publications;
     }
-
-    /**
-     * Returns the relations
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\Relations> $relations
-     */
-    public function getRelations()
-    {
-        $relationsRepository = GeneralUtility::makeInstance(RelationsRepository::class);
-        $symmetricRelations = $relationsRepository->findByPersonSymmetric($this);
-        if ($symmetricRelations) {
-            foreach ($symmetricRelations as $symmetricRelation) {
-                $this->relations->attach($symmetricRelation);
-            }
-        }
-        return $this->relations;
-    }
-
-    /**
-     * Sets the relations
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\Relations> $relations
-     *
-     * @return void
-     */
-    public function setRelations($relations)
-    {
-        $this->relations = $relations;
-    }
-
-    /**
-     * Returns the categories
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\Categories> $categories
-     */
-    public function getCategories()
-    {
-        return $this->categories;
-    }
-
-    /**
-     * Sets the categories
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\Categories> $categories
-     *
-     * @return void
-     */
-    public function setCategories($categories)
-    {
-        $this->categories = $categories;
-    }
-
 }

@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Domain\Model;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,100 +24,26 @@ namespace Digicademy\Academy\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+namespace Digicademy\Academy\Domain\Model;
+
+use Digicademy\Academy\Domain\Model\Traits\{
+    DescriptionTrait,
+    PersistentIdentifierTrait,
+    TitleTrait
+};
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+
+/**
+ * Represents a role in a relation between CRIS entities
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
+ * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
+ */
 
 class Roles extends AbstractEntity
 {
-
-    /**
-     * persistentIdentifier
-     *
-     * @var string
-     *
-     * @Extbase\Validate("NotEmpty")
-     */
-    protected $persistentIdentifier;
-
-    /**
-     * The title of the role
-     *
-     * @var string $title
-     * @Extbase\Validate("NotEmpty")
-     */
-    protected $title;
-
-    /**
-     * A description of the role
-     *
-     * @var string $description
-     */
-    protected $description;
-
-    /**
-     * Returns the persistentIdentifier
-     *
-     * @return string $persistentIdentifier
-     */
-    public function getPersistentIdentifier()
-    {
-        return $this->persistentIdentifier;
-    }
-
-    /**
-     * Sets the persistentIdentifier
-     *
-     * @param string $persistentIdentifier
-     *
-     * @return void
-     */
-    public function setPersistentIdentifier($persistentIdentifier)
-    {
-        $this->persistentIdentifier = $persistentIdentifier;
-    }
-
-    /**
-     * Returns the title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Sets the title
-     *
-     * @param $title
-     * @return void
-     *
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * Returns the description
-     *
-     * @return string $description
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Sets the description
-     *
-     * @param string $description
-     *
-     * @return void
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
-
+    use DescriptionTrait;
+    use PersistentIdentifierTrait;
+    use TitleTrait;
 }

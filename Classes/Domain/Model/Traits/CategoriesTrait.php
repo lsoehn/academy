@@ -3,7 +3,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2024 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -24,28 +24,46 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-namespace Digicademy\Academy\Domain\Model;
+namespace Digicademy\Academy\Domain\Model\Traits;
 
-use Digicademy\Academy\Domain\Model\Traits\{
-    FreeTextTrait,
-    ParentTrait,
-    TypeTrait,
-    ValueTrait
-};
-use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
+use Digicademy\Academy\Domain\Model\Categories;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
- * Represents an hCard url
+ * Provides all necessary variables and methods for handling model categories
+ * properties.
  *
- * @author Torsten Schrade <torsten.schrade@adwmainz.de>
  * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
  * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
  */
-
-class HcardsUrl extends AbstractValueObject
+trait CategoriesTrait
 {
-    use FreeTextTrait;
-    use ParentTrait;
-    use TypeTrait;
-    use ValueTrait;
+    /**
+     * Selected categories for the medium
+     *
+     * @var ObjectStorage<Categories>
+     * @Lazy
+     */
+    protected ObjectStorage $categories;
+
+    /**
+     * Returns the categories
+     *
+     * @return ObjectStorage<Categories>
+     */
+    public function getCategories(): ObjectStorage
+    {
+        return $this->categories;
+    }
+
+    /**
+     * Sets the categories
+     *
+     * @param ObjectStorage<Categories> $categories
+     */
+    public function setCategories(ObjectStorage $categories): void
+    {
+        $this->categories = $categories;
+    }
 }

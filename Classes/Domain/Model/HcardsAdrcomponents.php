@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Domain\Model;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,96 +24,26 @@ namespace Digicademy\Academy\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+namespace Digicademy\Academy\Domain\Model;
+
+use Digicademy\Academy\Domain\Model\Traits\{
+    ParentTrait,
+    TypeTrait,
+    ValueTrait
+};
 use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
+
+/**
+ * Represents an hCard address component like street, zip, etc.
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
+ * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
+ */
 
 class HcardsAdrcomponents extends AbstractValueObject
 {
-
-    /**
-     * The label of the address
-     *
-     * @var \integer $parent
-     */
-    protected $parent;
-
-    /**
-     * The type of the address component
-     *
-     * @var \integer $type
-     */
-    protected $type;
-
-    /**
-     * The value of the component
-     *
-     * @var \string $value
-     */
-    protected $value;
-
-    /**
-     * Returns the parent
-     *
-     * @return \integer $parent
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * Sets the parent
-     *
-     * @param \integer $parent
-     *
-     * @return void
-     */
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
-    }
-
-    /**
-     * Returns the type
-     *
-     * @return \integer $type
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Sets the type
-     *
-     * @param \integer $type
-     *
-     * @return void
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * Returns the value
-     *
-     * @return \string $value
-     */
-    public function getValue(): string
-    {
-        return $this->value;
-    }
-
-    /**
-     * Sets the value
-     *
-     * @param \string $value
-     *
-     * @return void
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
+    use ParentTrait;
+    use TypeTrait;
+    use ValueTrait;
 }

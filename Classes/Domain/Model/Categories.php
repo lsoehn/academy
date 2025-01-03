@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Domain\Model;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,39 +24,20 @@ namespace Digicademy\Academy\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Extbase\Annotation as Extbase;
-use \TYPO3\CMS\Extbase\Domain\Model\Category;
+namespace Digicademy\Academy\Domain\Model;
+
+use Digicademy\Academy\Domain\Model\Traits\PersistentIdentifierTrait;
+use TYPO3\CMS\Extbase\Domain\Model\Category;
+
+/**
+ * Represents a category for a CRIS entity
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
+ * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
+ */
 
 class Categories extends Category
 {
-    /**
-     * persistentIdentifier
-     *
-     * @var \string
-     *
-     * @Extbase\Validate("NotEmpty")
-     */
-    protected $persistentIdentifier;
-
-    /**
-     * Returns the persistentIdentifier
-     *
-     * @return \string $persistentIdentifier
-     */
-    public function getPersistentIdentifier()
-    {
-        return $this->persistentIdentifier;
-    }
-
-    /**
-     * Sets the persistentIdentifier
-     *
-     * @param \string $persistentIdentifier
-     *
-     * @return void
-     */
-    public function setPersistentIdentifier($persistentIdentifier)
-    {
-        $this->persistentIdentifier = $persistentIdentifier;
-    }
+    use PersistentIdentifierTrait;
 }

@@ -3,7 +3,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2024 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -24,28 +24,41 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-namespace Digicademy\Academy\Domain\Model;
-
-use Digicademy\Academy\Domain\Model\Traits\{
-    FreeTextTrait,
-    ParentTrait,
-    TypeTrait,
-    ValueTrait
-};
-use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
+namespace Digicademy\Academy\Domain\Model\Traits;
 
 /**
- * Represents an hCard url
+ * Provides all necessary variables and methods for handling model display type
+ * properties.
  *
- * @author Torsten Schrade <torsten.schrade@adwmainz.de>
  * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
  * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
  */
-
-class HcardsUrl extends AbstractValueObject
+trait PageTrait
 {
-    use FreeTextTrait;
-    use ParentTrait;
-    use TypeTrait;
-    use ValueTrait;
+    /**
+     * A page where details about the object can be found
+     *
+     * @var int $page
+     */
+    protected int $page;
+
+    /**
+     * Returns the page
+     *
+     * @return int $page
+     */
+    public function getPage(): int
+    {
+        return $this->page;
+    }
+
+    /**
+     * Sets the page
+     *
+     * @param int $page
+     */
+    public function setPage(int $page): void
+    {
+        $this->page = $page;
+    }
 }

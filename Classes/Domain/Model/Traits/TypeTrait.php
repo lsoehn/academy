@@ -3,7 +3,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2024 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -24,28 +24,44 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-namespace Digicademy\Academy\Domain\Model;
+namespace Digicademy\Academy\Domain\Model\Traits;
 
-use Digicademy\Academy\Domain\Model\Traits\{
-    FreeTextTrait,
-    ParentTrait,
-    TypeTrait,
-    ValueTrait
-};
-use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 
 /**
- * Represents an hCard url
+ * Provides all necessary variables and methods for handling model display type
+ * properties.
  *
- * @author Torsten Schrade <torsten.schrade@adwmainz.de>
  * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
  * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
  */
-
-class HcardsUrl extends AbstractValueObject
+trait TypeTrait
 {
-    use FreeTextTrait;
-    use ParentTrait;
-    use TypeTrait;
-    use ValueTrait;
+    /**
+     * Type of the object
+     *
+     * @var int $type
+     * @Validate("NotEmpty")
+     */
+    protected int $type;
+
+    /**
+     * Returns the type
+     *
+     * @return int $type
+     */
+    public function getType(): int
+    {
+        return $this->type;
+    }
+
+    /**
+     * Sets the type
+     *
+     * @param int $type
+     */
+    public function setType(int $type): void
+    {
+        $this->type = $type;
+    }
 }

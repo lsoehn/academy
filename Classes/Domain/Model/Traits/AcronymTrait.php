@@ -3,7 +3,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2024 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -24,28 +24,41 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-namespace Digicademy\Academy\Domain\Model;
-
-use Digicademy\Academy\Domain\Model\Traits\{
-    FreeTextTrait,
-    ParentTrait,
-    TypeTrait,
-    ValueTrait
-};
-use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
+namespace Digicademy\Academy\Domain\Model\Traits;
 
 /**
- * Represents an hCard url
+ * Provides all necessary variables and methods for handling model acronym
+ * properties.
  *
- * @author Torsten Schrade <torsten.schrade@adwmainz.de>
  * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
  * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
  */
-
-class HcardsUrl extends AbstractValueObject
+trait AcronymTrait
 {
-    use FreeTextTrait;
-    use ParentTrait;
-    use TypeTrait;
-    use ValueTrait;
+    /**
+     * An acronym for the object
+     *
+     * @var string $acronym
+     */
+    protected string $acronym;
+
+    /**
+     * Returns the acronym
+     *
+     * @return string $acronym
+     */
+    public function getAcronym(): string
+    {
+        return $this->acronym;
+    }
+
+    /**
+     * Sets the acronym
+     *
+     * @param string $acronym
+     */
+    public function setAcronym(string $acronym): void
+    {
+        $this->acronym = $acronym;
+    }
 }

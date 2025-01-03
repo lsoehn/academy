@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Domain\Model;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,69 +24,50 @@ namespace Digicademy\Academy\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+namespace Digicademy\Academy\Domain\Model;
+
+use Digicademy\Academy\Domain\Model\Traits\{
+    LabelTrait,
+    TypeTrait
+};
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
+/**
+ * Represents an hCard address (postal, po, etc.)
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
+ * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
+ */
 
 class HcardsAdr extends AbstractValueObject
 {
-
-    /**
-     * The label of the address
-     *
-     * @var \string $label
-     */
-    protected $label;
+    use LabelTrait;
+    use TypeTrait;
 
     /**
      * The name of the organisation
      *
-     * @var \string $org
+     * @var string $org
      */
-    protected $org;
-
-    /**
-     * The type of the address
-     *
-     * @var \integer $type
-     */
-    protected $type;
+    protected string $org;
 
     /**
      * Address components
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\HcardsAdrcomponents>
-     * @Extbase\ORM\Lazy
+     * @var ObjectStorage<HcardsAdrcomponents>
+     * @Lazy
      */
-    protected $adrcomponents = null;
-
-    /**
-     * Returns the label
-     *
-     * @return \string $label
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    /**
-     * Sets the label
-     *
-     * @param \string $label
-     *
-     * @return void
-     */
-    public function setLabel($label)
-    {
-        $this->label = $label;
-    }
+    protected ObjectStorage $adrcomponents;
 
     /**
      * Returns the org
      *
-     * @return \string $org
+     * @return string $org
      */
-    public function getOrg()
+    public function getOrg(): string
     {
         return $this->org;
     }
@@ -96,43 +75,19 @@ class HcardsAdr extends AbstractValueObject
     /**
      * Sets the org
      *
-     * @param \string $org
-     *
-     * @return void
+     * @param string $org
      */
-    public function setOrg($org)
+    public function setOrg(string $org): void
     {
         $this->org = $org;
     }
 
     /**
-     * Returns the type
-     *
-     * @return \integer $type
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Sets the type
-     *
-     * @param \integer $type
-     *
-     * @return void
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
      * Returns the address components
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\HcardsAdrcomponents> $adrcomponents
+     * @return ObjectStorage<HcardsAdrcomponents>
      */
-    public function getAdrcomponents()
+    public function getAdrcomponents(): ObjectStorage
     {
         return $this->adrcomponents;
     }
@@ -140,11 +95,9 @@ class HcardsAdr extends AbstractValueObject
     /**
      * Sets the address components
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\HcardsAdrcomponents> $adrcomponents
-     *
-     * @return void
+     * @param ObjectStorage<HcardsAdrcomponents> $adrcomponents
      */
-    public function setAdrcomponents($adrcomponents)
+    public function setAdrcomponents(ObjectStorage $adrcomponents): void
     {
         $this->adrcomponents = $adrcomponents;
     }

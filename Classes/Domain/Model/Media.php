@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Domain\Model;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,75 +24,50 @@ namespace Digicademy\Academy\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Digicademy\Academy\Domain\Repository\RelationsRepository;
-use Digicademy\ChfTime\Domain\Model\DateRanges;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+namespace Digicademy\Academy\Domain\Model;
+
+use Digicademy\Academy\Domain\Model\Traits\{
+    CategoriesTrait,
+    DescriptionTrait,
+    ImageTrait,
+    PersistentIdentifierTrait,
+    RelationsTrait,
+    SlugTrait,
+    TitleTrait,
+    TypeTrait
+};
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
+/**
+ * Represents a CRIS medium like scientific videos, audios, documents etc.
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
+ * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
+ */
 
 class Media extends AbstractEntity
 {
+    use CategoriesTrait;
+    use DescriptionTrait;
+    use ImageTrait;
+    use PersistentIdentifierTrait;
+    use RelationsTrait;
+    use TitleTrait;
+    use SlugTrait;
+    use TypeTrait;
+
+    protected const RELATIONS_CRITERION = 'medium_symmetric';
 
     /**
-     * persistentIdentifier
+     * Creation date of the media object
      *
-     * @var string
-     *
-     * @Extbase\Validate("NotEmpty")
-     */
-    protected $persistentIdentifier;
-
-    /**
-     * Display type of the media object
-     *
-     * @var integer $type
-     */
-    protected $type;
-
-    /**
-     * Creation date of the typo3 record
-     *
-     * @var integer $crdate
+     * @var int $crdate
      */
     protected $crdate;
-
-    /**
-     * The title of the medium
-     *
-     * @var string $title
-     * @Extbase\Validate("NotEmpty")
-     */
-    protected $title;
-
-    /**
-     * A description of the mediums scientific activities
-     *
-     * @var string $description
-     */
-    protected $description;
-
-    /**
-     * Creation date of the medium
-     *
-     * @var DateRanges $dateRange
-     */
-    protected $dateRange = null;
-
-    /**
-     * @var string $slug
-     */
-    protected $slug;
-
-    /**
-     * Images
-     *
-     * @var ObjectStorage<FileReference>
-     * @Extbase\ORM\Lazy
-     */
-    protected $image = null;
 
     /**
      * Files
@@ -102,7 +75,7 @@ class Media extends AbstractEntity
      * @var ObjectStorage<FileReference>
      * @Extbase\ORM\Lazy
      */
-    protected $files = null;
+    protected $files;
 
     /**
      * File collections
@@ -110,74 +83,14 @@ class Media extends AbstractEntity
      * @var ObjectStorage<FileCollection>
      * @Extbase\ORM\Lazy
      */
-    protected $collections = null;
-
-    /**
-     * Relations of the medium with persons, events, news, media etc.
-     *
-     * @var ObjectStorage<Relations>
-     * @Extbase\ORM\Lazy
-     */
-    protected $relations = null;
-
-    /**
-     * Selected categories for the medium
-     *
-     * @var ObjectStorage<Categories>
-     * @Extbase\ORM\Lazy
-     */
-    protected $categories = null;
-
-    /**
-     * Returns the persistentIdentifier
-     *
-     * @return string $persistentIdentifier
-     */
-    public function getPersistentIdentifier()
-    {
-        return $this->persistentIdentifier;
-    }
-
-    /**
-     * Sets the persistentIdentifier
-     *
-     * @param string $persistentIdentifier
-     *
-     * @return void
-     */
-    public function setPersistentIdentifier($persistentIdentifier)
-    {
-        $this->persistentIdentifier = $persistentIdentifier;
-    }
-
-    /**
-     * Returns the type
-     *
-     * @return integer $type
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Sets the type
-     *
-     * @param integer $type
-     *
-     * @return void
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
+    protected $collections;
 
     /**
      * Returns the crdate
      *
-     * @return integer $crdate
+     * @return int $crdate
      */
-    public function getCrdate()
+    public function getCrdate(): int
     {
         return $this->crdate;
     }
@@ -185,123 +98,11 @@ class Media extends AbstractEntity
     /**
      * Sets the crdate
      *
-     * @param integer $crdate
-     *
-     * @return void
+     * @param int $crdate
      */
-    public function setCrdate($crdate)
+    public function setCrdate(int $crdate): void
     {
         $this->crdate = $crdate;
-    }
-
-    /**
-     * Returns the title
-     *
-     * @return string $title
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Sets the title
-     *
-     * @param string $title
-     *
-     * @return void
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * Returns the description
-     *
-     * @return string $description
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Sets the description
-     *
-     * @param string $description
-     *
-     * @return void
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * Returns the dateRange
-     *
-     * @return DateRanges $dateRange
-     */
-    public function getDateRange()
-    {
-        return $this->dateRange;
-    }
-
-    /**
-     * Sets the dateRange
-     *
-     * @param DateRanges $dateRange
-     *
-     * @return void
-     */
-    public function setDateRange(DateRanges $dateRange)
-    {
-        $this->dateRange = $dateRange;
-    }
-
-    /**
-     * Returns the slug
-     *
-     * @return string $slug
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Sets the slug
-     *
-     * @param string $slug
-     *
-     * @return void
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    }
-
-    /**
-     * Returns the image
-     *
-     * @return ObjectStorage<FileReference> $image
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * Sets the image
-     *
-     * @param ObjectStorage<FileReference> $image
-     *
-     * @return void
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
     }
 
     /**
@@ -318,10 +119,8 @@ class Media extends AbstractEntity
      * Sets the files
      *
      * @param ObjectStorage<FileReference> $files
-     *
-     * @return void
      */
-    public function setFiles($files)
+    public function setFiles($files): void
     {
         $this->files = $files;
     }
@@ -340,63 +139,9 @@ class Media extends AbstractEntity
      * Sets the collections
      *
      * @param ObjectStorage<FileCollection> $collections
-     *
-     * @return void
      */
-    public function setCollections($collections)
+    public function setCollections($collections): void
     {
         $this->collections = $collections;
     }
-
-    /**
-     * Returns the relations
-     *
-     * @return ObjectStorage<Relations> $relations
-     */
-    public function getRelations()
-    {
-        $relationsRepository = GeneralUtility::makeInstance(RelationsRepository::class);
-        $symmetricRelations = $relationsRepository->findByMediumSymmetric($this);
-        if ($symmetricRelations) {
-            foreach ($symmetricRelations as $symmetricRelation) {
-                $this->relations->attach($symmetricRelation);
-            }
-        }
-        return $this->relations;
-    }
-
-    /**
-     * Sets the relations
-     *
-     * @param ObjectStorage<Relations> $relations
-     *
-     * @return void
-     */
-    public function setRelations($relations)
-    {
-        $this->relations = $relations;
-    }
-
-    /**
-     * Returns the categories
-     *
-     * @return ObjectStorage<Categories> $categories
-     */
-    public function getCategories()
-    {
-        return $this->categories;
-    }
-
-    /**
-     * Sets the categories
-     *
-     * @param ObjectStorage<Categories> $categories
-     *
-     * @return void
-     */
-    public function setCategories($categories)
-    {
-        $this->categories = $categories;
-    }
-
 }

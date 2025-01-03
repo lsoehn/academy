@@ -3,7 +3,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2024 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -24,28 +24,44 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-namespace Digicademy\Academy\Domain\Model;
+namespace Digicademy\Academy\Domain\Model\Traits;
 
-use Digicademy\Academy\Domain\Model\Traits\{
-    FreeTextTrait,
-    ParentTrait,
-    TypeTrait,
-    ValueTrait
-};
-use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
+use GeorgRinger\News\Domain\Model\TtContent;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
- * Represents an hCard url
+ * Provides all necessary variables and methods for handling model image
+ * properties.
  *
- * @author Torsten Schrade <torsten.schrade@adwmainz.de>
  * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
  * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
  */
-
-class HcardsUrl extends AbstractValueObject
+trait ContentElementsTrait
 {
-    use FreeTextTrait;
-    use ParentTrait;
-    use TypeTrait;
-    use ValueTrait;
+    /**
+     * Additional free text information about an object
+     *
+     * @var ObjectStorage<TtContent>
+     */
+    protected ObjectStorage $contentElements;
+
+    /**
+     * Get content elements
+     *
+     * @return ObjectStorage
+     */
+    public function getContentElements(): ObjectStorage
+    {
+        return $this->contentElements;
+    }
+
+    /**
+     * Set content element list
+     *
+     * @param ObjectStorage $contentElements
+     */
+    public function setContentElements(ObjectStorage $contentElements): void
+    {
+        $this->contentElements = $contentElements;
+    }
 }

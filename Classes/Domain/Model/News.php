@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Domain\Model;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,50 +24,48 @@ namespace Digicademy\Academy\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Digicademy\Academy\Domain\Repository\RelationsRepository;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+namespace Digicademy\Academy\Domain\Model;
+
+use Digicademy\Academy\Domain\Model\Traits\RelationsTrait;
+use Exception;
 use GeorgRinger\News\Domain\Model\News as GeorgRingerNews;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
+/**
+ * Represents news about research activities
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
+ * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
+ */
 
 class News extends GeorgRingerNews
 {
+    use RelationsTrait;
 
-    /**
-     * Relations of the news with persons, projects, events, news, media etc.
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\Relations>
-     */
-    protected $newsRelations = null;
+    protected const RELATIONS_CRITERION = 'news_symmetric';
 
     /**
      * Returns the relations
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\Relations> $newsRelations
+     * @return ObjectStorage<Relations> $newsRelations
+     * @throws Exception
      */
-    public function getNewsRelations()
+    public function getNewsRelations(): ObjectStorage
     {
-        $relationsRepository = GeneralUtility::makeInstance(RelationsRepository::class);
-        $symmetricRelations = $relationsRepository->findByNewsSymmetric($this);
-        if ($symmetricRelations) {
-            foreach ($symmetricRelations as $symmetricRelation) {
-                $this->newsRelations->attach($symmetricRelation);
-            }
-        }
-        return $this->newsRelations;
+        return $this->getRelations();
     }
 
     /**
      * Sets the relations
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\Relations> $newsRelations
+     * For backwards compatibility, we keep this method as a wrapper around the
+     * generic setRelations() method from the Relations trait.
      *
-     * @return void
+     * @param ObjectStorage<Relations> $newsRelations
      */
-    public function setNewsRelations($newsRelations)
+    public function setNewsRelations(ObjectStorage $newsRelations): void
     {
-        $this->newsRelations = $newsRelations;
+        $this->setRelations($newsRelations);
     }
-
 }

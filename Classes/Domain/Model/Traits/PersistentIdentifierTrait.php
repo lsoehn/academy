@@ -24,28 +24,41 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-namespace Digicademy\Academy\Domain\Model;
+namespace Digicademy\Academy\Domain\Model\Traits;
 
-use Digicademy\Academy\Domain\Model\Traits\{
-    FreeTextTrait,
-    ParentTrait,
-    TypeTrait,
-    ValueTrait
-};
-use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 
 /**
- * Represents an hCard url
+ * Provides all necessary variables and methods for handling model persistent
+ * identifier properties.
  *
- * @author Torsten Schrade <torsten.schrade@adwmainz.de>
  * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
  * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
  */
-
-class HcardsUrl extends AbstractValueObject
+trait PersistentIdentifierTrait
 {
-    use FreeTextTrait;
-    use ParentTrait;
-    use TypeTrait;
-    use ValueTrait;
+    /**
+     * @var string
+     */
+    protected string $persistentIdentifier;
+
+    /**
+     * Returns the persistentIdentifier
+     *
+     * @return string $persistentIdentifier
+     */
+    public function getPersistentIdentifier(): string
+    {
+        return $this->persistentIdentifier;
+    }
+
+    /**
+     * Sets the persistentIdentifier
+     *
+     * @param string $persistentIdentifier
+     */
+    public function setPersistentIdentifier(string $persistentIdentifier): void
+    {
+        $this->persistentIdentifier = $persistentIdentifier;
+    }
 }

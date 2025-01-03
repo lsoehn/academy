@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Domain\Model;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,50 +24,52 @@ namespace Digicademy\Academy\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Digicademy\Academy\Domain\Repository\RelationsRepository;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+namespace Digicademy\Academy\Domain\Model;
+
+use Digicademy\Academy\Domain\Model\Traits\RelationsTrait;
 use GeorgRinger\Eventnews\Domain\Model\News as EventNews;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
+use Exception;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
+/**
+ * An event in the research domain (like a conference, workshop,
+ * hackathon etc.)
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
+ * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
+ */
 
 class Events extends EventNews
 {
+    use RelationsTrait;
 
-    /**
-     * Relations of the event with persons, projects, events, news, media etc.
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\Relations>
-     */
-    protected $eventRelations = null;
+    protected const RELATIONS_CRITERION = 'event_symmetric';
 
     /**
      * Returns the relations
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\Relations> $eventRelations
+     * For backwards compatibility, we keep this method as a wrapper around the
+     * generic getRelations() method from the Relations trait.
+     *
+     * @return ObjectStorage<Relations> $eventRelations
+     * @throws Exception
      */
-    public function getEventRelations()
+    public function getEventRelations(): ObjectStorage
     {
-        $relationsRepository = GeneralUtility::makeInstance(RelationsRepository::class);
-        $symmetricRelations = $relationsRepository->findByEventSymmetric($this);
-        if ($symmetricRelations) {
-            foreach ($symmetricRelations as $symmetricRelation) {
-                $this->eventRelations->attach($symmetricRelation);
-            }
-        }
-        return $this->eventRelations;
+        return $this->getRelations();
     }
 
     /**
      * Sets the relations
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Academy\Domain\Model\Relations> $eventRelations
+     * For backwards compatibility, we keep this method as a wrapper around the
+     * generic setRelations() method from the Relations trait.
      *
-     * @return void
+     * @param ObjectStorage<Relations> $eventRelations
      */
-    public function setEventRelations($eventRelations)
+    public function setEventRelations(ObjectStorage $eventRelations): void
     {
-        $this->eventRelations = $eventRelations;
+        $this->setRelations($eventRelations);
     }
-
 }

@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Domain\Model;
-
 /***************************************************************
  *  Copyright notice
  *
- *  Torsten Schrade <Torsten.Schrade@adwmainz.de>
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,6 +24,8 @@ namespace Digicademy\Academy\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+namespace Digicademy\Academy\Domain\Model;
+
 /**
  * A facet in this extension's context is understood as a generic class for
  * filtering objects by certain properties. It can contain categories,
@@ -33,6 +33,10 @@ namespace Digicademy\Academy\Domain\Model;
  * into this class. Facets can be displayed in trees or lists with the FacetService.
  * Therefore, they just consist of an uid, a label, a count (of objects) and
  * a property that indicates if a facet is currently selected or not.
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
+ * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
  */
 
 class Facet
