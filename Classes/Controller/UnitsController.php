@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Controller;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,99 +24,51 @@ namespace Digicademy\Academy\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Digicademy\Academy\Domain\Model\Units;
+namespace Digicademy\Academy\Controller;
+
 use Digicademy\Academy\Domain\Repository\UnitsRepository;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Digicademy\Academy\Service\FacetService;
+use Digicademy\Academy\Service\FilterService;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
-class UnitsController extends ActionController
+/**
+ * Controller for organizational units
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ */
+
+class UnitsController extends EntityController
 {
-
     /**
-     * @var \Digicademy\Academy\Domain\Repository\UnitsRepository
+     * @var UnitsRepository
      */
-    protected $unitsRepository;
+    protected UnitsRepository $unitsRepository;
 
     /**
-     * Use constructor DI and not (at)inject
-     *
-     * @see: https://gist.github.com/NamelessCoder/3b2e5931a6c1af19f9c3f8b46e74f837
-     *
-     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
-     * @param \Digicademy\Academy\Domain\Repository\UnitsRepository          $unitsRepository
+     * @param ConfigurationManagerInterface $configurationManager
+     * @param FacetService $facetService
+     * @param FilterService $filterService
+     * @param UnitsRepository $unitsRepository
      */
     public function __construct(
         ConfigurationManagerInterface $configurationManager,
+        FacetService $facetService,
+        FilterService $filterService,
         UnitsRepository $unitsRepository
-    ) {
-        $this->injectConfigurationManager($configurationManager);
+    )
+    {
+        parent::__construct($configurationManager, $facetService, $filterService);
         $this->unitsRepository = $unitsRepository;
     }
 
     /**
-     * Initializes the current action
+     * Returns the repository for the current entity
      *
-     * @return void
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException
+     * @return UnitsRepository
      */
-    public function initializeAction()
+    protected function getRepository(): UnitsRepository
     {
-        switch ($this->actionMethodName) {
-            case 'listAction':
-                if ($this->settings['selectedCategories']) {
-                    $this->request->setArgument('selectedCategories', $this->settings['selectedCategories']);
-                }
-                break;
-
-            case 'showAction':
-                if ($this->settings['selectedUnits']) {
-                    $selectedUnits = GeneralUtility::trimExplode(',', $this->settings['selectedUnits']);
-                    $this->request->setArgument('unit', $selectedUnits[0]);
-                }
-            default:
-                break;
-        }
-    }
-
-    /**
-     * Displays a list of units
-     *
-     * @return void
-     */
-    public function listAction()
-    {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-
-        $units = $this->unitsRepository->findAll();
-
-        $this->view->assign('units', $units);
-    }
-
-    /**
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-     */
-    public function listBySelectionAction()
-    {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-        $units = $this->unitsRepository->findBySelection($this->settings['selectedUnits']);
-        $this->view->assign('units', $units);
-    }
-
-    /**
-     * Displays a unit by uid
-     *
-     * @param \Digicademy\Academy\Domain\Model\Units $unit
-     *
-     * @return void
-     */
-    public function showAction(Units $unit)
-    {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-        $this->view->assign('unit', $unit);
+        return $this->unitsRepository;
     }
 
 }
