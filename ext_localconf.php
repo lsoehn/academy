@@ -1,4 +1,5 @@
 <?php
+
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use Digicademy\Academy\Controller\SearchController;
 use Digicademy\Academy\Controller\EntityController;
@@ -27,6 +28,7 @@ ExtensionUtility::configurePlugin(
         ProductsController::class => 'list,filter,show',
         ServicesController::class => 'list,filter,show',
         PublicationsController::class => 'list,filter,show',
+        HcardsController::class => 'list,filter,show',
     ],
     [
         PersonsController::class => 'filter',
@@ -36,6 +38,7 @@ ExtensionUtility::configurePlugin(
         ProductsController::class => 'filter',
         ServicesController::class => 'filter',
         PublicationsController::class => 'filter',
+        HcardsController::class => 'filter',
     ],
 );
 
@@ -51,6 +54,7 @@ ExtensionUtility::configurePlugin(
         ProductsController::class => 'show',
         ServicesController::class => 'show',
         PublicationsController::class => 'show',
+        HcardsController::class => 'show',
     ],
     [],
 );

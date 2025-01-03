@@ -37,6 +37,9 @@
 			<trans-unit id="plugin.entityType.publications" resname="plugin.entityType.publications" >
 				<source>Publications</source>
 			</trans-unit>
+			<trans-unit id="plugin.entityType.hcards" resname="plugin.entityType.hcards" >
+				<source>Contact Information</source>
+			</trans-unit>
 			<trans-unit id="plugin.filters.selectedEntities" resname="plugin.filters.selectedEntities" >
 				<source>Display selected entities</source>
 			</trans-unit>

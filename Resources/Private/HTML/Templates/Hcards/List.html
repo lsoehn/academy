@@ -1,0 +1,15 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:a="Digicademy\Academy\ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:if condition="{hcards}">
+    <f:for each="{hcards}" as="hcard">
+        <div class="cris-hcard" id="cris-hcard-{hcard.uid}">
+            <h2>
+                {hcard.label}
+            </h2>
+        </div>
+    </f:for>
+</f:if>
+
+</html>

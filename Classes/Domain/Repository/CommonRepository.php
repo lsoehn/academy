@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Domain\Repository;
-
 /***************************************************************
  *  Copyright notice
  *
- *  Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,10 +24,19 @@ namespace Digicademy\Academy\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+namespace Digicademy\Academy\Domain\Repository;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class CommonRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+/**
+ * A repository with common find methods for all CRIS entities
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ */
+
+class CommonRepository extends Repository
 {
 
     /**
@@ -140,7 +147,6 @@ class CommonRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         if (array_key_exists('selectedEntities', $filters) && $filters['selectedEntities']) {
             $innerConstraints = [];
             $selectedEntities = preg_replace('/tx_academy_domain_model_.*?_/','', $filters['selectedEntities']);
-
             $selectedEntities = GeneralUtility::trimExplode(',', $selectedEntities);
             foreach ($selectedEntities as $selectedEntity) {
                 $innerConstraints[] = $query->equals('uid', $selectedEntity);

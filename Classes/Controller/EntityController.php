@@ -1,10 +1,9 @@
 <?php
-namespace Digicademy\Academy\Controller;
 
 /***************************************************************
  *  Copyright notice
  *
- *  Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -25,6 +24,8 @@ namespace Digicademy\Academy\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+namespace Digicademy\Academy\Controller;
+
 use Digicademy\Academy\Service\FacetService;
 use Digicademy\Academy\Service\FilterService;
 use Psr\Http\Message\ResponseInterface;
@@ -36,6 +37,13 @@ use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Exception;
+
+/**
+ * A controller of the academy_list and academy_show plugin with actions
+ * common to all controlled entities.
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ */
 
 class EntityController extends ActionController
 {
@@ -93,15 +101,15 @@ class EntityController extends ActionController
      */
     public function routeAction(): ResponseInterface
     {
-        if (!$this->settings['entityType']) {
+        $controllerName = $this->settings['entityType'];
+        if (!$controllerName) {
             throw new Exception('You need to set an entity type in the plugin configuration', 1735538304);
         }
+        $actionName = strtolower($this->request->getPluginName());
 
         $arguments = $this->request->getArguments();
 
-        $action = strtolower($this->request->getPluginName());
-
-        if ($action == 'show' && array_key_exists('filters', $this->settings) &&
+        if ($actionName == 'show' && array_key_exists('filters', $this->settings) &&
             array_key_exists('selectedEntities', $this->settings['filters']) &&
             $this->settings['filters']['selectedEntities'] !== null
         ) {
@@ -109,11 +117,12 @@ class EntityController extends ActionController
                 $this->settings['filters'],
                 ['selectedEntities']
             );
-            $arguments['project'] = $this->settings['filters']['selectedEntities'][0];
+
+            $arguments['uid'] = $this->settings['filters']['selectedEntities'][0];
         }
 
-        return (new ForwardResponse($action))
-            ->withControllerName($this->settings['entityType'])
+        return (new ForwardResponse($actionName))
+            ->withControllerName($controllerName)
             ->withArguments($arguments);
     }
 
@@ -155,11 +164,12 @@ class EntityController extends ActionController
 
         // get list of projects
         if ($filters['selectedCategories'] || $filters['selectedEntities'] || $filters['selectedRoles']) {
-            $projects = $this->getRepository()->findByFilters($filters);
+            $entities = $this->getRepository()->findByFilters($filters);
         } else {
-            $projects = $this->getRepository()->findAll();
+            $entities = $this->getRepository()->findAll();
         }
-        $this->view->assign('projects', $projects);
+
+        $this->view->assign(strtolower($this->settings['entityType']), $entities);
 
         return $this->htmlResponse();
     }
@@ -216,6 +226,32 @@ class EntityController extends ActionController
         $arguments['filters'] = $this->filterService->finalizeFilters($arguments['filters']);
 
         return (new ForwardResponse('list'))->withArguments($arguments);
+    }
+
+    /**
+     * @param int $uid
+     *
+     * @return ResponseInterface
+     */
+    public function showAction(int $uid): ResponseInterface
+    {
+        $arguments = $this->request->getArguments();
+        $this->view->assign('arguments', $arguments);
+
+        $settings = $this->settings;
+        $this->view->assign('settings', $settings);
+
+        /** @var ContentObjectRenderer $contentObject */
+        $plugin = $this->request->getAttribute('currentContentObject')->data;
+        $this->view->assign('plugin', $plugin);
+
+        // Dynamically fetch the entity using the generic repository
+        $entity = $this->getRepository()->findByUid($uid);
+
+        $varName = substr(strtolower($this->settings['entityType']), 0, -1);
+        $this->view->assign($varName, $entity);
+
+        return $this->htmlResponse();
     }
 
 }

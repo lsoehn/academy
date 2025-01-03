@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Controller;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,62 +24,53 @@ namespace Digicademy\Academy\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+namespace Digicademy\Academy\Controller;
+
+use Digicademy\Academy\Service\FacetService;
+use Digicademy\Academy\Service\FilterService;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use Digicademy\Academy\Domain\Repository\HcardsRepository;
 
-class HcardsController extends ActionController
+/**
+ * Controller for contact information (hCards)
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ */
+
+class HcardsController extends EntityController
 {
-
     /**
-     * @var \Digicademy\Academy\Domain\Repository\HcardsRepository
+     * @var HcardsRepository
      */
-    protected $hcardsRepository;
+    protected HcardsRepository $hcardsRepository;
 
     /**
-     * Use constructor DI and not (at)inject
-     * @see: https://gist.github.com/NamelessCoder/3b2e5931a6c1af19f9c3f8b46e74f837
+     * Constructor for dependency injection
      *
-     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface    $configurationManager
-     * @param \Digicademy\Academy\Domain\Repository\HcardsRepository            $hcardsRepository
+     * @param ConfigurationManagerInterface $configurationManager
+     * @param FacetService $facetService
+     * @param FilterService $filterService
+     * @param HcardsRepository $hcardsRepository
      */
     public function __construct(
         ConfigurationManagerInterface $configurationManager,
+        FacetService $facetService,
+        FilterService $filterService,
         HcardsRepository $hcardsRepository
     )
     {
-        $this->injectConfigurationManager($configurationManager);
+        parent::__construct($configurationManager, $facetService, $filterService);
         $this->hcardsRepository = $hcardsRepository;
     }
 
     /**
-     * Initializes the current action
+     * Returns the repository for the current entity
      *
-     * @return void
+     * @return HcardsRepository
      */
-    public function initializeAction()
+    protected function getRepository(): HcardsRepository
     {
-        if ($this->settings['selectedHcards']) {
-            $this->request->setArgument('selectedHcards', $this->settings['selectedHcards']);
-        }
-    }
-
-    /**
-     * Displays hcards by their uid
-     *
-     * @return void
-     */
-    public function listSelectedAction()
-    {
-        $selectedHcardsArray = GeneralUtility::trimExplode(',', $this->request->getArgument('selectedHcards'));
-        $selectedHcards = $this->objectManager->get(ObjectStorage::class);
-        foreach ($selectedHcardsArray as $selectedHcard) {
-            $selectedHcards->attach($this->hcardsRepository->findByUid($selectedHcard));
-        }
-        $this->view->assign('selectedHcards', $selectedHcards);
-        $this->view->assign('arguments', $this->request->getArguments());
+        return $this->hcardsRepository;
     }
 
 }

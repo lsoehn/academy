@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Domain\Repository;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,11 +24,17 @@ namespace Digicademy\Academy\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+namespace Digicademy\Academy\Domain\Repository;
+
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+
+/**
+ * The repository for hCards
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ */
 
 class HcardsRepository extends CommonRepository
 {
-
     protected $defaultOrderings = array('label' => QueryInterface::ORDER_ASCENDING);
-
 }

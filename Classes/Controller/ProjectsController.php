@@ -1,10 +1,9 @@
 <?php
-namespace Digicademy\Academy\Controller;
 
 /***************************************************************
  *  Copyright notice
  *
- *  Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -25,14 +24,18 @@ namespace Digicademy\Academy\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+namespace Digicademy\Academy\Controller;
+
 use Digicademy\Academy\Service\FacetService;
 use Digicademy\Academy\Service\FilterService;
-use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use Digicademy\Academy\Controller\EntityController;
 use Digicademy\Academy\Domain\Repository\ProjectsRepository;
-use Digicademy\Academy\Domain\Model\Projects;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+
+/**
+ * Controller for research projects
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ */
 
 class ProjectsController extends EntityController
 {
@@ -68,30 +71,6 @@ class ProjectsController extends EntityController
     protected function getRepository(): ProjectsRepository
     {
         return $this->projectsRepository;
-    }
-
-    /**
-     * Displays a single project
-     *
-     * @param Projects $project
-     *
-     * @return ResponseInterface
-     */
-    public function showAction(Projects $project): ResponseInterface
-    {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-
-        $settings = $this->settings;
-        $this->view->assign('settings', $settings);
-
-        /** @var ContentObjectRenderer $contentObject */
-        $plugin = $this->request->getAttribute('currentContentObject')->data;
-        $this->view->assign('plugin', $plugin);
-
-        $this->view->assign('project', $project);
-
-        return $this->htmlResponse();
     }
 
 }
