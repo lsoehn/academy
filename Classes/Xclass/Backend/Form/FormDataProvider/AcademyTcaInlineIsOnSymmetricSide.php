@@ -38,12 +38,20 @@ class AcademyTcaInlineIsOnSymmetricSide extends TcaInlineIsOnSymmetricSide
                 || (is_array($result['databaseRow'][$result['inlineParentConfig']['symmetric_field']][0])
                     && $result['inlineParentUid'] == $result['databaseRow'][$result['inlineParentConfig']['symmetric_field']][0]['uid']));
 */
-        $result['isOnSymmetricSide'] = MathUtility::canBeInterpretedAsInteger($result['databaseRow']['uid'])
-            && ($result['inlineParentConfig']['symmetric_field'] ?? false)
-            // non-strict comparison by intention
-            && ($result['inlineParentUid'] == $result['databaseRow'][$result['inlineParentConfig']['symmetric_field']]
-                || (is_array($result['databaseRow'][$result['inlineParentConfig']['symmetric_field']])
-                    && $result['inlineParentUid'] == $result['databaseRow'][$result['inlineParentConfig']['symmetric_field']][0]['uid']));
+        // avoid fatal errors due to illegal array key access in PHP 8.3 >
+        $result['isOnSymmetricSide'] =
+            MathUtility::canBeInterpretedAsInteger($result['databaseRow']['uid']) &&
+            ($result['inlineParentConfig']['symmetric_field'] ?? false) &&
+            (
+                is_array($result['databaseRow'][$result['inlineParentConfig']['symmetric_field']] ?? null) &&
+                (
+                    ($result['inlineParentUid'] == ($result['databaseRow'][$result['inlineParentConfig']['symmetric_field']][0] ?? null)) ||
+                    (
+                        isset($result['databaseRow'][$result['inlineParentConfig']['symmetric_field']][0]['uid']) &&
+                        $result['inlineParentUid'] == $result['databaseRow'][$result['inlineParentConfig']['symmetric_field']][0]['uid']
+                    )
+                )
+            );
 
         return $result;
     }
