@@ -29,8 +29,7 @@ namespace Digicademy\Academy\Domain\Model\Traits;
 use Digicademy\ChfTime\Domain\Model\DateRanges;
 
 /**
- * Provides all necessary variables and methods for handling model categories
- * properties.
+ * Provides all necessary variables and methods for handling date ranges
  *
  * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
  * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
@@ -41,16 +40,21 @@ trait DateRangeTrait
      * Relevant date range for an objet, e.g., life span of a person,
      * duration of a project etc.
      *
-     * @var DateRanges $dateRange
+     * @TODO: team reminder - it is possible that no dateRange exists for
+     * a given entity. In this case (and when implemented in a trait) we
+     * fatal in the class implementing the trait. We have to allow null here
+     * to avoid this.
+     *
+     * @var DateRanges|null $dateRange
      */
-    protected DateRanges $dateRange;
+    protected ?DateRanges $dateRange;
 
     /**
      * Returns the dateRange
      *
-     * @return DateRanges $dateRange
+     * @return DateRanges|null $dateRange
      */
-    public function getDateRange(): DateRanges
+    public function getDateRange(): ?DateRanges
     {
         return $this->dateRange;
     }
@@ -58,9 +62,9 @@ trait DateRangeTrait
     /**
      * Sets the dateRange
      *
-     * @param DateRanges $dateRange
+     * @param DateRanges|null $dateRange
      */
-    public function setDateRange(DateRanges $dateRange): void
+    public function setDateRange(?DateRanges $dateRange): void
     {
         $this->dateRange = $dateRange;
     }

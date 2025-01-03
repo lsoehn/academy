@@ -67,7 +67,10 @@ class Products extends AbstractEntity
     use SortingTrait;
     use TitleTrait;
 
-    protected const RELATIONS_CRITERION = 'product_symmetric';
+    // note: this logic appears not to be needed any more in TYPO3 12.4
+    // symmetric relations seem to be fetched just as asymmetric relations
+    // @TODO Team note: if it was used, it should not contain the database field name but the propertyName
+    // protected const RELATIONS_CRITERION = 'productSymmetric';
 
     /**
      * A version of the product

@@ -38,6 +38,11 @@ use TYPO3\CMS\Extbase\Annotation\Validate;
 trait PersistentIdentifierTrait
 {
     /**
+     * @TODO: Team reminder - we MUST NOT expect a persistent identifier to always exist.
+     * There are projects where this property was never and probably will
+     * never be used strategically (like the ADW-HP). Therefore, notEmpty validation
+     * is dropped from 12.4 onwards (if projects still want to make sure this property exists they
+     * can override and validate it downstream).
      * @var string
      */
     protected string $persistentIdentifier;
