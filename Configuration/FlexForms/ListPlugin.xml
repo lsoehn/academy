@@ -156,5 +156,48 @@
 				</el>
 			</ROOT>
 		</sFacets>
+		<sPagination>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:academy/Resources/Private/Language/locallang_db.xlf:plugin.sheet.pagination</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+
+					<settings.pagination.enabled>
+						<TCEforms>
+							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:plugin.pagination.enabled</label>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</settings.pagination.enabled>
+
+					<settings.pagination.itemsPerPage>
+						<TCEforms>
+							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:plugin.pagination.itemsPerPage</label>
+							<config>
+								<type>number</type>
+								<size>20</size>
+								<default>10</default>
+							</config>
+						</TCEforms>
+					</settings.pagination.itemsPerPage>
+
+					<settings.pagination.maximumPages>
+						<TCEforms>
+							<label>LLL:EXT:academy/Resources/Private/Language/locallang_db.xml:plugin.pagination.maximumPages</label>
+							<config>
+								<type>number</type>
+								<size>20</size>
+								<default>10</default>
+							</config>
+						</TCEforms>
+					</settings.pagination.maximumPages>
+
+				</el>
+			</ROOT>
+		</sPagination>
+
 	</sheets>
 </T3DataStructure> 

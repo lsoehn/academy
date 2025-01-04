@@ -12,6 +12,9 @@
 			<trans-unit id="plugin.sheet.facets" resname="plugin.sheet.facets" >
 				<source>Facets</source>
 			</trans-unit>
+			<trans-unit id="plugin.sheet.pagination" resname="plugin.sheet.pagination" >
+				<source>Pagination</source>
+			</trans-unit>
 
 			<trans-unit id="plugin.entityType" resname="plugin.entityType" >
 				<source>Type of entity</source>
@@ -55,7 +58,15 @@
 			<trans-unit id="plugin.facets.categoryFacets.exclude" resname="plugin.facets.categoryFacets.exclude" >
 				<source>Exclude the following categories from the facets tree</source>
 			</trans-unit>
-
+			<trans-unit id="plugin.pagination.enabled" resname="plugin.pagination.enabled" >
+				<source>Enable pagination for this list</source>
+			</trans-unit>
+			<trans-unit id="plugin.pagination.itemsPerPage" resname="plugin.pagination.itemsPerPage" >
+				<source>Amount of paginated items to show per page</source>
+			</trans-unit>
+			<trans-unit id="plugin.pagination.maximumPages" resname="plugin.pagination.maximumPages" >
+				<source>Amount of pagination pages to show (sliding window)</source>
+			</trans-unit>
 
 			<trans-unit id="projectsPlugin.switchableControllerActions" resname="projectsPlugin.switchableControllerActions" >
 				<source>Display</source>

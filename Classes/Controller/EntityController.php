@@ -177,15 +177,25 @@ class EntityController extends ActionController
             : $this->getRepository()->findAll();
 
         // pagination
-        $currentPage = $this->request->hasArgument('currentPage')
-            ? (int)$this->request->getArgument('currentPage')
-            : 1;
-        $pagination = $this->paginationService->paginate(
-            $allEntities, $currentPage, 10, 10);
+        if (array_key_exists('pagination', $this->settings)
+            && is_array($settings['pagination'])
+            && array_key_exists('enabled', $settings['pagination'])
+            && (int)$this->settings['pagination']['enabled'] === 1
+        ) {
+            $currentPage = $this->request->hasArgument('currentPage')
+                ? (int)$this->request->getArgument('currentPage')
+                : 1;
+            $itemsPerPage = (int)$this->settings['pagination']['itemsPerPage'] ? : 10;
+            $maximumPages = (int)$this->settings['pagination']['maximumPages'] ? : 10;
+            $pagination = $this->paginationService->paginate($allEntities, $currentPage, $itemsPerPage, $maximumPages);
+            $this->view->assign('pagination', $pagination);
+            $entities = $pagination['paginatedItems'];
+        } else {
+            $entities = $allEntities;
+        }
 
-        // assign paginated result
-        $this->view->assign('pagination', $pagination);
-        $this->view->assign(strtolower($this->settings['entityType']), $pagination['paginatedItems']);
+        // assign result
+        $this->view->assign(strtolower($this->settings['entityType']), $entities);
 
         return $this->htmlResponse();
     }
