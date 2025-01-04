@@ -3,15 +3,12 @@
       data-namespace-typo3-fluid="true">
 
 <h3>
-    <f:for each="{selectedCategories}" as="selectedCategory" iteration="iterator">
-        <f:if condition="{iterator.isLast}">
-            <f:then>
-                {selectedCategory.title}
-            </f:then>
-            <f:else>
-                {selectedCategory.title},
-            </f:else>
-        </f:if>
+    <f:for each="{facets.categoryFacets.facetGroups}" as="facetGroup">
+        <f:for each="{facetGroup.items}" as="facet">
+            <f:if condition="{facet.selected}">
+                {facet.label},
+            </f:if>
+        </f:for>
     </f:for>
 </h3>
 

@@ -29,6 +29,7 @@ namespace Digicademy\Academy\Controller;
 use Digicademy\Academy\Domain\Repository\UnitsRepository;
 use Digicademy\Academy\Service\FacetService;
 use Digicademy\Academy\Service\FilterService;
+use Digicademy\Academy\Service\PaginationService;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
@@ -48,16 +49,18 @@ class UnitsController extends EntityController
      * @param ConfigurationManagerInterface $configurationManager
      * @param FacetService $facetService
      * @param FilterService $filterService
+     * @param PaginationService $paginationService
      * @param UnitsRepository $unitsRepository
      */
     public function __construct(
         ConfigurationManagerInterface $configurationManager,
         FacetService $facetService,
         FilterService $filterService,
+        PaginationService $paginationService,
         UnitsRepository $unitsRepository
     )
     {
-        parent::__construct($configurationManager, $facetService, $filterService);
+        parent::__construct($configurationManager, $facetService, $filterService, $paginationService);
         $this->unitsRepository = $unitsRepository;
     }
 

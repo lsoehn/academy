@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Controller;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,90 +24,54 @@ namespace Digicademy\Academy\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Digicademy\Academy\Domain\Model\Persons;
+namespace Digicademy\Academy\Controller;
+
 use Digicademy\Academy\Domain\Repository\PersonsRepository;
+use Digicademy\Academy\Service\FacetService;
+use Digicademy\Academy\Service\FilterService;
+use Digicademy\Academy\Service\PaginationService;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Extbase\Http\ForwardResponse;
 
+/**
+ * Controller for persons
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ */
 
-class PersonsController extends ActionController
+class PersonsController extends EntityController
 {
-
     /**
-     * @var \Digicademy\Academy\Domain\Repository\PersonsRepository
+     * @var PersonsRepository
      */
-    protected $personsRepository;
+    protected PersonsRepository $personsRepository;
 
     /**
-     * Use constructor DI and not (at)inject
-     *
-     * @see: https://gist.github.com/NamelessCoder/3b2e5931a6c1af19f9c3f8b46e74f837
-     *
-     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
-     * @param \Digicademy\Academy\Domain\Repository\PersonsRepository        $personsRepository
+     * @param ConfigurationManagerInterface $configurationManager
+     * @param FacetService $facetService
+     * @param FilterService $filterService
+     * @param PaginationService $paginationService
+     * @param PersonsRepository $personsRepository
      */
     public function __construct(
         ConfigurationManagerInterface $configurationManager,
+        FacetService $facetService,
+        FilterService $filterService,
+        PaginationService $paginationService,
         PersonsRepository $personsRepository
-    ) {
-        $this->injectConfigurationManager($configurationManager);
+    )
+    {
+        parent::__construct($configurationManager, $facetService, $filterService, $paginationService);
         $this->personsRepository = $personsRepository;
     }
 
     /**
-     * Displays a list of persons, possibly filtered by categories
+     * Returns the repository for the current entity
      *
-     * @return void
+     * @return PersonsRepository
      */
-    public function listAction()
+    protected function getRepository(): PersonsRepository
     {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-        $persons = $this->personsRepository->findAll();
-        $this->view->assign('persons', $persons);
+        return $this->personsRepository;
     }
 
-    /**
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-     */
-    public function listBySelectionAction()
-    {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-        $persons = $this->personsRepository->findBySelection($this->settings['selectedPersons']);
-        $this->view->assign('persons', $persons);
-    }
-
-    /**
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-     */
-    public function listByRoleAction(): ResponseInterface
-    {
-        $persons = $this->personsRepository->findByRole($this->settings['selectedRole']);
-        if ($persons->count() > 0) {
-            return (new ForwardResponse('list'))->withArguments(['persons' => $persons]);
-        } else {
-            return (new ForwardResponse('list'));
-        }
-    }
-
-
-    /**
-     * Displays a person by uid
-     *
-     * @param \Digicademy\Academy\Domain\Model\Persons $person
-     *
-     * @return void
-     */
-    public function showAction(Persons $person)
-    {
-        // assign arguments
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-
-        // assign the person
-        $this->view->assign('person', $person);
-    }
 }

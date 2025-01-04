@@ -28,6 +28,7 @@ namespace Digicademy\Academy\Controller;
 
 use Digicademy\Academy\Service\FacetService;
 use Digicademy\Academy\Service\FilterService;
+use Digicademy\Academy\Service\PaginationService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -58,19 +59,27 @@ class EntityController extends ActionController
     protected FilterService $filterService;
 
     /**
+     * @var PaginationService
+     */
+    protected PaginationService $paginationService;
+
+    /**
      * @param ConfigurationManagerInterface    $configurationManager
      * @param FacetService  $facetService
      * @param FilterService $filterService
+     * @param PaginationService $paginationService
      */
     public function __construct(
         ConfigurationManagerInterface $configurationManager,
         FacetService $facetService,
-        FilterService $filterService
+        FilterService $filterService,
+        PaginationService $paginationService
     )
     {
         $this->injectConfigurationManager($configurationManager);
         $this->facetService = $facetService;
         $this->filterService = $filterService;
+        $this->paginationService = $paginationService;
     }
 
     /**
@@ -162,14 +171,21 @@ class EntityController extends ActionController
         // @TODO: here we can implement selectedRoles and selectedEntities facets (later)
         $this->view->assign('facets', $facets);
 
-        // get list of projects
-        if ($filters['selectedCategories'] || $filters['selectedEntities'] || $filters['selectedRoles']) {
-            $entities = $this->getRepository()->findByFilters($filters);
-        } else {
-            $entities = $this->getRepository()->findAll();
-        }
+        // get all entities depending on filters
+        $allEntities = $filters['selectedCategories'] || $filters['selectedEntities'] || $filters['selectedRoles']
+            ? $this->getRepository()->findByFilters($filters)
+            : $this->getRepository()->findAll();
 
-        $this->view->assign(strtolower($this->settings['entityType']), $entities);
+        // pagination
+        $currentPage = $this->request->hasArgument('currentPage')
+            ? (int)$this->request->getArgument('currentPage')
+            : 1;
+        $pagination = $this->paginationService->paginate(
+            $allEntities, $currentPage, 10, 10);
+
+        // assign paginated result
+        $this->view->assign('pagination', $pagination);
+        $this->view->assign(strtolower($this->settings['entityType']), $pagination['paginatedItems']);
 
         return $this->htmlResponse();
     }
