@@ -39,6 +39,8 @@ use TYPO3\CMS\Frontend\Exception;
  * are implemented, but we could well think of roles and other properties
  * of objects used for filtering.
  *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ *
  * # example for a generic facet tree configuration
  * plugin.tx_academy {
  *     settings {

@@ -29,8 +29,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This service processes and aligns filters between arguments
- * and settings for all CRIS domain entities.
+ * and settings for all CRIS domain entities
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
  */
+
 class FilterService
 {
     public function __construct()
