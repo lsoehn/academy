@@ -26,6 +26,8 @@ namespace Digicademy\Academy\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
 
@@ -77,6 +79,17 @@ class GroupRelationsViewHelper extends AbstractViewHelper
 
         if ($relations) {
             foreach ($relations as $relation) {
+
+                // Access the current language UID and if relations language and
+                // current language do not match skipp the relation. This becomes
+                // important in scenarios where only one side of a relation is translated
+                // (which unfortunately will result in all relations for all languages
+                // being returned for the object from the side that is not translated)
+                // example: person (not translated) < > projects (translated)
+                $context = GeneralUtility::makeInstance(Context::class);
+                $currentLanguageUid = $context->getPropertyFromAspect('language', 'id');
+                if ($relation->getSysLanguageUid() !== $currentLanguageUid) continue;
+
                 $getProperty = 'get' . ucfirst($property);
                 $propertyValue = $relation->$getProperty();
                 (is_object($propertyValue)) ? $key = $propertyValue->getUid() : $key = (int)$propertyValue;

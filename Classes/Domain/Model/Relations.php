@@ -26,12 +26,11 @@
 
 namespace Digicademy\Academy\Domain\Model;
 
-use Digicademy\Academy\Domain\Model\Traits\{
-    DateRangeTrait,
+use Digicademy\Academy\Domain\Model\Traits\{DateRangeTrait,
     FreeTextTrait,
+    LanguageTrait,
     PersistentIdentifierTrait,
-    TypeTrait
-};
+    TypeTrait};
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
@@ -47,6 +46,7 @@ class Relations extends AbstractEntity
 {
     use DateRangeTrait;
     use FreeTextTrait;
+    use LanguageTrait;
     use PersistentIdentifierTrait;
     use TypeTrait;
 
