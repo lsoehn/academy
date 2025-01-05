@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Domain\Repository;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,65 +24,10 @@ namespace Digicademy\Academy\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use GeorgRinger\News\Domain\Model\DemandInterface;
+namespace Digicademy\Academy\Domain\Repository;
+
 use GeorgRinger\News\Domain\Repository\NewsRepository as GeorgRingerNewsRepository;
 
 class NewsRepository extends GeorgRingerNewsRepository
 {
-
-    /**
-     * Get the count of news records by month/year and
-     * returns the result compiled as array; overrides the original function
-     * with the possibility to define the date field for the count by TS
-     *
-     * @param \GeorgRinger\News\Domain\Model\DemandInterface $demand
-     *
-     * @return array
-     */
-    public function countByDate(DemandInterface $demand): array
-    {
-        $data = array();
-
-// @TODO: 10.4 migration; check if this repository method still makes sense or should be removed
-die('Digicademy\Academy\Domain\Repository\NewsRepository needs API migration to TYPO3 10.4');
-
-/*
-        $dateField = trim($GLOBALS['TYPO3_DB']->fullQuoteStr($demand->getDateField(), 'tx_news_domain_model_news'),'\'');
-
-        $sql = $this->findDemandedRaw($demand);
-        $sql = 'SELECT FROM_UNIXTIME(' . $dateField . ', "%m") AS "_Month",' .
-            ' FROM_UNIXTIME(' . $dateField . ', "%Y") AS "_Year" ,' .
-            ' count(FROM_UNIXTIME(' . $dateField . ', "%m")) as count_month,' .
-            ' count(FROM_UNIXTIME(' . $dateField . ', "%y")) as count_year' .
-            ' FROM tx_news_domain_model_news ' . substr($sql, strpos($sql, 'WHERE '));
-
-        // strip unwanted order by
-        $sql = $GLOBALS['TYPO3_DB']->stripOrderBy($sql);
-
-        // group by custom month/year fields
-        $orderDirection = strtolower($demand->getOrder());
-        if ($orderDirection !== 'desc' && $orderDirection != 'asc') {
-            $orderDirection = 'asc';
-        }
-        $sql .= ' GROUP BY _Month, _Year ORDER BY _Year ' . $orderDirection . ', _Month ' . $orderDirection;
-
-        $res = $GLOBALS['TYPO3_DB']->sql_query($sql);
-        while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-            $data['single'][$row['_Year']][$row['_Month']] = $row['count_month'];
-        }
-        $GLOBALS['TYPO3_DB']->sql_free_result($res);
-
-        // Add totals
-        foreach ($data['single'] as $year => $months) {
-            $countOfYear = 0;
-            foreach ($months as $month) {
-                $countOfYear += $month;
-            }
-            $data['total'][$year] = $countOfYear;
-        }
-
-        return $data;
-*/
-    }
-
 }

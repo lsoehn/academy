@@ -28,8 +28,6 @@ namespace Digicademy\Academy\Domain\Model;
 
 use Digicademy\Academy\Domain\Model\Traits\RelationsTrait;
 use GeorgRinger\Eventnews\Domain\Model\News as EventNews;
-use Exception;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * An event in the research domain (like a conference, workshop,
@@ -43,36 +41,4 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 class Events extends EventNews
 {
     use RelationsTrait;
-
-    // note: this logic appears not to be needed any more in TYPO3 12.4
-    // symmetric relations seem to be fetched just as asymmetric relations
-    // @TODO Team note: if it was used, it should not contain the database field name but the propertyName
-    // protected const RELATIONS_CRITERION = 'eventSymmetric';
-
-    /**
-     * Returns the relations
-     *
-     * For backwards compatibility, we keep this method as a wrapper around the
-     * generic getRelations() method from the Relations trait.
-     *
-     * @return ObjectStorage<Relations> $eventRelations
-     * @throws Exception
-     */
-    public function getEventRelations(): ObjectStorage
-    {
-        return $this->getRelations();
-    }
-
-    /**
-     * Sets the relations
-     *
-     * For backwards compatibility, we keep this method as a wrapper around the
-     * generic setRelations() method from the Relations trait.
-     *
-     * @param ObjectStorage<Relations> $eventRelations
-     */
-    public function setEventRelations(ObjectStorage $eventRelations): void
-    {
-        $this->setRelations($eventRelations);
-    }
 }
