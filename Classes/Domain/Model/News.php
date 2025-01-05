@@ -30,6 +30,7 @@ use Digicademy\Academy\Domain\Model\Traits\RelationsTrait;
 use Exception;
 use GeorgRinger\News\Domain\Model\News as GeorgRingerNews;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 
 /**
  * Represents news about research activities
@@ -42,33 +43,4 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 class News extends GeorgRingerNews
 {
     use RelationsTrait;
-
-    // note: this logic appears not to be needed any more in TYPO3 12.4
-    // symmetric relations seem to be fetched just as asymmetric relations
-    // @TODO Team note: if it was used, it should not contain the database field name but the propertyName
-    protected const RELATIONS_CRITERION = 'newsSymmetric';
-
-    /**
-     * Returns the relations
-     *
-     * @return ObjectStorage<Relations> $newsRelations
-     * @throws Exception
-     */
-    public function getNewsRelations(): ObjectStorage
-    {
-        return $this->getRelations();
-    }
-
-    /**
-     * Sets the relations
-     *
-     * For backwards compatibility, we keep this method as a wrapper around the
-     * generic setRelations() method from the Relations trait.
-     *
-     * @param ObjectStorage<Relations> $newsRelations
-     */
-    public function setNewsRelations(ObjectStorage $newsRelations): void
-    {
-        $this->setRelations($newsRelations);
-    }
 }
