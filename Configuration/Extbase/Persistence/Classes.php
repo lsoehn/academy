@@ -26,6 +26,7 @@ return [
     \Digicademy\Academy\Domain\Model\Categories::class => [
         'tableName' => 'sys_category',
     ],
+
     # insert new subclass type for events (news extension)
     \GeorgRinger\News\Domain\Model\News::class => [
         'subclasses' => [
@@ -35,6 +36,7 @@ return [
             \Digicademy\Academy\Domain\Model\Events::class
         ]
     ],
+
     # map news table
     \Digicademy\Academy\Domain\Model\News::class => [
         'tableName' => 'tx_news_domain_model_news',
@@ -45,4 +47,5 @@ return [
         'tableName' => 'tx_news_domain_model_news',
         'recordType' => 3,
     ],
+
 ];

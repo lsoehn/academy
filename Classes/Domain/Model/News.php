@@ -26,18 +26,64 @@
 
 namespace Digicademy\Academy\Domain\Model;
 
-use Digicademy\Academy\Domain\Model\Traits\RelationsTrait;
-use GeorgRinger\News\Domain\Model\News as GeorgRingerNews;
+use Exception;
+use GeorgRinger\News\Domain\Model\News as NewsDefault;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
- * Represents news about research activities
+ * Represents news about research activities.
+ *
+ * NOTE: We CAN NOT use the RelationsTrait. The relations
+ * property MUST be called $newsRelations as it - according to
+ * extbase doctrine - MUST match to the news_relations field
+ * that extends tx_news_domain_model_news for this entity type.
+ * Why not just the field relations? BECAUSE $eventRelations
+ * of the Event Model extend precisely the same table (with the
+ * field "event_relations"). If the field was jus called "relations"
+ * it would not be possible to differentiate between relations
+ * to news and relations to events.
  *
  * @author Torsten Schrade <torsten.schrade@adwmainz.de>
  * @author Frodo Podschwadek <frodo.podschwadek@adwmainz.de>
  * @author Linnaea Söhn <linnaea.soehn@adwmainz.de>
  */
 
-class News extends GeorgRingerNews
+class News extends NewsDefault
 {
-    use RelationsTrait;
+    /**
+     * Relations with other entities.
+     *
+     * @var ObjectStorage<Relations>|null
+     */
+    protected ?ObjectStorage $newsRelations;
+
+    /**
+     * Initialize relation objects
+     */
+    public function __construct(
+    )
+    {
+        parent::__construct();
+        $this->newsRelations = new ObjectStorage();
+    }
+
+    /**
+     * Returns the relations
+     * @return ObjectStorage<Relations>|null $newsRelations
+     * @throws Exception
+     */
+    public function getNewsRelations(): ?ObjectStorage
+    {
+        return $this->newsRelations;
+    }
+
+    /**
+     * Sets the relations
+     *
+     * @param ObjectStorage<Relations> $newsRelations
+     */
+    public function setNewsRelations(ObjectStorage $newsRelations): void
+    {
+        $this->newsRelations = $newsRelations;
+    }
 }

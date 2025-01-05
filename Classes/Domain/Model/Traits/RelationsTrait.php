@@ -60,20 +60,6 @@ trait RelationsTrait
     protected ObjectStorage|null $relations;
 
     /**
-     * @var RelationsRepository
-     */
-    protected RelationsRepository $relationsRepository;
-
-    /**
-     * @param  RelationsRepository $relationsRepository
-     */
-    public function injectRelationsRepository(
-        RelationsRepository $relationsRepository
-    ): void {
-        $this->relationsRepository = $relationsRepository;
-    }
-
-    /**
      * Returns the relations
      *
      * In the past, the Academy Extension used magic methods (findBy[Property]()).

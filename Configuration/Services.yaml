@@ -9,7 +9,7 @@ services:
 
   # We need the to inject the container instance for some dependency fetching,
   # so we need to autowire the container itself.
-  # TYPO3\CMS\Extbase\Object\Container\Container:
+  TYPO3\CMS\Extbase\Object\Container\Container:
 
-  # GeorgRinger\News\Domain\Model\News: '@Digicademy\Academy\Domain\Model\News'
-  # GeorgRinger\Eventnews\Domain\Model\News: '@Digicademy\Academy\Domain\Model\Events'
+  GeorgRinger\News\Domain\Model\News: '@Digicademy\Academy\Domain\Model\News'
+  GeorgRinger\Eventnews\Domain\Model\News: '@Digicademy\Academy\Domain\Model\Events'
