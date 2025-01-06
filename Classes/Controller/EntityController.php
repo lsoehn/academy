@@ -274,7 +274,8 @@ class EntityController extends ActionController
         // Dynamically fetch the entity using the generic repository
         $entity = $this->getRepository()->findByUid($uid);
 
-        $varName = substr(strtolower($this->settings['entityType']), 0, -1);
+        $entityClass = GeneralUtility::trimExplode('\\', get_class($entity));
+        $varName = strtolower(end($entityClass));
         $this->view->assign($varName, $entity);
 
         return $this->htmlResponse();

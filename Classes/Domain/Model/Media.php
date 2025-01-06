@@ -26,16 +26,15 @@
 
 namespace Digicademy\Academy\Domain\Model;
 
-use Digicademy\Academy\Domain\Model\Traits\{
-    CategoriesTrait,
+use Digicademy\Academy\Domain\Model\Traits\{CategoriesTrait,
     DescriptionTrait,
     ImageTrait,
     PersistentIdentifierTrait,
     RelationsTrait,
     SlugTrait,
+    SortingTrait,
     TitleTrait,
-    TypeTrait
-};
+    TypeTrait};
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
