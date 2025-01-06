@@ -22,15 +22,3 @@ ExtensionUtility::registerPlugin(
     'Search',
     'Academy: Search entities'
 );
-
-ExtensionUtility::registerPlugin(
-    'academy',
-    'Media',
-    'Academy: Media Library'
-);
-
-ExtensionUtility::registerPlugin(
-    'academy',
-    'Mediaviewer',
-    'Academy: Media Viewer'
-);

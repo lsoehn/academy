@@ -26,6 +26,12 @@
 
 namespace Digicademy\Academy\Domain\Repository;
 
+/**
+ * The repository for events in the research domain
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ */
+
 class EventsRepository extends \GeorgRinger\Eventnews\Domain\Repository\AbstractRepository
 {
 }

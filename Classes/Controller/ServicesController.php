@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Controller;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2021 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,101 +24,54 @@ namespace Digicademy\Academy\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Digicademy\Academy\Domain\Model\Services;
+namespace Digicademy\Academy\Controller;
+
 use Digicademy\Academy\Domain\Repository\ServicesRepository;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Digicademy\Academy\Service\FacetService;
+use Digicademy\Academy\Service\FilterService;
+use Digicademy\Academy\Service\PaginationService;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
-class ServicesController extends ActionController
+/**
+ * Controller for services
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ */
+
+class ServicesController extends EntityController
 {
-
     /**
-     * @var \Digicademy\Academy\Domain\Repository\ServicesRepository
+     * @var ServicesRepository
      */
-    protected $servicesRepository;
+    protected ServicesRepository $servicesRepository;
 
     /**
-     * Use constructor DI and not (at)inject
-     *
-     * @see: https://gist.github.com/NamelessCoder/3b2e5931a6c1af19f9c3f8b46e74f837
-     *
-     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
-     * @param \Digicademy\Academy\Domain\Repository\ServicesRepository          $servicesRepository
+     * @param ConfigurationManagerInterface $configurationManager
+     * @param FacetService $facetService
+     * @param FilterService $filterService
+     * @param PaginationService $paginationService
+     * @param ServicesRepository $servicesRepository
      */
     public function __construct(
         ConfigurationManagerInterface $configurationManager,
+        FacetService $facetService,
+        FilterService $filterService,
+        PaginationService $paginationService,
         ServicesRepository $servicesRepository
-    ) {
-        $this->injectConfigurationManager($configurationManager);
+    )
+    {
+        parent::__construct($configurationManager, $facetService, $filterService, $paginationService);
         $this->servicesRepository = $servicesRepository;
     }
 
     /**
-     * Initializes the current action
+     * Returns the repository for the current entity
      *
-     * @return void
+     * @return ServicesRepository
      */
-    public function initializeAction()
+    protected function getRepository(): ServicesRepository
     {
-        switch ($this->actionMethodName) {
-            case 'listAction':
-                if ($this->settings['selectedCategories']) {
-                    $this->request->setArgument('selectedCategories', $this->settings['selectedCategories']);
-                }
-                break;
-
-            case 'showAction':
-                if ($this->settings['selectedServices']) {
-                    $selectedServices = GeneralUtility::trimExplode(',', $this->settings['selectedServices']);
-                    $this->request->setArgument('service', $selectedServices[0]);
-                }
-            break;
-
-            default:
-                break;
-        }
-    }
-
-    /**
-     * Displays a list of services
-     *
-     * @return void
-     */
-    public function listAction()
-    {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-
-        $services = $this->servicesRepository->findAll();
-
-        $this->view->assign('services', $services);
-    }
-
-    /**
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-     */
-    public function listBySelectionAction()
-    {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-        $services = $this->servicesRepository->findBySelection($this->settings['selectedServices']);
-        $this->view->assign('services', $services);
-    }
-
-    /**
-     * Displays a service by uid
-     *
-     * @param \Digicademy\Academy\Domain\Model\Services $service
-     *
-     * @return void
-     */
-    public function showAction(Services $service)
-    {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-
-        $this->view->assign('service', $service);
+        return $this->servicesRepository;
     }
 
 }

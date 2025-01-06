@@ -28,6 +28,12 @@ namespace Digicademy\Academy\Domain\Repository;
 
 use GeorgRinger\News\Domain\Repository\NewsRepository as GeorgRingerNewsRepository;
 
+/**
+ * The repository for news related to CRIS entities or events
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ */
+
 class NewsRepository extends GeorgRingerNewsRepository
 {
 }

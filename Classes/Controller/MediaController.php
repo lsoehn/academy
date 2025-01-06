@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Controller;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,129 +24,54 @@ namespace Digicademy\Academy\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Digicademy\Academy\Domain\Model\Media;
+namespace Digicademy\Academy\Controller;
+
 use Digicademy\Academy\Domain\Repository\MediaRepository;
+use Digicademy\Academy\Service\FacetService;
+use Digicademy\Academy\Service\FilterService;
+use Digicademy\Academy\Service\PaginationService;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
-class MediaController extends ActionController
+/**
+ * Controller for media
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ */
+
+class MediaController extends EntityController
 {
-
     /**
-     * @var \Digicademy\Academy\Domain\Repository\MediaRepository
+     * @var MediaRepository
      */
-    protected $mediaRepository;
+    protected MediaRepository $mediaRepository;
 
     /**
-     * Use constructor DI and not @inject
-     *
-     * @see: https://gist.github.com/NamelessCoder/3b2e5931a6c1af19f9c3f8b46e74f837
-     *
-     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
-     * @param \Digicademy\Academy\Domain\Repository\MediaRepository          $mediaRepository
+     * @param ConfigurationManagerInterface $configurationManager
+     * @param FacetService $facetService
+     * @param FilterService $filterService
+     * @param PaginationService $paginationService
+     * @param MediaRepository $mediaRepository
      */
     public function __construct(
         ConfigurationManagerInterface $configurationManager,
+        FacetService $facetService,
+        FilterService $filterService,
+        PaginationService $paginationService,
         MediaRepository $mediaRepository
-    ) {
-        $this->injectConfigurationManager($configurationManager);
+    )
+    {
+        parent::__construct($configurationManager, $facetService, $filterService, $paginationService);
         $this->mediaRepository = $mediaRepository;
     }
 
     /**
-     * Displays a list of media
+     * Returns the repository for the current entity
      *
-     * @return void
+     * @return MediaRepository
      */
-    public function listAction()
+    protected function getRepository(): MediaRepository
     {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-        $media = $this->mediaRepository->findAll();
-        $this->view->assign('media', $media);
+        return $this->mediaRepository;
     }
 
-    /**
-     * Displays a list of media, possibly filtered by categories
-     *
-     * @param \integer $type
-     *
-     * @return void
-     */
-    public function listByTypesAction($type)
-    {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-        $this->view->assign('media', $this->mediaRepository->findByType($type));
-    }
-
-    /**
-     * Displays a list of media, grouped by their type
-     *
-     * @return void
-     */
-    public function listByGroupsAction()
-    {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-        $media = $this->mediaRepository->findGrouped();
-        $this->view->assign('media', $media);
-    }
-
-    /**
-     * Displays a list of the most recently created media
-     *
-     * @return void
-     */
-    public function listByRecentAction()
-    {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-        $this->view->assign('media', $this->mediaRepository->findRecent());
-    }
-
-    /**
-     * Displays a medium by uid
-     *
-     * @param \Digicademy\Academy\Domain\Model\Media $medium
-     *
-     * @return void
-     */
-    public function showAction(Media $medium)
-    {
-        // transfer media type to GLOBAL register for use in TypoScript (inclusion of JS files)
-        $GLOBALS['TSFE']->register['mediatype'] = $medium->getType();
-
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-
-        $this->view->assign('medium', $medium);
-    }
-
-    /**
-     * Sets the medium vor the viewer from plugin settings
-     */
-    public function initializeViewerAction()
-    {
-        $this->request->setArgument('medium', $this->settings['medium']);
-    }
-
-    /**
-     * Viewer for media to be inserted on standard pages
-     *
-     * @param \Digicademy\Academy\Domain\Model\Media $medium
-     *
-     * @return void
-     */
-    public function viewerAction(Media $medium)
-    {
-
-        // transfer media type to GLOBAL register for use in TypoScript (inclusion of JS files)
-        $GLOBALS['TSFE']->register['mediatype'] = $medium->getType();
-
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-
-        $this->view->assign('medium', $medium);
-    }
 }

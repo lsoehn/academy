@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Domain\Repository;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,9 +24,20 @@ namespace Digicademy\Academy\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+namespace Digicademy\Academy\Domain\Repository;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+
+/**
+ * The repository for all relations between CRIS entities.
+ * For convenience reasons is configured to disrespect any given
+ * storage page and therefore to always fetch all relations
+ * across the page tree.
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ */
 
 class RelationsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {

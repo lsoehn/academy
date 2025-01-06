@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Domain\Repository;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,70 +24,20 @@ namespace Digicademy\Academy\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+namespace Digicademy\Academy\Domain\Repository;
+
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+
+/**
+ * The repository for media related to CRIS entities, news or events
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ */
 
 class MediaRepository extends CommonRepository
 {
-
-    protected $defaultOrderings = array('crdate' => QueryInterface::ORDER_DESCENDING);
-
-    /**
-     * Finds 20 most recent objects grouped by media type
-     *
-     * @return array
-     */
-    public function findGrouped()
-    {
-
-        $query10 = $this->createQuery();
-        $query10->matching($query10->equals('type', 10));
-        $result[10] = $query10->setLimit(5)->execute();
-
-        $query20 = $this->createQuery();
-        $query20->matching($query20->equals('type', 20));
-        $result[20] = $query20->setLimit(5)->execute();
-
-        $query30 = $this->createQuery();
-        $query30->matching($query30->equals('type', 30));
-        $result[30] = $query30->setLimit(5)->execute();
-
-        $query40 = $this->createQuery();
-        $query40->matching($query40->equals('type', 40));
-        $result[40] = $query40->setLimit(5)->execute();
-
-        return $result;
-    }
-
-    /**
-     * Finds 2 most recent objects
-     *
-     * @return object
-     */
-    public function findRecent()
-    {
-        $query = $this->createQuery();
-        $result = $query->setLimit(2)->execute();
-
-        return $result;
-    }
-
-    /**
-     * Finds media by type
-     *
-     * @param integer $type
-     *
-     * @return object
-     */
-    public function findByType($type)
-    {
-        $query = $this->createQuery();
-        $query->setOrderings(array('title' => QueryInterface::ORDER_ASCENDING));
-        $query->matching(
-            $query->equals('type', $type)
-        );
-        $result = $query->execute();
-
-        return $result;
-    }
-
+    protected $defaultOrderings = array(
+        'sorting' => QueryInterface::ORDER_ASCENDING,
+        'title' => QueryInterface::ORDER_ASCENDING
+    );
 }

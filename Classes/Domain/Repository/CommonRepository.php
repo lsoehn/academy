@@ -41,6 +41,7 @@ class CommonRepository extends Repository
 
     /**
      * Finds selected objects
+     * @TODO: deprecated - surpassed by the new filter functionality/service
      *
      * @param string $selectedObjects
      *
@@ -69,6 +70,7 @@ class CommonRepository extends Repository
 
     /**
      * Finds objects based on selected categories
+     * @TODO: deprecated - surpassed by the new filter functionality/service
      *
      * @param string $selectedCategories
      *
@@ -99,6 +101,7 @@ class CommonRepository extends Repository
 
     /**
      * Finds objects based on a specific role/relation
+     * @TODO: deprecated - surpassed by the new filter functionality/service
      *
      * @param integer $role
      *
@@ -122,7 +125,12 @@ class CommonRepository extends Repository
     }
 
     /**
-     * Finds objects based on a specific role/relation
+     * Generic filter method for all CRIS entities in the research domain.
+     * Filters entities based on configured filters. A filter always consists of
+     * attributes related to CRIS entities such as categories, roles or dedicated
+     * entities that have been selected in the according plugins.
+     *
+     * @see FilterService on how the configuration should look like
      *
      * @param array $filters
      *

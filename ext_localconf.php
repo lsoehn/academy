@@ -70,28 +70,6 @@ ExtensionUtility::configurePlugin(
     )
 );
 
-ExtensionUtility::configurePlugin(
-    'Academy',
-    'Media',
-    array(
-        MediaController::class => 'list,listBySelection,listByCategories,listByRoles,listByGroups,listByTypes,listByRecent,show',
-    ),
-    array(
-        MediaController::class => '',
-    )
-);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Academy',
-    'Mediaviewer',
-    array(
-        MediaController::class => 'viewer',
-    ),
-    array(
-        MediaController::class => '',
-    )
-);
-
 // BACKEND RELATED
 
 // hook for generating CERIF-XML compliant UUIDs for CRIS entities

@@ -58,6 +58,7 @@ class Media extends AbstractEntity
     use RelationsTrait;
     use TitleTrait;
     use SlugTrait;
+    use SortingTrait;
     use TypeTrait;
 
     // note: this logic appears not to be needed any more in TYPO3 12.4

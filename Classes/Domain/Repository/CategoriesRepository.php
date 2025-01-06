@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Domain\Repository;
-
 /***************************************************************
  *  Copyright notice
  *
- *  Torsten Schrade <Torsten.Schrade@adwmainz.de>
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,9 +24,20 @@ namespace Digicademy\Academy\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+namespace Digicademy\Academy\Domain\Repository;
+
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use \TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
+/**
+ * Repository for categories related to CRIS entities. With the methods
+ * implemented in this repository it is possible to traverse branches
+ * of a category tree and fetch the children of given parent categories
+ * to a specified level in the tree.
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ */
 
 class CategoriesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
@@ -46,7 +55,10 @@ class CategoriesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @return array
      */
-    public function findAllChildren(int $categoryUid, int $maxLevels = 1, int $getChildrenOnLevel = 0): array
+    public function findAllChildren(
+        int $categoryUid,
+        int $maxLevels = 1,
+        int $getChildrenOnLevel = 0): array
     {
 
         $this->childCategoryUids = [];
@@ -71,7 +83,10 @@ class CategoriesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @return boolean
      */
-     protected function collectChildren(int $categoryUid, int $maxLevels, int $currentLevel = 1): bool
+     protected function collectChildren(
+        int $categoryUid,
+        int $maxLevels,
+        int $currentLevel = 1): bool
      {
 
         if ($currentLevel <= $maxLevels) {

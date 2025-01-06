@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\Controller;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2021 Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -26,101 +24,54 @@ namespace Digicademy\Academy\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Digicademy\Academy\Domain\Model\Products;
+namespace Digicademy\Academy\Controller;
+
 use Digicademy\Academy\Domain\Repository\ProductsRepository;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Digicademy\Academy\Service\FacetService;
+use Digicademy\Academy\Service\FilterService;
+use Digicademy\Academy\Service\PaginationService;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
-class ProductsController extends ActionController
+/**
+ * Controller for research products / outputs
+ *
+ * @author Torsten Schrade <torsten.schrade@adwmainz.de>
+ */
+
+class ProductsController extends EntityController
 {
-
     /**
-     * @var \Digicademy\Academy\Domain\Repository\ProductsRepository
+     * @var ProductsRepository
      */
-    protected $productsRepository;
+    protected ProductsRepository $productsRepository;
 
     /**
-     * Use constructor DI and not (at)inject
-     *
-     * @see: https://gist.github.com/NamelessCoder/3b2e5931a6c1af19f9c3f8b46e74f837
-     *
-     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
-     * @param \Digicademy\Academy\Domain\Repository\ProductsRepository          $productsRepository
+     * @param ConfigurationManagerInterface $configurationManager
+     * @param FacetService $facetService
+     * @param FilterService $filterService
+     * @param PaginationService $paginationService
+     * @param ProductsRepository $productsRepository
      */
     public function __construct(
         ConfigurationManagerInterface $configurationManager,
+        FacetService $facetService,
+        FilterService $filterService,
+        PaginationService $paginationService,
         ProductsRepository $productsRepository
-    ) {
-        $this->injectConfigurationManager($configurationManager);
+    )
+    {
+        parent::__construct($configurationManager, $facetService, $filterService, $paginationService);
         $this->productsRepository = $productsRepository;
     }
 
     /**
-     * Initializes the current action
+     * Returns the repository for the current entity
      *
-     * @return void
+     * @return ProductsRepository
      */
-    public function initializeAction()
+    protected function getRepository(): ProductsRepository
     {
-        switch ($this->actionMethodName) {
-            case 'listAction':
-                if ($this->settings['selectedCategories']) {
-                    $this->request->setArgument('selectedCategories', $this->settings['selectedCategories']);
-                }
-                break;
-
-            case 'showAction':
-                if ($this->settings['selectedProducts']) {
-                    $selectedProducts = GeneralUtility::trimExplode(',', $this->settings['selectedProducts']);
-                    $this->request->setArgument('product', $selectedProducts[0]);
-                }
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    /**
-     * Displays a list of products
-     *
-     * @return void
-     */
-    public function listAction()
-    {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-
-        $products = $this->productsRepository->findAll();
-
-        $this->view->assign('products', $products);
-    }
-
-    /**
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-     */
-    public function listBySelectionAction()
-    {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-        $products = $this->productsRepository->findBySelection($this->settings['selectedProducts']);
-        $this->view->assign('products', $products);
-    }
-
-    /**
-     * Displays a product by uid
-     *
-     * @param \Digicademy\Academy\Domain\Model\Products $product
-     *
-     * @return void
-     */
-    public function showAction(Products $product)
-    {
-        $arguments = $this->request->getArguments();
-        $this->view->assign('arguments', $arguments);
-
-        $this->view->assign('product', $product);
+        return $this->productsRepository;
     }
 
 }
