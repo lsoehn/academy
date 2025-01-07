@@ -28,6 +28,7 @@ namespace Digicademy\Academy\Domain\Repository;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -179,38 +180,13 @@ class CommonRepository extends Repository
                 : $outerConstraints[] = $innerConstraints[0];
         }
 
-        # string search filter in entities
-        # units, projects, media, products, services: persistentIdentifier, title, description
-        # persons: givenName, additionalName, familyName
-        # publications: persistentIdentifier, title, subtitle, edition, series, description
-        # hcards: persistentIdentifier, label
+        # keyword search filter for entities
         if (array_key_exists('searchQuery', $filters) && !empty($filters['searchQuery'])) {
-
             $searchQuery = $filters['searchQuery'];
             $innerConstraints = [];
             $entitySpecificFields = [];
-
-            switch (static::class) {
-                case PersonsRepository::class:
-                    $entitySpecificFields = ['givenName', 'additionalName', 'familyName'];
-                    break;
-                case PublicationsRepository::class:
-                    $entitySpecificFields = ['persistentIdentifier', 'title', 'subtitle', 'edition', 'series', 'description'];
-                    break;
-                case UnitsRepository::class:
-                case ProjectsRepository::class:
-                case MediaRepository::class:
-                case ProductsRepository::class:
-                case ServicesRepository::class:
-                    $entitySpecificFields = ['persistentIdentifier', 'title', 'description'];
-                    break;
-                case HcardsRepository::class:
-                    $entitySpecificFields = ['persistentIdentifier', 'label'];
-                    break;
-                default:
-                    break;
-            }
             // set constraint only if we have properties
+            $entitySpecificFields = $this->getEntitySpecificFields();
             if (count($entitySpecificFields) > 0) {
                 foreach ($entitySpecificFields as $field) {
                     $innerConstraints[] = $query->like($field, '%' . $searchQuery . '%');
@@ -226,6 +202,56 @@ class CommonRepository extends Repository
         $result = $query->execute();
 
         return $result;
+    }
+
+    /**
+     * @param array $arguments
+     *
+     * @return QueryResultInterface
+     * @throws InvalidQueryException
+     */
+    public function searchAll(array $arguments): object
+    {
+        $query = $this->createQuery();
+
+        $outerConstraints = [];
+        $innerConstraints = [];
+
+        $entitySpecificFields = $this->getEntitySpecificFields();
+        foreach ($entitySpecificFields as $field) {
+            $innerConstraints[] = $query->like($field, '%' . $arguments['query'] . '%');
+        }
+        $outerConstraints[] = $query->logicalOr(...array_values($innerConstraints));
+
+        $query->matching(
+            $query->logicalAnd(...array_values($outerConstraints))
+        );
+
+        $query->setLimit((int)$arguments['limit']);
+
+        $result = $query->execute();
+
+        return $result;
+    }
+
+    /**
+     * @return array|string[]
+     */
+    protected function getEntitySpecificFields(): array
+    {
+        return match (static::class) {
+            PersonsRepository::class => ['givenName', 'additionalName', 'familyName'],
+            PublicationsRepository::class => ['persistentIdentifier', 'title', 'subtitle', 'edition', 'series', 'description'],
+            UnitsRepository::class,
+            ProjectsRepository::class,
+            MediaRepository::class,
+            ProductsRepository::class,
+            ServicesRepository::class => ['persistentIdentifier', 'title', 'description'],
+            HcardsRepository::class => ['persistentIdentifier', 'label'],
+            NewsRepository::class => ['title', 'teaser', 'bodytext'],
+            EventsRepository::class => ['title', 'teaser', 'bodytext', 'organizerSimple', 'locationSimple'],
+            default => [],
+        };
     }
 
 }

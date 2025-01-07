@@ -26,52 +26,97 @@ namespace Digicademy\Academy\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use Digicademy\Academy\Service\SearchService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 
 class SearchController extends ActionController
 {
+    /**
+     * @var SearchService
+     */
+    protected SearchService $searchService;
 
     /**
      * Initializes the current action
      *
      * @return void
      */
-    public function initializeAction()
-    {
-    }
+    public function initializeAction(): void
+    {}
 
     /**
-     * Displays a simple search form
-     *
-     * @return void
+     * @param SearchService $searchService
      */
-    public function searchFormAction()
+    public function __construct(
+        SearchService $searchService
+    )
     {
+        $this->searchService = $searchService;
     }
 
     /**
-     * Sphinx search through object indexes. Either searches all indexes with a limit of 5 matches if no index
-     * type is specified (searchAll) or a single index if a valid index name is submitted (forwarded from searchSingle)
+     * Displays a search form
      *
-     * @return void
-     */
-    public function searchAllAction()
+     * @return ResponseInterface
+    */
+    public function searchFormAction(): ResponseInterface
     {
-die('SearchController->searchAllAction needs to be reimplemented');
-        if ($this->request->hasArgument('keywords')) {
-        }
+        // get and assign arguments from request
+        $arguments = $this->request->getArguments();
+        $this->view->assign('arguments', $arguments);
+
+        // get and assign settings
+        $settings = $this->settings;
+        $this->view->assign('settings', $settings);
+
+        return $this->htmlResponse();
     }
 
     /**
-     * Search through a single object index. Forwards to searchAll to avoid DRY
+     * @param string $query
      *
-     * @return void
+     * @Extbase\Validate("regularExpression", options={"regularExpression": "/^[\,\.\*\-""\p{L}\p{M}\p{N}\p{Sk}\s]*$/u"}, param="query")
+     *
+     * @return ResponseInterface
+    */
+    public function searchAllAction(
+        string $query = ''
+    ): ResponseInterface
+    {
+        // get and assign arguments from request
+        $arguments = $this->request->getArguments();
+        $this->view->assign('arguments', $arguments);
+
+        // get and assign settings
+        $settings = $this->settings;
+        $this->view->assign('settings', $settings);
+        $type = $arguments['type'] ?? $settings['searchAll']['type'] ?? [];
+        $limit = $arguments['limit'] ?? $settings['searchAll']['limit'] ?? 5;
+
+        $cleanArguments = [
+            'action' => $arguments['action'],
+            'query' => $query,
+            'type' => $type,
+            'limit' => (int)$limit
+        ];
+
+        $result = $this->searchService->search($cleanArguments, $settings);
+        $this->view->assign('result', $result);
+
+        return $this->htmlResponse();
+    }
+
+    /**
+     * Search for a single entity. Forwards to searchAll with type to avoid DRY
+     *
+     * @return ResponseInterface
      */
     public function searchSingleAction(): ResponseInterface
     {
-        return (new ForwardResponse('list'))->withArguments($this->request->getArguments());
+        return (new ForwardResponse('searchAll'))->withArguments($this->request->getArguments());
     }
 
 }

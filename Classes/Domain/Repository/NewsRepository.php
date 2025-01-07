@@ -27,6 +27,8 @@
 namespace Digicademy\Academy\Domain\Repository;
 
 use GeorgRinger\News\Domain\Repository\NewsRepository as GeorgRingerNewsRepository;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * The repository for news related to CRIS entities or events
@@ -34,6 +36,37 @@ use GeorgRinger\News\Domain\Repository\NewsRepository as GeorgRingerNewsReposito
  * @author Torsten Schrade <torsten.schrade@adwmainz.de>
  */
 
-class NewsRepository extends GeorgRingerNewsRepository
+class NewsRepository extends CommonRepository
 {
+    /**
+     * @param array $arguments
+     *
+     * @return QueryResultInterface
+     * @throws InvalidQueryException
+     */
+    public function searchAll(array $arguments): object
+    {
+        $query = $this->createQuery();
+
+        $outerConstraints = [];
+        $innerConstraints = [];
+
+        $entitySpecificFields = parent::getEntitySpecificFields();
+        foreach ($entitySpecificFields as $field) {
+            $innerConstraints[] = $query->like($field, '%' . $arguments['query'] . '%');
+        }
+        $outerConstraints[] = $query->logicalOr(...array_values($innerConstraints));
+
+        $outerConstraints[] = $query->equals('type', '0');
+
+        $query->matching(
+            $query->logicalAnd(...array_values($outerConstraints))
+        );
+
+        $query->setLimit((int)$arguments['limit']);
+
+        $result = $query->execute();
+
+        return $result;
+    }
 }

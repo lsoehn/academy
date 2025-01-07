@@ -26,12 +26,48 @@
 
 namespace Digicademy\Academy\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
 /**
  * The repository for events in the research domain
  *
  * @author Torsten Schrade <torsten.schrade@adwmainz.de>
  */
 
-class EventsRepository extends \GeorgRinger\Eventnews\Domain\Repository\AbstractRepository
+class EventsRepository extends CommonRepository
 {
+
+    /**
+     * @param array $arguments
+     *
+     * @return QueryResultInterface
+     * @throws InvalidQueryException
+     */
+    public function searchAll(array $arguments): object
+    {
+        $query = $this->createQuery();
+
+        $outerConstraints = [];
+        $innerConstraints = [];
+
+        $entitySpecificFields = parent::getEntitySpecificFields();
+        foreach ($entitySpecificFields as $field) {
+            $innerConstraints[] = $query->like($field, '%' . $arguments['query'] . '%');
+        }
+        $outerConstraints[] = $query->logicalOr(...array_values($innerConstraints));
+
+        $outerConstraints[] = $query->equals('type', '3');
+
+        $query->matching(
+            $query->logicalAnd(...array_values($outerConstraints))
+        );
+
+        $query->setLimit((int)$arguments['limit']);
+
+        $result = $query->execute();
+
+        return $result;
+    }
+
 }
