@@ -1,0 +1,74 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:a="Digicademy\Academy\ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<ul class="academy-entity-pagination">
+    <f:if condition="{pagination.hasPreviousPage}">
+        <li class="previous">
+           <f:link.action
+            action="list"
+            controller="{arguments.controller}"
+            arguments="{
+                filters : filters,
+                currentPage: pagination.previousPage
+            }"
+            class="button">
+               «
+           </f:link.action>
+        </li>
+    </f:if>
+    <f:if condition="{pagination.hasPreviousPage}">
+        <li class="dots">…</li>
+    </f:if>
+    <f:for each="{pagination.pages}" as="page">
+        <f:if condition="{page} == {pagination.currentPage}">
+            <f:then>
+                <li class="current">
+                   <f:link.action
+                    action="list"
+                    controller="{arguments.controller}"
+                    arguments="{
+                        filters : filters,
+                        currentPage: page
+                    }"
+                    class="button act">
+                       {page}
+                   </f:link.action>
+                </li>
+            </f:then>
+            <f:else>
+                <li>
+                   <f:link.action
+                    action="list"
+                    controller="{arguments.controller}"
+                    arguments="{
+                        filters : filters,
+                        currentPage: page
+                    }"
+                    class="button">
+                       {page}
+                   </f:link.action>
+                </li>
+            </f:else>
+        </f:if>
+    </f:for>
+    <f:if condition="{pagination.hasNextPage}">
+        <li class="dots">…</li>
+    </f:if>
+    <f:if condition="{pagination.hasNextPage}">
+        <li class="previous">
+           <f:link.action
+            action="list"
+            controller="{arguments.controller}"
+            arguments="{
+                filters : filters,
+                currentPage: pagination.nextPage
+            }"
+            class="button">
+               »
+           </f:link.action>
+        </li>
+    </f:if>
+</ul>
+
+</html>

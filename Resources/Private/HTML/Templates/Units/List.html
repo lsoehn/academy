@@ -7,9 +7,14 @@
 <f:section name="content">
     <f:if condition="{units}">
         <f:then>
-            <f:for each="{units}" as="unit">
-                <f:render partial="Units/ListItem" arguments="{_all}" />
-            </f:for>
+            <f:if condition="{settings.pagination.enabled}">
+                <f:render partial="Pagination/EntityPagination" arguments="{_all}" />
+            </f:if>
+            <ul class="academy-entity-list">
+                <f:for each="{units}" as="unit">
+                    <li>{unit.title}</li>
+                </f:for>
+            </ul>
         </f:then>
         <f:else>
             <p>

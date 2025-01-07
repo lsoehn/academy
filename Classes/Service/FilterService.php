@@ -50,15 +50,17 @@ class FilterService
      */
     public function mergeFilters(array $settings, array $arguments): array
     {
-        $filterKeys = ['selectedCategories', 'selectedEntities', 'selectedRoles'];
+        $filterKeys = ['selectedCategories', 'selectedEntities', 'selectedRoles', 'searchQuery'];
         $filters = [];
-
         foreach ($filterKeys as $key) {
             $filters[$key] = $this->mergeFilterValues(
                 $settings['filters'][$key] ?? '',
                 $arguments['filters'][$key] ?? ''
             );
         }
+
+#        if (array_key_exists('searchQuery', $arguments['filters']) && !empty($arguments['filters']['searchQuery'])) {
+#        $filters['searchQuery'] = $arguments['filters']['searchQuery'];}
 
         return $filters;
     }

@@ -140,35 +140,83 @@ class CommonRepository extends Repository
     public function findByFilters(array $filters): object
     {
         $query = $this->createQuery();
-
         $outerConstraints = [];
 
-        if (array_key_exists('selectedCategories', $filters) && $filters['selectedCategories']) {
+        if (array_key_exists('selectedCategories', $filters) && !empty($filters['selectedCategories'])) {
             $innerConstraints = [];
             $selectedCategories = GeneralUtility::trimExplode(',', $filters['selectedCategories']);
             foreach ($selectedCategories as $selectedCategory) {
                 $innerConstraints[] = $query->contains('categories', $selectedCategory);
             }
-            $outerConstraints[] = $query->logicalAnd(...array_values($innerConstraints));
+            // for multiple selected categories: AND
+            (count($innerConstraints) > 1) ?
+                $outerConstraints[] = $query->logicalAnd(...array_values($innerConstraints))
+                : $outerConstraints[] = $innerConstraints[0];
         }
 
-        if (array_key_exists('selectedEntities', $filters) && $filters['selectedEntities']) {
+        if (array_key_exists('selectedEntities', $filters) && !empty($filters['selectedEntities'])) {
             $innerConstraints = [];
             $selectedEntities = preg_replace('/tx_academy_domain_model_.*?_/','', $filters['selectedEntities']);
             $selectedEntities = GeneralUtility::trimExplode(',', $selectedEntities);
             foreach ($selectedEntities as $selectedEntity) {
                 $innerConstraints[] = $query->equals('uid', $selectedEntity);
             }
-            $outerConstraints[] = $query->logicalOr(...array_values($innerConstraints));
+            // for multiple selected entities: OR
+            (count($innerConstraints) > 1) ?
+                $outerConstraints[] = $query->logicalOr(...array_values($innerConstraints))
+                : $outerConstraints[] = $innerConstraints[0];
         }
 
-        if (array_key_exists('selectedRoles', $filters) && $filters['selectedRoles']) {
+        if (array_key_exists('selectedRoles', $filters) && !empty($filters['selectedRoles'])) {
             $innerConstraints = [];
             $roles = GeneralUtility::trimExplode(',', $filters['selectedRoles']);
             foreach ($roles as $role) {
                 $innerConstraints[] = $query->equals('relations.role', $role);
             }
-            $outerConstraints[] = $query->logicalAnd(...array_values($innerConstraints));
+            // for multiple selected roles: AND
+            (count($innerConstraints) > 1) ?
+                $outerConstraints[] = $query->logicalAnd(...array_values($innerConstraints))
+                : $outerConstraints[] = $innerConstraints[0];
+        }
+
+        # string search filter in entities
+        # units, projects, media, products, services: persistentIdentifier, title, description
+        # persons: givenName, additionalName, familyName
+        # publications: persistentIdentifier, title, subtitle, edition, series, description
+        # hcards: persistentIdentifier, label
+        if (array_key_exists('searchQuery', $filters) && !empty($filters['searchQuery'])) {
+
+            $searchQuery = $filters['searchQuery'];
+            $innerConstraints = [];
+            $entitySpecificFields = [];
+
+            switch (static::class) {
+                case PersonsRepository::class:
+                    $entitySpecificFields = ['givenName', 'additionalName', 'familyName'];
+                    break;
+                case PublicationsRepository::class:
+                    $entitySpecificFields = ['persistentIdentifier', 'title', 'subtitle', 'edition', 'series', 'description'];
+                    break;
+                case UnitsRepository::class:
+                case ProjectsRepository::class:
+                case MediaRepository::class:
+                case ProductsRepository::class:
+                case ServicesRepository::class:
+                    $entitySpecificFields = ['persistentIdentifier', 'title', 'description'];
+                    break;
+                case HcardsRepository::class:
+                    $entitySpecificFields = ['persistentIdentifier', 'label'];
+                    break;
+                default:
+                    break;
+            }
+            // set constraint only if we have properties
+            if (count($entitySpecificFields) > 0) {
+                foreach ($entitySpecificFields as $field) {
+                    $innerConstraints[] = $query->like($field, '%' . $searchQuery . '%');
+                }
+                $outerConstraints[] = $query->logicalOr(...array_values($innerConstraints));
+            }
         }
 
         $query->matching(

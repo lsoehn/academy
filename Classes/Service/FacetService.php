@@ -104,9 +104,11 @@ class FacetService
 
                 if ($facetCount) {
                     $filterCopy = $filters;
+
                     if (array_key_exists('selectedCategories', $filters) && !empty($filters['selectedCategories'])) {
-                        $uids =  (string)$facetUid . ',' . $filters['selectedCategories'];
+                        $uids = (string)$facetUid . ',' . $filters['selectedCategories'];
                     } else { $uids = (string)$facetUid; }
+
                     $filterCopy['selectedCategories'] = $uids;
 
                     switch ($settings['facetTable']) {

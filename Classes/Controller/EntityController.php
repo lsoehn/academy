@@ -172,7 +172,7 @@ class EntityController extends ActionController
         $this->view->assign('facets', $facets);
 
         // get all entities depending on filters
-        $allEntities = $filters['selectedCategories'] || $filters['selectedEntities'] || $filters['selectedRoles']
+        $allEntities = $filters['selectedCategories'] || $filters['selectedEntities'] || $filters['selectedRoles'] || $filters['searchQuery']
             ? $this->getRepository()->findByFilters($filters)
             : $this->getRepository()->findAll();
 
@@ -215,7 +215,11 @@ class EntityController extends ActionController
     {
         $arguments = $this->request->getArguments();
 
-        // Sanitize filters and selected values
+        // Sanitize selected value list (int) but leave possible search query untouched
+        if (
+            array_key_exists('filters', $arguments) &&
+            array_key_exists('searchQuery', $arguments['filters'])
+        ) $searchQuery = $arguments['filters']['searchQuery'];
         $arguments['filters'] = $this->filterService->sanitizeFilterData(
             $arguments['filters'] ?? [],
             ['selectedCategories', 'selectedEntities', 'selectedRoles']
@@ -250,6 +254,13 @@ class EntityController extends ActionController
 
         // Finalize filters (convert to CSV strings)
         $arguments['filters'] = $this->filterService->finalizeFilters($arguments['filters']);
+
+        // If a search query exists (which is just another, string based filter), transfer it to the array
+        // Mind: it has already been validated by the Extbase Validator
+        if (array_key_exists('query', $arguments) && $arguments['query']) {
+            $arguments['filters']['searchQuery'] = $arguments['query'];
+        }
+        if (!empty($searchQuery)) $arguments['filters']['searchQuery'] = $searchQuery;
 
         return (new ForwardResponse('list'))->withArguments($arguments);
     }
