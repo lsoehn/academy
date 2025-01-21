@@ -1,11 +1,9 @@
 <?php
 
-namespace Digicademy\Academy\ViewHelpers;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2021 Torsten Schrade <Torsten.Schrade@adwmainz.de>
+ *  Copyright (C) 2011-2025 Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
@@ -25,6 +23,8 @@ namespace Digicademy\Academy\ViewHelpers;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+namespace Digicademy\Academy\ViewHelpers;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
